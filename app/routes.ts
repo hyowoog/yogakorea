@@ -12,10 +12,9 @@ export default [
   ]),
   route("api/upload", "routes/api.upload.tsx"),
   route("api/files/*", "routes/api.files.$.tsx"),
-  ...prefix("legacy", [
-    index("routes/legacy._index.tsx"),
-    route("pages/:slug", "routes/legacy.pages.$slug.tsx"),
-    route("board/:boardId", "routes/legacy.board.$boardId._index.tsx"),
-    route("board/:boardId/:postId", "routes/legacy.board.$boardId.$postId.tsx"),
+  ...prefix("renew", [
+    index("routes/renew._index.tsx"),
+    route("pages/:slug", "routes/renew.pages.$slug.tsx"),
+    route("board/:boardId", "routes/renew.board.$boardId._index.tsx"),
   ]),
 ] satisfies RouteConfig;

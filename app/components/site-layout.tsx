@@ -5,7 +5,7 @@ import type { NavItem } from "~/lib/navigation";
 interface SiteLayoutProps {
   children: React.ReactNode;
   navigation: NavItem[];
-  variant?: "renew" | "legacy";
+  variant?: "main" | "renew";
   pageTitle?: string;
   sectionTitle?: string;
 }
@@ -13,7 +13,7 @@ interface SiteLayoutProps {
 export function SiteLayout({
   children,
   navigation,
-  variant = "renew",
+  variant = "main",
   pageTitle,
   sectionTitle,
 }: SiteLayoutProps) {

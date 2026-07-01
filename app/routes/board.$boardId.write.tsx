@@ -1,6 +1,7 @@
 import type { Route } from "./+types/board.$boardId.write";
 import { data, redirect } from "react-router";
 import { BoardWriteForm } from "~/components/board/board-write-form";
+import { PageWithSidebar } from "~/components/page-sidebar";
 import { SiteLayout } from "~/components/site-layout";
 import {
   createAttachment,
@@ -8,7 +9,7 @@ import {
   getBoard,
 } from "~/lib/board.server";
 import { uploadToR2 } from "~/lib/r2.server";
-import { renewNavigation } from "~/lib/navigation";
+import { getSectionSidebar, mainNavigation } from "~/lib/navigation";
 
 export function meta({ data: loaderData }: Route.MetaArgs) {
   return [{ title: `글쓰기 - ${loaderData?.board.title ?? "게시판"}` }];
@@ -58,16 +59,17 @@ export async function action({ request, params, context }: Route.ActionArgs) {
 
 export default function BoardWrite({ loaderData }: Route.ComponentProps) {
   const { board } = loaderData;
+  const section = getSectionSidebar(`/board/${board.id}`);
 
   return (
     <SiteLayout
-      navigation={renewNavigation}
+      navigation={mainNavigation}
       pageTitle="글쓰기"
-      sectionTitle={board.title}
+      sectionTitle={section?.sectionTitle ?? board.title}
     >
-      <div className="yk-container">
+      <PageWithSidebar>
         <BoardWriteForm boardId={board.id} boardTitle={board.title} />
-      </div>
+      </PageWithSidebar>
     </SiteLayout>
   );
 }

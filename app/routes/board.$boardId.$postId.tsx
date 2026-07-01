@@ -1,6 +1,7 @@
 import type { Route } from "./+types/board.$boardId.$postId";
 import { data } from "react-router";
 import { BoardView } from "~/components/board/board-view";
+import { PageWithSidebar } from "~/components/page-sidebar";
 import { SiteLayout } from "~/components/site-layout";
 import {
   createComment,
@@ -10,7 +11,7 @@ import {
   getPostComments,
   incrementViewCount,
 } from "~/lib/board.server";
-import { renewNavigation } from "~/lib/navigation";
+import { getSectionSidebar, mainNavigation } from "~/lib/navigation";
 
 export function meta({ data: loaderData }: Route.MetaArgs) {
   return [{ title: `${loaderData?.post.title ?? "게시글"} | 한국요가연합회` }];
@@ -58,14 +59,15 @@ export async function action({ request, params, context }: Route.ActionArgs) {
 
 export default function BoardPost({ loaderData }: Route.ComponentProps) {
   const { board, post, comments, attachments } = loaderData;
+  const section = getSectionSidebar(`/board/${board.id}`);
 
   return (
     <SiteLayout
-      navigation={renewNavigation}
+      navigation={mainNavigation}
       pageTitle={post.title}
-      sectionTitle={board.title}
+      sectionTitle={section?.sectionTitle ?? board.title}
     >
-      <div className="yk-container">
+      <PageWithSidebar>
         <BoardView
           boardId={board.id}
           boardTitle={board.title}
@@ -73,7 +75,7 @@ export default function BoardPost({ loaderData }: Route.ComponentProps) {
           comments={comments}
           attachments={attachments}
         />
-      </div>
+      </PageWithSidebar>
     </SiteLayout>
   );
 }

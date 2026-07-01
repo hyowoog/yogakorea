@@ -1,4 +1,5 @@
 import { Form, Link } from "react-router";
+import { BoardPagination } from "~/components/board/board-pagination";
 import type { Post } from "~/lib/board.server";
 
 interface BoardListProps {
@@ -90,17 +91,13 @@ export function BoardList({
         </table>
       </div>
 
-      <div className="yk-pagination">
-        {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNum) => (
-          <Link
-            key={pageNum}
-            to={`/board/${boardId}?page=${pageNum}${searchQuery ? `&q=${searchQuery}&field=${searchField}` : ""}`}
-            className={pageNum === page ? "active" : ""}
-          >
-            {pageNum}
-          </Link>
-        ))}
-      </div>
+      <BoardPagination
+        boardId={boardId}
+        page={page}
+        totalPages={totalPages}
+        searchQuery={searchQuery}
+        searchField={searchField}
+      />
     </div>
   );
 }

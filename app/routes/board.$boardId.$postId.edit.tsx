@@ -1,9 +1,10 @@
 import type { Route } from "./+types/board.$boardId.$postId.edit";
 import { data, redirect } from "react-router";
 import { BoardWriteForm } from "~/components/board/board-write-form";
+import { PageWithSidebar } from "~/components/page-sidebar";
 import { SiteLayout } from "~/components/site-layout";
 import { getBoard, getPost, updatePost } from "~/lib/board.server";
-import { renewNavigation } from "~/lib/navigation";
+import { getSectionSidebar, mainNavigation } from "~/lib/navigation";
 
 export async function loader({ params, context }: Route.LoaderArgs) {
   const db = context.cloudflare.env.DB;
@@ -38,14 +39,15 @@ export async function action({ request, params, context }: Route.ActionArgs) {
 
 export default function BoardEdit({ loaderData }: Route.ComponentProps) {
   const { board, post } = loaderData;
+  const section = getSectionSidebar(`/board/${board.id}`);
 
   return (
     <SiteLayout
-      navigation={renewNavigation}
+      navigation={mainNavigation}
       pageTitle="글 수정"
-      sectionTitle={board.title}
+      sectionTitle={section?.sectionTitle ?? board.title}
     >
-      <div className="yk-container">
+      <PageWithSidebar>
         <BoardWriteForm
           boardId={board.id}
           boardTitle={board.title}
@@ -56,7 +58,7 @@ export default function BoardEdit({ loaderData }: Route.ComponentProps) {
             authorName: post.author_name ?? "",
           }}
         />
-      </div>
+      </PageWithSidebar>
     </SiteLayout>
   );
 }

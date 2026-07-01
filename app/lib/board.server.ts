@@ -47,6 +47,9 @@ export function getDb(env: Env) {
   return env.DB;
 }
 
+/** 그누보드 마이그레이션 글: 최상위 글은 parent_id가 NULL이거나 legacy_id와 동일 */
+const ROOT_POST_SQL = "(parent_id IS NULL OR parent_id = legacy_id)";
+
 export async function getBoard(db: Env["DB"], boardId: string) {
   return db
     .prepare("SELECT * FROM boards WHERE id = ?")
@@ -62,7 +65,7 @@ export async function listPosts(
   search?: { field: string; query: string },
 ) {
   const offset = (page - 1) * perPage;
-  let where = "board_id = ? AND parent_id IS NULL";
+  let where = `board_id = ? AND ${ROOT_POST_SQL}`;
   const params: (string | number)[] = [boardId];
 
   if (search?.query) {
@@ -93,11 +96,11 @@ export async function listPosts(
   };
 }
 
-export async function getPost(db: D1Database, postId: number) {
+export async function getPost(db: Env["DB"], postId: number) {
   return db.prepare("SELECT * FROM posts WHERE id = ?").bind(postId).first<Post>();
 }
 
-export async function getPostAttachments(db: D1Database, postId: number) {
+export async function getPostAttachments(db: Env["DB"], postId: number) {
   const result = await db
     .prepare("SELECT * FROM attachments WHERE post_id = ? ORDER BY id ASC")
     .bind(postId)
@@ -105,7 +108,7 @@ export async function getPostAttachments(db: D1Database, postId: number) {
   return result.results;
 }
 
-export async function getPostComments(db: D1Database, postId: number) {
+export async function getPostComments(db: Env["DB"], postId: number) {
   const result = await db
     .prepare("SELECT * FROM comments WHERE post_id = ? ORDER BY id ASC")
     .bind(postId)
@@ -113,7 +116,7 @@ export async function getPostComments(db: D1Database, postId: number) {
   return result.results;
 }
 
-export async function incrementViewCount(db: D1Database, postId: number) {
+export async function incrementViewCount(db: Env["DB"], postId: number) {
   await db
     .prepare("UPDATE posts SET view_count = view_count + 1 WHERE id = ?")
     .bind(postId)
@@ -175,7 +178,7 @@ export async function updatePost(
     .run();
 }
 
-export async function deletePost(db: D1Database, postId: number) {
+export async function deletePost(db: Env["DB"], postId: number) {
   await db.prepare("DELETE FROM comments WHERE post_id = ?").bind(postId).run();
   await db.prepare("DELETE FROM attachments WHERE post_id = ?").bind(postId).run();
   await db.prepare("DELETE FROM posts WHERE id = ?").bind(postId).run();
@@ -216,7 +219,17 @@ export async function createAttachment(
   return Number(result.meta.last_row_id);
 }
 
-export async function getMainSlides(db: D1Database) {
+export async function listLatestPosts(db: Env["DB"], boardId: string, limit = 10) {
+  const result = await db
+    .prepare(
+      `SELECT * FROM posts WHERE board_id = ? AND ${ROOT_POST_SQL} ORDER BY sort_order DESC, id DESC LIMIT ?`,
+    )
+    .bind(boardId, limit)
+    .all<Post>();
+  return result.results;
+}
+
+export async function getMainSlides(db: Env["DB"]) {
   const result = await db
     .prepare(
       "SELECT * FROM main_slides WHERE is_active = 1 ORDER BY sort_order ASC, id ASC",

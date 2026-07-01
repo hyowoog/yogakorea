@@ -1,9 +1,10 @@
 import type { Route } from "./+types/board.$boardId._index";
 import { data } from "react-router";
 import { BoardList } from "~/components/board/board-list";
+import { PageWithSidebar } from "~/components/page-sidebar";
 import { SiteLayout } from "~/components/site-layout";
 import { getBoard, listPosts } from "~/lib/board.server";
-import { renewNavigation } from "~/lib/navigation";
+import { getSectionSidebar, mainNavigation } from "~/lib/navigation";
 
 export function meta({ data: loaderData }: Route.MetaArgs) {
   return [{ title: `${loaderData?.board.title ?? "게시판"} | 한국요가연합회` }];
@@ -41,14 +42,15 @@ export async function loader({ params, request, context }: Route.LoaderArgs) {
 export default function BoardIndex({ loaderData }: Route.ComponentProps) {
   const { board, posts, page, totalPages, total, searchQuery, searchField } =
     loaderData;
+  const section = getSectionSidebar(`/board/${board.id}`);
 
   return (
     <SiteLayout
-      navigation={renewNavigation}
+      navigation={mainNavigation}
       pageTitle={board.title}
-      sectionTitle="커뮤니티"
+      sectionTitle={section?.sectionTitle ?? "게시판"}
     >
-      <div className="yk-container">
+      <PageWithSidebar>
         <BoardList
           boardId={board.id}
           boardTitle={board.title}
@@ -59,7 +61,7 @@ export default function BoardIndex({ loaderData }: Route.ComponentProps) {
           searchQuery={searchQuery}
           searchField={searchField}
         />
-      </div>
+      </PageWithSidebar>
     </SiteLayout>
   );
 }

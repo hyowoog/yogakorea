@@ -1,50 +1,43 @@
-import { Link, NavLink } from "react-router";
+import { Link } from "react-router";
+import { MainNav } from "~/components/main-nav";
 import type { NavItem } from "~/lib/navigation";
 
 interface SiteHeaderProps {
   navigation: NavItem[];
-  variant?: "renew" | "legacy";
+  variant?: "main" | "renew";
 }
 
-export function SiteHeader({ navigation, variant = "renew" }: SiteHeaderProps) {
+export function SiteHeader({ navigation, variant = "main" }: SiteHeaderProps) {
+  const logoSrc =
+    variant === "renew"
+      ? "/renew-assets/images/logo.png"
+      : "/site-assets/eyoom/theme/basic2/image/site_logo.png";
+
   return (
     <header className="yk-header">
-      <div className="yk-header-top">
+      <div className="yk-topbar">
+        <div className="yk-container yk-topbar-inner">
+          <span>사단법인 한국요가연합회</span>
+          <div className="yk-topbar-links">
+            <Link to="/board/notice">공지사항</Link>
+            <Link to="/pages/contactus">오시는길</Link>
+            {variant === "main" ? (
+              <Link to="/renew">리뉴얼 사이트</Link>
+            ) : (
+              <Link to="/">메인 사이트</Link>
+            )}
+          </div>
+        </div>
+      </div>
+      <div className="yk-header-top relative">
         <div className="yk-container yk-header-inner">
-          <Link to={variant === "legacy" ? "/legacy" : "/"} className="yk-logo">
-            <img src="/renew-assets/images/logo.png" alt="한국요가연합회" />
+          <Link
+            to={variant === "renew" ? "/renew" : "/"}
+            className="yk-logo shrink-0"
+          >
+            <img src={logoSrc} alt="한국요가연합회" />
           </Link>
-          <nav className="yk-nav">
-            <ul className="yk-nav-list">
-              {navigation.map((item) => (
-                <li key={item.label} className="yk-nav-item">
-                  {item.href ? (
-                    <NavLink to={item.href} className="yk-nav-link">
-                      {item.label}
-                    </NavLink>
-                  ) : (
-                    <span className="yk-nav-link">{item.label}</span>
-                  )}
-                  {item.children && (
-                    <div className="yk-submenu">
-                      <ul>
-                        {item.children.map((child) => (
-                          <li key={child.href}>
-                            <Link to={child.href!}>{child.label}</Link>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-                </li>
-              ))}
-            </ul>
-          </nav>
-          {variant === "renew" && (
-            <Link to="/legacy" className="yk-legacy-link">
-              구 사이트
-            </Link>
-          )}
+          <MainNav navigation={navigation} />
         </div>
       </div>
     </header>
