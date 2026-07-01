@@ -1,3 +1,4 @@
+import { PageBreadcrumb } from "~/components/page-breadcrumb";
 import { SiteFooter } from "~/components/site-footer";
 import { SiteHeader } from "~/components/site-header";
 import type { NavItem } from "~/lib/navigation";
@@ -23,8 +24,15 @@ export function SiteLayout({
       {(pageTitle || sectionTitle) && (
         <div className="yk-page-hero">
           <div className="yk-container">
-            {sectionTitle && <p className="yk-section-label">{sectionTitle}</p>}
-            {pageTitle && <h1 className="yk-page-title">{pageTitle}</h1>}
+            {/* {sectionTitle && <p className="yk-section-label">{sectionTitle}</p>} */}
+            <div className="flex items-center justify-between gap-4">
+              {pageTitle && <h1 className="yk-page-title">{pageTitle}</h1>}
+              <PageBreadcrumb
+                pageTitle={pageTitle}
+                sectionTitle={sectionTitle}
+                homeHref={variant === "renew" ? "/renew" : "/"}
+              />
+            </div>
           </div>
         </div>
       )}

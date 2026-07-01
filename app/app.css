@@ -99,7 +99,7 @@ a {
 
 .yk-page-hero {
   background: linear-gradient(135deg, #eef4ff, #f8fbff);
-  padding: 2.5rem 0;
+  padding: 0.5rem 0;
 }
 
 .yk-section-label {
@@ -109,8 +109,9 @@ a {
 }
 
 .yk-page-title {
-  margin: 0;
-  font-size: 2rem;
+  margin: 1rem 0;
+  font-size: 1.2rem;
+  font-weight: 600;
 }
 
 .yk-main {
