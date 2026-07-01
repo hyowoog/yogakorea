@@ -218,7 +218,7 @@ a {
   padding-bottom: 0.5rem;
   border-bottom: 2px solid var(--yk-primary);
   color: var(--yk-primary);
-  font-size: 0.9375rem;
+  font-size: 1.2rem;
   font-weight: 700;
 }
 
@@ -685,7 +685,6 @@ a {
 
 .yk-home-latest-header h3 {
   margin: 0;
-  font-size: 1.1rem;
 }
 
 .yk-home-latest ul {

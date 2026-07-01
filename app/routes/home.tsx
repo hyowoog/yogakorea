@@ -1,8 +1,17 @@
-import type { Route } from "./+types/home";
+import { BentoCard, BentoGrid } from "@/components/ui/bento-grid";
+import {
+  BookOpenIcon,
+  Building2Icon,
+  CameraIcon,
+  FileTextIcon,
+  ImageIcon,
+  ShieldCheckIcon,
+} from "lucide-react";
 import { Link } from "react-router";
 import { SiteLayout } from "~/components/site-layout";
 import { getMainSlides, listLatestPosts } from "~/lib/board.server";
 import { mainNavigation } from "~/lib/navigation";
+import type { Route } from "./+types/home";
 
 export function meta() {
   return [
@@ -48,6 +57,75 @@ const defaultSlides = [
   },
 ];
 
+const features = [
+  {
+    Icon: FileTextIcon,
+    name: "본부자료실",
+    description: "연합회 본부에서 제공하는 자료입니다.",
+    href: "/board/headroom",
+    cta: "더보기",
+    background: (
+      <img alt="" className="absolute -top-20 -right-20 opacity-60" />
+    ),
+    className: "col-span-1",
+  },
+  {
+    Icon: CameraIcon,
+    name: "포토앨범",
+    description: "연합회 활동을 담은 포토앨범입니다.",
+    href: "/board/gallery",
+    cta: "더보기",
+    background: (
+      <img alt="" className="absolute -top-20 -right-20 opacity-60" />
+    ),
+    className: "col-span-1",
+  },
+  {
+    Icon: ImageIcon,
+    name: "사진자료실",
+    description: "본부에서 제공하는 사진자료입니다.",
+    href: "/board/photoroom",
+    cta: "더보기",
+    background: (
+      <img alt="" className="absolute -top-20 -right-20 opacity-60" />
+    ),
+    className: "col-span-1",
+  },
+  {
+    Icon: BookOpenIcon,
+    name: "회보자료실",
+    description: "연합회 회보를 보실 수 있습니다.",
+    href: "/board/webzine",
+    cta: "더보기",
+    background: (
+      <img alt="" className="absolute -top-20 -right-20 opacity-60" />
+    ),
+    className: "col-span-1",
+  },
+  {
+    Icon: Building2Icon,
+    name: "전국요가원",
+    description: "전국요가원 정보입니다.",
+    href: "/board/branch",
+    cta: "더보기",
+    background: (
+      <img alt="" className="absolute -top-20 -right-20 opacity-60" />
+    ),
+    className: "col-span-1",
+  },
+  {
+    Icon: ShieldCheckIcon,
+    name: "민간자격안내",
+    description: "민간자격 안내 및 신청 정보입니다.",
+    href: "/pages/info",
+    cta: "더보기",
+    background: (
+      <img alt="" className="absolute -top-20 -right-20 opacity-60" />
+    ),
+    className: "col-span-1",
+  },
+];
+
 function LatestList({
   title,
   boardId,
@@ -60,17 +138,19 @@ function LatestList({
   return (
     <div className="yk-home-latest">
       <div className="yk-home-latest-header">
-        <h3>{title}</h3>
+        <h3 className="text-xl font-semibold text-neutral-700">{title}</h3>
         <Link to={`/board/${boardId}`}>더보기</Link>
       </div>
       <ul>
         {posts.length === 0 ? (
-          <li className="yk-empty-item">등록된 글이 없습니다.</li>
+          <li className="text-sm text-neutral-500">등록된 글이 없습니다.</li>
         ) : (
           posts.map((post) => (
             <li key={post.id}>
               <Link to={`/board/${boardId}/${post.id}`}>{post.title}</Link>
-              <time>{post.created_at.slice(0, 10)}</time>
+              <time className="text-sm text-neutral-500">
+                {post.created_at.slice(0, 10)}
+              </time>
             </li>
           ))
         )}
@@ -116,7 +196,20 @@ export default function Home({ loaderData }: Route.ComponentProps) {
             </Link>
           </div>
         </div>
-
+        <BentoGrid className="lg:grid-rows-2 mt-6">
+          {features.map((feature) => (
+            <BentoCard
+              key={feature.name}
+              name={feature.name}
+              description={feature.description}
+              href={feature.href}
+              cta={feature.cta}
+              Icon={feature.Icon}
+              background={feature.background}
+              className={feature.className}
+            />
+          ))}
+        </BentoGrid>
         <div className="yk-home-grid yk-home-grid-3 mt-6">
           <LatestList
             title="권역별소식"
@@ -130,6 +223,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
           />
           <div className="yk-home-quick">
             <h3>바로가기</h3>
+
             <div className="yk-quick-links">
               <Link to="/board/gallery">포토앨범</Link>
               <Link to="/board/headroom">본부자료실</Link>
