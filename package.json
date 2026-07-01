@@ -1,0 +1,47 @@
+{
+  "name": "yogakorea",
+  "description": "한국요가연합회 - React Router + Cloudflare Workers + D1 + R2",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "react-router build",
+    "cf-typegen": "wrangler types && react-router typegen",
+    "check": "tsc && react-router build && wrangler deploy --dry-run",
+    "deploy": "wrangler deploy",
+    "dev": "react-router dev",
+    "preview": "npm run build && vite preview",
+    "typecheck": "npm run cf-typegen && tsc -b",
+    "db:migrate:local": "wrangler d1 migrations apply yogakorea --local",
+    "db:migrate:remote": "wrangler d1 migrations apply yogakorea --remote",
+    "db:import": "node scripts/convert-dump.mjs && wrangler d1 execute yogakorea --local --file=./scripts/output/import.sql",
+    "db:import:remote": "node scripts/convert-dump.mjs && wrangler d1 execute yogakorea --remote --file=./scripts/output/import.sql"
+  },
+  "dependencies": {
+    "@tiptap/extension-image": "^3.27.1",
+    "@tiptap/extension-link": "^3.27.1",
+    "@tiptap/extension-placeholder": "^3.27.1",
+    "@tiptap/pm": "^3.27.1",
+    "@tiptap/react": "^3.27.1",
+    "@tiptap/starter-kit": "^3.27.1",
+    "clsx": "^2.1.1",
+    "isbot": "5.1.32",
+    "lucide-react": "^1.22.0",
+    "react": "19.2.1",
+    "react-dom": "19.2.1",
+    "react-router": "7.9.6"
+  },
+  "devDependencies": {
+    "@cloudflare/vite-plugin": "1.15.3",
+    "@cloudflare/workers-types": "^4.20260701.1",
+    "@react-router/dev": "7.9.6",
+    "@tailwindcss/vite": "4.1.17",
+    "@types/node": "24.10.1",
+    "@types/react": "19.2.7",
+    "@types/react-dom": "19.2.3",
+    "tailwindcss": "4.1.17",
+    "typescript": "5.9.3",
+    "vite": "^7.0.0",
+    "vite-tsconfig-paths": "5.1.4",
+    "wrangler": "4.88.0"
+  }
+}

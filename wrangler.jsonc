@@ -1,0 +1,31 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "yogakorea",
+  "main": "./workers/app.ts",
+  "compatibility_date": "2025-10-08",
+  "compatibility_flags": ["nodejs_compat"],
+  "observability": {
+    "enabled": true
+  },
+  "upload_source_maps": true,
+  "assets": {
+    "directory": "./build/client"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "yogakorea",
+      "database_id": "42c5c42d-9ee1-4531-b817-d62c50ad292a",
+      "migrations_dir": "migrations"
+    }
+  ],
+  "r2_buckets": [
+    {
+      "binding": "UPLOADS",
+      "bucket_name": "yogakorea-uploads"
+    }
+  ],
+  "vars": {
+    "SITE_NAME": "사단법인 한국요가연합회"
+  }
+}

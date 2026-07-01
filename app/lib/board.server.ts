@@ -1,0 +1,226 @@
+export interface Board {
+  id: string;
+  title: string;
+  board_type: string;
+  list_count: number;
+  allow_reply: number;
+  min_level: number;
+  source: string;
+}
+
+export interface Post {
+  id: number;
+  board_id: string;
+  parent_id: number | null;
+  depth: number;
+  sort_order: number;
+  title: string;
+  content: string | null;
+  author_name: string | null;
+  author_email: string | null;
+  view_count: number;
+  created_at: string;
+  updated_at: string | null;
+}
+
+export interface Comment {
+  id: number;
+  post_id: number;
+  parent_id: number | null;
+  author_name: string | null;
+  content: string;
+  created_at: string;
+}
+
+export interface Attachment {
+  id: number;
+  post_id: number;
+  file_name: string;
+  file_size: number | null;
+  r2_key: string;
+  mime_type: string | null;
+  download_count: number;
+  created_at: string;
+}
+
+export function getDb(env: Env) {
+  return env.DB;
+}
+
+export async function getBoard(db: Env["DB"], boardId: string) {
+  return db
+    .prepare("SELECT * FROM boards WHERE id = ?")
+    .bind(boardId)
+    .first<Board>();
+}
+
+export async function listPosts(
+  db: Env["DB"],
+  boardId: string,
+  page = 1,
+  perPage = 15,
+  search?: { field: string; query: string },
+) {
+  const offset = (page - 1) * perPage;
+  let where = "board_id = ? AND parent_id IS NULL";
+  const params: (string | number)[] = [boardId];
+
+  if (search?.query) {
+    const field =
+      search.field === "author" ? "author_name" : search.field === "content" ? "content" : "title";
+    where += ` AND ${field} LIKE ?`;
+    params.push(`%${search.query}%`);
+  }
+
+  const countRow = await db
+    .prepare(`SELECT COUNT(*) as total FROM posts WHERE ${where}`)
+    .bind(...params)
+    .first<{ total: number }>();
+
+  const posts = await db
+    .prepare(
+      `SELECT * FROM posts WHERE ${where} ORDER BY sort_order DESC, id DESC LIMIT ? OFFSET ?`,
+    )
+    .bind(...params, perPage, offset)
+    .all<Post>();
+
+  return {
+    posts: posts.results,
+    total: countRow?.total ?? 0,
+    page,
+    perPage,
+    totalPages: Math.max(1, Math.ceil((countRow?.total ?? 0) / perPage)),
+  };
+}
+
+export async function getPost(db: D1Database, postId: number) {
+  return db.prepare("SELECT * FROM posts WHERE id = ?").bind(postId).first<Post>();
+}
+
+export async function getPostAttachments(db: D1Database, postId: number) {
+  const result = await db
+    .prepare("SELECT * FROM attachments WHERE post_id = ? ORDER BY id ASC")
+    .bind(postId)
+    .all<Attachment>();
+  return result.results;
+}
+
+export async function getPostComments(db: D1Database, postId: number) {
+  const result = await db
+    .prepare("SELECT * FROM comments WHERE post_id = ? ORDER BY id ASC")
+    .bind(postId)
+    .all<Comment>();
+  return result.results;
+}
+
+export async function incrementViewCount(db: D1Database, postId: number) {
+  await db
+    .prepare("UPDATE posts SET view_count = view_count + 1 WHERE id = ?")
+    .bind(postId)
+    .run();
+}
+
+export async function createPost(
+  db: Env["DB"],
+  data: {
+    boardId: string;
+    title: string;
+    content: string;
+    authorName: string;
+    authorEmail?: string;
+    password?: string;
+    parentId?: number;
+    depth?: number;
+  },
+) {
+  const now = new Date().toISOString().slice(0, 19).replace("T", " ");
+  const maxSort = await db
+    .prepare("SELECT COALESCE(MAX(sort_order), 0) + 1 as next_sort FROM posts WHERE board_id = ?")
+    .bind(data.boardId)
+    .first<{ next_sort: number }>();
+
+  const result = await db
+    .prepare(
+      `INSERT INTO posts (board_id, parent_id, depth, sort_order, title, content, author_name, author_email, password, created_at)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+    )
+    .bind(
+      data.boardId,
+      data.parentId ?? null,
+      data.depth ?? 0,
+      maxSort?.next_sort ?? 1,
+      data.title,
+      data.content,
+      data.authorName,
+      data.authorEmail ?? null,
+      data.password ?? null,
+      now,
+    )
+    .run();
+
+  return Number(result.meta.last_row_id);
+}
+
+export async function updatePost(
+  db: Env["DB"],
+  postId: number,
+  data: { title: string; content: string; authorName?: string },
+) {
+  const now = new Date().toISOString().slice(0, 19).replace("T", " ");
+  await db
+    .prepare(
+      `UPDATE posts SET title = ?, content = ?, author_name = COALESCE(?, author_name), updated_at = ? WHERE id = ?`,
+    )
+    .bind(data.title, data.content, data.authorName ?? null, now, postId)
+    .run();
+}
+
+export async function deletePost(db: D1Database, postId: number) {
+  await db.prepare("DELETE FROM comments WHERE post_id = ?").bind(postId).run();
+  await db.prepare("DELETE FROM attachments WHERE post_id = ?").bind(postId).run();
+  await db.prepare("DELETE FROM posts WHERE id = ?").bind(postId).run();
+}
+
+export async function createComment(
+  db: Env["DB"],
+  data: { postId: number; authorName: string; content: string; parentId?: number },
+) {
+  const now = new Date().toISOString().slice(0, 19).replace("T", " ");
+  const result = await db
+    .prepare(
+      `INSERT INTO comments (post_id, parent_id, author_name, content, created_at) VALUES (?, ?, ?, ?, ?)`,
+    )
+    .bind(data.postId, data.parentId ?? null, data.authorName, data.content, now)
+    .run();
+  return Number(result.meta.last_row_id);
+}
+
+export async function createAttachment(
+  db: Env["DB"],
+  data: {
+    postId: number;
+    fileName: string;
+    fileSize: number;
+    r2Key: string;
+    mimeType: string;
+  },
+) {
+  const now = new Date().toISOString().slice(0, 19).replace("T", " ");
+  const result = await db
+    .prepare(
+      `INSERT INTO attachments (post_id, file_name, file_size, r2_key, mime_type, created_at)
+       VALUES (?, ?, ?, ?, ?, ?)`,
+    )
+    .bind(data.postId, data.fileName, data.fileSize, data.r2Key, data.mimeType, now)
+    .run();
+  return Number(result.meta.last_row_id);
+}
+
+export async function getMainSlides(db: D1Database) {
+  const result = await db
+    .prepare(
+      "SELECT * FROM main_slides WHERE is_active = 1 ORDER BY sort_order ASC, id ASC",
+    )
+    .all<{ id: number; image_path: string; caption: string | null }>();
+  return result.results;
+}
