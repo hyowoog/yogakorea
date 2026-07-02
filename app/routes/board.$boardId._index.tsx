@@ -4,7 +4,8 @@ import { BoardGalleryList } from "~/components/board/board-gallery-list";
 import { BoardList } from "~/components/board/board-list";
 import { PageWithSidebar } from "~/components/page-sidebar";
 import { SiteLayout } from "~/components/site-layout";
-import { getBoard, getBoardPageSize, isGalleryBoard, listPosts, requireBoardAccess } from "~/lib/board.server";
+import { getBoard, getBoardPageSize, listPosts, requireBoardAccess } from "~/lib/board.server";
+import { isGalleryBoard } from "~/lib/board-access";
 import { buildPostThumbnailMap } from "~/lib/post-thumbnail";
 import { getSectionSidebar, mainNavigation } from "~/lib/navigation";
 
@@ -45,6 +46,7 @@ export async function loader({ params, request, context }: Route.LoaderArgs) {
     searchQuery,
     searchField,
     thumbnails,
+    isGallery: isGalleryBoard(board),
   };
 }
 
@@ -58,9 +60,9 @@ export default function BoardIndex({ loaderData }: Route.ComponentProps) {
     searchQuery,
     searchField,
     thumbnails,
+    isGallery,
   } = loaderData;
   const section = getSectionSidebar(`/board/${board.id}`);
-  const isGallery = isGalleryBoard(board);
 
   return (
     <SiteLayout

@@ -59,10 +59,6 @@ export async function getBoard(db: Env["DB"], boardId: string) {
     .first<Board>();
 }
 
-export function isGalleryBoard(board: Board) {
-  return board.board_type === "gallery";
-}
-
 export function getBoardPageSize(board: Board) {
   if (board.id === "gallery") return 12;
   return board.list_count;
