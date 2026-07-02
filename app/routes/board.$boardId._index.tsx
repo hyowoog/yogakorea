@@ -21,6 +21,7 @@ import { getSectionSidebar, mainNavigation } from "~/lib/navigation";
 import { listPublicBranchAreas, listPublicBranches } from "~/lib/yoga-branch.server";
 import { getAuthUser } from "~/lib/auth.server";
 import { ADMIN_LEVEL } from "~/lib/event-constants";
+import { getBoardBasePath } from "~/lib/route-paths";
 
 const BRANCH_BOARD_ID = "branch";
 
@@ -128,7 +129,7 @@ export async function loader({ params, request, context }: Route.LoaderArgs) {
 
 export default function BoardIndex({ loaderData }: Route.ComponentProps) {
   const { board, isBranchBoard } = loaderData;
-  const section = getSectionSidebar(`/board/${board.id}`);
+  const section = getSectionSidebar(getBoardBasePath(board.id));
 
   if (isBranchBoard) {
     return (

@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 import { AttachmentFileIcon } from "./attachment-file-icon";
 import { Button } from "../ui/button";
 import { ExternalLinkIcon } from "lucide-react";
+import { getBoardBasePath, getBoardDeletePath, getBoardEditPath, getBoardWritePath } from "~/lib/route-paths";
 
 interface BrbrReaderProps {
   board: Board;
@@ -23,6 +24,7 @@ export function BrbrReader({
   attachments,
   isAdmin,
 }: BrbrReaderProps) {
+  const basePath = getBoardBasePath(board.id);
   const { imageAttachments, fileAttachments } = partitionAttachments(attachments);
   const relatedLinks = activePost
     ? [activePost.link1, activePost.link2].filter((link): link is string => Boolean(link?.trim()))
@@ -34,7 +36,7 @@ export function BrbrReader({
         <div className="mb-3 flex items-center justify-between gap-2">
           <h2 className="text-lg font-semibold text-neutral-800">빠람빠라</h2>
           {isAdmin ? (
-            <Link to={`/board/${board.id}/write`}>
+            <Link to={getBoardWritePath(board.id)}>
               <Button variant="outline" size="sm">
                 글쓰기
               </Button>
@@ -51,7 +53,7 @@ export function BrbrReader({
                 return (
                   <li key={post.id}>
                     <Link
-                      to={`/board/${board.id}?post=${post.id}`}
+                      to={`${basePath}?post=${post.id}`}
                       className={cn(isActive && "active")}
                       aria-current={isActive ? "page" : undefined}
                     >
@@ -80,11 +82,11 @@ export function BrbrReader({
                 {isAdmin ? (
                   <div className="flex shrink-0 gap-2">
                     <Button variant="outline" size="sm" asChild>
-                      <Link to={`/board/${board.id}/${activePost.id}/edit`}>수정</Link>
+                      <Link to={getBoardEditPath(board.id, activePost.id)}>수정</Link>
                     </Button>
                     <Form
                       method="post"
-                      action={`/board/${board.id}/${activePost.id}/delete`}
+                      action={getBoardDeletePath(board.id, activePost.id)}
                       onSubmit={(event) => {
                         if (!confirm("정말 삭제하시겠습니까?")) {
                           event.preventDefault();

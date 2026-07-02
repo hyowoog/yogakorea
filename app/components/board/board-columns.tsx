@@ -2,6 +2,7 @@ import type { ColumnDef } from "@tanstack/react-table";
 import { Link } from "react-router";
 import type { Post } from "~/lib/board.server";
 import { Badge } from "@/components/ui/badge";
+import { getBoardPostPath } from "~/lib/route-paths";
 
 export interface BoardTableRow extends Post {
   rowNumber: number;
@@ -30,7 +31,7 @@ export function getBoardColumns({
       header: "제목",
       cell: ({ row }) => (
         <Link
-          to={`/board/${boardId}/${row.original.id}`}
+          to={getBoardPostPath(boardId, row.original.id)}
           className="inline-flex items-center gap-2 font-medium hover:text-primary hover:underline"
         >
           {row.original.is_notice ? (

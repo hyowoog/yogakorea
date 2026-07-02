@@ -7,6 +7,7 @@ import {
 import type { Post } from "~/lib/board.server";
 import { DataTable } from "@/components/ui/data-table";
 import { Button } from "../ui/button";
+import { getBoardWritePath } from "~/lib/route-paths";
 import {
   Select,
   SelectContent,
@@ -85,7 +86,7 @@ export function BoardList({
         <Button type="submit" variant="outline">
           검색
         </Button>
-        <Link to={`/board/${boardId}/write`}>
+        <Link to={getBoardWritePath(boardId)}>
           <Button variant="outline">글쓰기</Button>
         </Link>
       </Form>

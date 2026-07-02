@@ -21,7 +21,7 @@ export function SiteHeader({ navigation, variant = "main" }: SiteHeaderProps) {
     <header className="yk-header">
       <div className="yk-topbar">
         <div className="yk-container yk-topbar-inner">
-          <span>사단법인 한국요가연합회</span>
+          <span></span>
           <div className="yk-topbar-links">
             {/* <Link to="/board/notice">공지사항</Link>
             <Link to="/pages/contactus">오시는길</Link> */}

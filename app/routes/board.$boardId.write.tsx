@@ -11,6 +11,7 @@ import {
 } from "~/lib/board.server";
 import { uploadToR2 } from "~/lib/r2.server";
 import { getSectionSidebar, mainNavigation } from "~/lib/navigation";
+import { getBoardBasePath, getBoardPostPath } from "~/lib/route-paths";
 
 export function meta({ data: loaderData }: Route.MetaArgs) {
   return [{ title: `글쓰기 - ${loaderData?.board.title ?? "게시판"}` }];
@@ -58,12 +59,12 @@ export async function action({ request, params, context }: Route.ActionArgs) {
     });
   }
 
-  return redirect(`/board/${params.boardId}/${postId}`);
+  return redirect(getBoardPostPath(params.boardId, postId));
 }
 
 export default function BoardWrite({ loaderData }: Route.ComponentProps) {
   const { board } = loaderData;
-  const section = getSectionSidebar(`/board/${board.id}`);
+  const section = getSectionSidebar(getBoardBasePath(board.id));
 
   return (
     <SiteLayout

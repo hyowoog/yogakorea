@@ -13,6 +13,7 @@ import {
   SelectValue,
 } from "../ui/select";
 import { Input } from "../ui/input";
+import { getBoardPostPath, getBoardWritePath } from "~/lib/route-paths";
 
 interface BoardCardListProps {
   boardId: string;
@@ -46,7 +47,7 @@ export function BoardCardList({
             return (
               <Link
                 key={post.id}
-                to={`/board/${boardId}/${post.id}`}
+                to={getBoardPostPath(boardId, post.id)}
                 className="group flex h-full flex-col rounded-lg border bg-white p-4 shadow-sm transition hover:border-sky-300 hover:shadow-md"
               >
                 <div className="mb-2 flex items-start gap-2">
@@ -109,7 +110,7 @@ export function BoardCardList({
         <Button type="submit" variant="outline">
           검색
         </Button>
-        <Link to={`/board/${boardId}/write`}>
+        <Link to={getBoardWritePath(boardId)}>
           <Button variant="outline">글쓰기</Button>
         </Link>
       </Form>

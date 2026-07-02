@@ -7,6 +7,7 @@ import {
   PaginationItem,
 } from "@/components/ui/pagination";
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
+import { getBoardBasePath } from "~/lib/route-paths";
 
 interface BoardPaginationProps {
   boardId: string;
@@ -28,7 +29,7 @@ function buildPagePath(
     params.set("q", searchQuery);
     params.set("field", searchField ?? "title");
   }
-  return `/board/${boardId}?${params.toString()}`;
+  return `${getBoardBasePath(boardId)}?${params.toString()}`;
 }
 
 function getPageItems(current: number, total: number): (number | "ellipsis")[] {

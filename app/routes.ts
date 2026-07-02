@@ -2,6 +2,27 @@ import { type RouteConfig, index, route, prefix } from "@react-router/dev/routes
 
 export default [
   index("routes/home.tsx"),
+  ...prefix("about", [route(":slug", "routes/about.$slug.tsx")]),
+  ...prefix("work", [route(":slug", "routes/work.$slug.tsx")]),
+  ...prefix("site", [route(":slug", "routes/site.$slug.tsx")]),
+  ...prefix("branch", [
+    route("", "routes/board.branch.alias.tsx"),
+    route(":slug", "routes/branch.$slug.tsx"),
+  ]),
+  ...prefix("data", [
+    route(":boardId", "routes/data.$boardId._index.tsx"),
+    route(":boardId/write", "routes/data.$boardId.write.tsx"),
+    route(":boardId/:postId", "routes/data.$boardId.$postId.tsx"),
+    route(":boardId/:postId/edit", "routes/data.$boardId.$postId.edit.tsx"),
+    route(":boardId/:postId/delete", "routes/data.$boardId.$postId.delete.tsx"),
+  ]),
+  ...prefix("comm", [
+    route(":boardId", "routes/comm.$boardId._index.tsx"),
+    route(":boardId/write", "routes/comm.$boardId.write.tsx"),
+    route(":boardId/:postId", "routes/comm.$boardId.$postId.tsx"),
+    route(":boardId/:postId/edit", "routes/comm.$boardId.$postId.edit.tsx"),
+    route(":boardId/:postId/delete", "routes/comm.$boardId.$postId.delete.tsx"),
+  ]),
   route("pages/:slug", "routes/pages.$slug.tsx"),
   ...prefix("board", [
     route(":boardId", "routes/board.$boardId._index.tsx"),

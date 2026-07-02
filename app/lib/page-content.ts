@@ -643,7 +643,7 @@ p {
 <div class="tab-e2 margin-top-30">
 <div class="panel panel-green">
     <div class="panel-heading">
-        <h3 class="panel-title"><i class="fa fa-edit"></i> 자격정보 <button type='button' class='btn' onclick="window.open('/pages/info_detail', '_blank', 'scrollbars=yes, resizable, width=1000px, height=800px, left='+(screen.width-1000)/2+', top='+(screen.height-800)/2)">자격정보 상세보기</button></h3>
+        <h3 class="panel-title"><i class="fa fa-edit"></i> 자격정보 <button type='button' class='btn' onclick="window.open('/work/info_detail', '_blank', 'scrollbars=yes, resizable, width=1000px, height=800px, left='+(screen.width-1000)/2+', top='+(screen.height-800)/2)">자격정보 상세보기</button></h3>
     </div>
 
 

@@ -1,5 +1,6 @@
 import { Form, Link } from "react-router";
 import { RichTextEditor } from "~/components/rich-text-editor";
+import { getBoardBasePath } from "~/lib/route-paths";
 
 interface BoardWriteFormProps {
   boardId: string;
@@ -24,7 +25,7 @@ export function BoardWriteForm({
     <div className="yk-board-write">
       <div className="yk-board-write-header">
         <p className="yk-breadcrumb">
-          <Link to={`/board/${boardId}`}>{boardTitle}</Link>
+          <Link to={getBoardBasePath(boardId)}>{boardTitle}</Link>
         </p>
         <h1>글쓰기</h1>
       </div>
@@ -65,7 +66,7 @@ export function BoardWriteForm({
         </label>
 
         <div className="yk-form-actions">
-          <Link to={`/board/${boardId}`} className="yk-btn">
+          <Link to={getBoardBasePath(boardId)} className="yk-btn">
             취소
           </Link>
           <button type="submit" className="yk-btn yk-btn-primary">

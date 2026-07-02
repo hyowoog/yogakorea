@@ -9,59 +9,59 @@ export const mainNavigation: NavItem[] = [
   {
     label: "연합회소개",
     children: [
-      { label: "인사말", href: "/pages/greetings" },
-      { label: "스와미말씀", href: "/pages/swami" },
-      { label: "연혁", href: "/pages/history" },
-      { label: "조직도", href: "/pages/organization" },
-      { label: "오시는 길", href: "/pages/contactus" },
+      { label: "인사말", href: "/about/greetings" },
+      { label: "스와미말씀", href: "/about/swami" },
+      { label: "연혁", href: "/about/history" },
+      { label: "조직도", href: "/about/organization" },
+      { label: "오시는 길", href: "/about/contactus" },
     ],
   },
   {
     label: "소속기관",
     children: [
-      { label: "전국요가원", href: "/board/branch" },
-      { label: "가입안내", href: "/pages/guide" },
+      { label: "전국요가원", href: "/branch" },
+      { label: "가입안내", href: "/branch/guide" },
     ],
   },
   {
     label: "주요사업",
     children: [
-      { label: "민간자격안내", href: "/pages/info" },
-      { label: "지도자양성 및 자격시험", href: "/pages/biz01" },
-      { label: "특수자격증 발급", href: "/pages/biz02" },
-      { label: "교육사업", href: "/pages/biz03" },
+      { label: "민간자격안내", href: "/work/info" },
+      { label: "지도자양성 및 자격시험", href: "/work/biz01" },
+      { label: "특수자격증 발급", href: "/work/biz02" },
+      { label: "교육사업", href: "/work/biz03" },
     ],
   },
   {
     label: "자료마당",
     children: [
-      { label: "본부자료실", href: "/board/headroom" },
-      { label: "사진자료실", href: "/board/photoroom" },
-      { label: "회보자료실", href: "/board/webzine" },
-      { label: "교육동영상", href: "/board/videoroom" },
+      { label: "본부자료실", href: "/data/headroom" },
+      { label: "사진자료실", href: "/data/photoroom" },
+      { label: "회보자료실", href: "/data/webzine" },
+      { label: "교육동영상", href: "/data/videoroom" },
     ],
   },
   {
     label: "커뮤니티",
     children: [
-      { label: "공지사항", href: "/board/notice" },
-      { label: "권역별소식", href: "/board/fieldnews" },
-      { label: "구인구직", href: "/board/job" },
-      { label: "회원게시판", href: "/board/member" },
-      { label: "포토앨범", href: "/board/gallery" },
-      { label: "묻고 답하기", href: "/board/qna" },
-      { label: "자유게시판", href: "/board/free2" },
+      { label: "공지사항", href: "/comm/notice" },
+      { label: "권역별소식", href: "/comm/fieldnews" },
+      { label: "구인구직", href: "/comm/job" },
+      { label: "회원게시판", href: "/comm/member" },
+      { label: "포토앨범", href: "/comm/gallery" },
+      { label: "묻고 답하기", href: "/comm/qna" },
+      { label: "자유게시판", href: "/comm/free2" },
     ],
   },
   {
     label: "관련단체",
     children: [
-      { label: "참여대학 및 단체", href: "/pages/relative01" },
-      { label: "후원 및 협찬사", href: "/pages/relative02" },
-      { label: "관련 사이트", href: "/pages/relative03" },
+      { label: "참여대학 및 단체", href: "/site/relative01" },
+      { label: "후원 및 협찬사", href: "/site/relative02" },
+      { label: "관련 사이트", href: "/site/relative03" },
     ],
   },
-  { label: "빠람빠라", href: "/board/brbr" },
+  { label: "빠람빠라", href: "/comm/brbr" },
 ];
 
 /** public_html/renew 메뉴 (보조 사이트) */
@@ -163,7 +163,7 @@ function navItemsToSidebar(group: NavItem): SectionSidebar | null {
 }
 
 function getPageMetaSidebar(pathname: string): SectionSidebar | null {
-  const match = pathname.match(/^\/pages\/([^/]+)/);
+  const match = pathname.match(/^\/(?:pages|about|work|site|branch)\/([^/]+)/);
   if (!match) return null;
 
   const current = pageMeta[match[1]];
@@ -171,7 +171,20 @@ function getPageMetaSidebar(pathname: string): SectionSidebar | null {
 
   const items = Object.entries(pageMeta)
     .filter(([, meta]) => meta.section === current.section)
-    .map(([slug, meta]) => ({ label: meta.title, href: `/pages/${slug}` }));
+    .map(([slug, meta]) => {
+      const prefix =
+        meta.section === "about"
+          ? "about"
+          : meta.section === "work"
+            ? "work"
+            : meta.section === "link"
+              ? "site"
+              : meta.section === "org"
+                ? "branch"
+                : "pages";
+
+      return { label: meta.title, href: `/${prefix}/${slug}` };
+    });
 
   if (items.length <= 1) return null;
 
@@ -192,7 +205,13 @@ export function getSectionSidebar(pathname: string): SectionSidebar | null {
     if (isInSection) return navItemsToSidebar(group);
   }
 
-  if (pathname.startsWith("/pages/")) {
+  if (
+    pathname.startsWith("/pages/") ||
+    pathname.startsWith("/about/") ||
+    pathname.startsWith("/work/") ||
+    pathname.startsWith("/site/") ||
+    pathname.startsWith("/branch/")
+  ) {
     const etcMatch = etcSectionSidebar.items.some(
       (item) =>
         pathname === item.href || pathname.startsWith(`${item.href}/`),

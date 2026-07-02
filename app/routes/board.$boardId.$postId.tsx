@@ -19,6 +19,7 @@ import {
 import { getAuthUser } from "~/lib/auth.server";
 import { isBrbrBoard } from "~/lib/board-access";
 import { getSectionSidebar, mainNavigation } from "~/lib/navigation";
+import { getBoardBasePath } from "~/lib/route-paths";
 
 export function meta({ data: loaderData }: Route.MetaArgs) {
   return [{ title: `${loaderData?.post.title ?? "게시글"} | 한국요가연합회` }];
@@ -34,7 +35,7 @@ export async function loader({ params, request, context }: Route.LoaderArgs) {
   }
 
   if (isBrbrBoard(board)) {
-    throw redirect(`/board/${params.boardId}?post=${params.postId}`);
+    throw redirect(`${getBoardBasePath(params.boardId)}?post=${params.postId}`);
   }
 
   await requireBoardAccess(request, db, params.boardId);
@@ -131,7 +132,7 @@ export async function action({ request, params, context }: Route.ActionArgs) {
 
 export default function BoardPost({ loaderData }: Route.ComponentProps) {
   const { board, post, comments, attachments } = loaderData;
-  const section = getSectionSidebar(`/board/${board.id}`);
+  const section = getSectionSidebar(getBoardBasePath(board.id));
 
   return (
     <SiteLayout

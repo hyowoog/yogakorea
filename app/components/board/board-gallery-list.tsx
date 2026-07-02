@@ -3,6 +3,7 @@ import { BoardPagination } from "~/components/board/board-pagination";
 import type { Post } from "~/lib/board.server";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "../ui/button";
+import { getBoardPostPath, getBoardWritePath } from "~/lib/route-paths";
 import {
   Select,
   SelectContent,
@@ -48,7 +49,7 @@ export function BoardGalleryList({
             return (
               <Link
                 key={post.id}
-                to={`/board/${boardId}/${post.id}`}
+                to={getBoardPostPath(boardId, post.id)}
                 className="group overflow-hidden rounded-lg border bg-white shadow-sm transition hover:border-sky-300 hover:shadow-md"
               >
                 <div className="relative aspect-[4/3] overflow-hidden bg-slate-100">
@@ -119,7 +120,7 @@ export function BoardGalleryList({
         <Button type="submit" variant="outline">
           검색
         </Button>
-        <Link to={`/board/${boardId}/write`}>
+        <Link to={getBoardWritePath(boardId)}>
           <Button variant="outline">글쓰기</Button>
         </Link>
       </Form>

@@ -5,6 +5,7 @@ import { PageWithSidebar } from "~/components/page-sidebar";
 import { SiteLayout } from "~/components/site-layout";
 import { getBoard, getPost, requireBoardMutationAccess, updatePost } from "~/lib/board.server";
 import { getSectionSidebar, mainNavigation } from "~/lib/navigation";
+import { getBoardBasePath, getBoardPostPath } from "~/lib/route-paths";
 
 export async function loader({ params, request, context }: Route.LoaderArgs) {
   const db = context.cloudflare.env.DB;
@@ -38,12 +39,12 @@ export async function action({ request, params, context }: Route.ActionArgs) {
     authorName: authorName || undefined,
   });
 
-  return redirect(`/board/${params.boardId}/${params.postId}`);
+  return redirect(getBoardPostPath(params.boardId, Number(params.postId)));
 }
 
 export default function BoardEdit({ loaderData }: Route.ComponentProps) {
   const { board, post } = loaderData;
-  const section = getSectionSidebar(`/board/${board.id}`);
+  const section = getSectionSidebar(getBoardBasePath(board.id));
 
   return (
     <SiteLayout

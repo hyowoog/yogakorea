@@ -64,7 +64,7 @@ const features = [
     Icon: FileTextIcon,
     name: "본부자료실",
     description: "연합회 본부에서 제공하는 자료입니다.",
-    href: "/board/headroom",
+    href: "/data/headroom",
     cta: "더보기",
     background: (
       <img alt="" className="absolute -top-20 -right-20 opacity-60" />
@@ -75,7 +75,7 @@ const features = [
     Icon: CameraIcon,
     name: "포토앨범",
     description: "연합회 활동을 담은 포토앨범입니다.",
-    href: "/board/gallery",
+    href: "/comm/gallery",
     cta: "더보기",
     background: (
       <img alt="" className="absolute -top-20 -right-20 opacity-60" />
@@ -86,7 +86,7 @@ const features = [
     Icon: ImageIcon,
     name: "사진자료실",
     description: "본부에서 제공하는 사진자료입니다.",
-    href: "/board/photoroom",
+    href: "/data/photoroom",
     cta: "더보기",
     background: (
       <img alt="" className="absolute -top-20 -right-20 opacity-60" />
@@ -97,7 +97,7 @@ const features = [
     Icon: BookOpenIcon,
     name: "회보자료실",
     description: "연합회 회보를 보실 수 있습니다.",
-    href: "/board/webzine",
+    href: "/data/webzine",
     cta: "더보기",
     background: (
       <img alt="" className="absolute -top-20 -right-20 opacity-60" />
@@ -108,7 +108,7 @@ const features = [
     Icon: Building2Icon,
     name: "전국요가원",
     description: "전국요가원 정보입니다.",
-    href: "/board/branch",
+    href: "/branch",
     cta: "더보기",
     background: (
       <img alt="" className="absolute -top-20 -right-20 opacity-60" />
@@ -119,7 +119,7 @@ const features = [
     Icon: ShieldCheckIcon,
     name: "민간자격안내",
     description: "민간자격 안내 및 신청 정보입니다.",
-    href: "/pages/info",
+    href: "/work/info",
     cta: "더보기",
     background: (
       <img alt="" className="absolute -top-20 -right-20 opacity-60" />
@@ -137,11 +137,12 @@ function LatestList({
   boardId: string;
   posts: { id: number; title: string; created_at: string }[];
 }) {
+  const basePath = boardId === "videoroom" ? "/data/videoroom" : `/comm/${boardId}`;
   return (
     <div className="yk-home-latest">
       <div className="yk-home-latest-header">
         <h3 className="text-xl font-semibold text-neutral-700">{title}</h3>
-        <Link to={`/board/${boardId}`}>더보기</Link>
+        <Link to={basePath}>더보기</Link>
       </div>
       <ul>
         {posts.length === 0 ? (
@@ -149,7 +150,7 @@ function LatestList({
         ) : (
           posts.map((post) => (
             <li key={post.id}>
-              <Link to={`/board/${boardId}/${post.id}`}>{post.title}</Link>
+              <Link to={`${basePath}/${post.id}`}>{post.title}</Link>
               <time className="text-sm text-neutral-500">
                 {post.created_at.slice(0, 10)}
               </time>
@@ -187,9 +188,9 @@ export default function Home({ loaderData }: Route.ComponentProps) {
           <div className="yk-home-brbr">
             <div className="yk-home-latest-header">
               <h3 className="text-xl font-semibold text-neutral-700">빠람빠라</h3>
-              <Link to="/board/brbr">더보기</Link>
+              <Link to="/comm/brbr">더보기</Link>
             </div>
-            <Link to="/board/brbr">
+            <Link to="/comm/brbr">
               <img
                 src="/site-assets/data/brbr/brbr1.png"
                 alt="빠람빠라"

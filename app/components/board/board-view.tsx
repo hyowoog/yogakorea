@@ -13,6 +13,12 @@ import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
 import { ExternalLinkIcon } from "lucide-react";
+import {
+  getBoardBasePath,
+  getBoardDeletePath,
+  getBoardEditPath,
+  getBoardPostPath,
+} from "~/lib/route-paths";
 
 interface BoardViewProps {
   boardId: string;
@@ -46,7 +52,7 @@ function BoardCommentForm({ boardId, postId }: { boardId: string; postId: number
     <fetcher.Form
       ref={formRef}
       method="post"
-      action={`/board/${boardId}/${postId}`}
+      action={getBoardPostPath(boardId, postId)}
       className="yk-comment-form"
     >
       <input type="hidden" name="intent" value="comment" />
@@ -112,7 +118,7 @@ function BoardCommentItem({
       <article className="yk-comment-item yk-comment-item-editing">
         <fetcher.Form
           method="post"
-          action={`/board/${boardId}/${postId}`}
+          action={getBoardPostPath(boardId, postId)}
           className="yk-comment-edit-form"
         >
           <input type="hidden" name="intent" value="updateComment" />
@@ -167,7 +173,7 @@ function BoardCommentItem({
             {canDelete ? (
               <deleteFetcher.Form
                 method="post"
-                action={`/board/${boardId}/${postId}`}
+                action={getBoardPostPath(boardId, postId)}
                 onSubmit={(event) => {
                   if (!confirm("댓글을 삭제하시겠습니까?")) event.preventDefault();
                 }}
@@ -212,7 +218,7 @@ export function BoardView({
     <article className="yk-board-view">
       <div className="yk-board-view-header">
         <p className="yk-breadcrumb">
-          <Link to={`/board/${boardId}`}>{boardTitle}</Link>
+          <Link to={getBoardBasePath(boardId)}>{boardTitle}</Link>
         </p>
         <h1>{post.title}</h1>
         <div className="yk-post-meta">
@@ -306,13 +312,13 @@ export function BoardView({
       )}
 
       <div className="yk-board-actions">
-        <Link to={`/board/${boardId}`}>
+        <Link to={getBoardBasePath(boardId)}>
           <Button>목록</Button>
         </Link>
-        <Link to={`/board/${boardId}/${post.id}/edit`}>
+        <Link to={getBoardEditPath(boardId, post.id)}>
           <Button variant="outline">수정</Button>
         </Link>
-        <Form method="post" action={`/board/${boardId}/${post.id}/delete`}>
+        <Form method="post" action={getBoardDeletePath(boardId, post.id)}>
           <Button variant="destructive" type="submit">
             삭제
           </Button>
