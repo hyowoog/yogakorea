@@ -8,6 +8,7 @@ interface SiteLayoutProps {
   navigation: NavItem[];
   variant?: "main" | "renew";
   pageTitle?: string;
+  breadcrumbTitle?: string;
   sectionTitle?: string;
   hidePageHero?: boolean;
   hideHeader?: boolean;
@@ -19,6 +20,7 @@ export function SiteLayout({
   navigation,
   variant = "main",
   pageTitle,
+  breadcrumbTitle,
   sectionTitle,
   hidePageHero = false,
   hideHeader = false,
@@ -35,6 +37,7 @@ export function SiteLayout({
               {pageTitle && <h1 className="yk-page-title">{pageTitle}</h1>}
               <PageBreadcrumb
                 pageTitle={pageTitle}
+                breadcrumbTitle={breadcrumbTitle}
                 sectionTitle={sectionTitle}
                 homeHref={variant === "renew" ? "/renew" : "/"}
               />

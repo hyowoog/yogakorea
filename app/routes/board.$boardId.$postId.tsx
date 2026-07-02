@@ -138,6 +138,7 @@ export default function BoardPost({ loaderData }: Route.ComponentProps) {
     <SiteLayout
       navigation={mainNavigation}
       pageTitle={post.title}
+      breadcrumbTitle={board.title}
       sectionTitle={section?.sectionTitle ?? board.title}
     >
       <PageWithSidebar>

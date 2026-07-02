@@ -10,16 +10,19 @@ import {
 
 interface PageBreadcrumbProps {
   pageTitle?: string;
+  breadcrumbTitle?: string;
   sectionTitle?: string;
   homeHref?: string;
 }
 
 export function PageBreadcrumb({
   pageTitle,
+  breadcrumbTitle,
   sectionTitle,
   homeHref = "/",
 }: PageBreadcrumbProps) {
-  const showSection = sectionTitle && sectionTitle !== pageTitle;
+  const lastCrumbTitle = breadcrumbTitle ?? pageTitle;
+  const showSection = sectionTitle && sectionTitle !== lastCrumbTitle;
 
   return (
     <Breadcrumb>
@@ -34,7 +37,7 @@ export function PageBreadcrumb({
           <>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              {pageTitle ? (
+              {lastCrumbTitle ? (
                 <span className="text-muted-foreground">{sectionTitle}</span>
               ) : (
                 <BreadcrumbPage>{sectionTitle}</BreadcrumbPage>
@@ -43,11 +46,11 @@ export function PageBreadcrumb({
           </>
         )}
 
-        {pageTitle && (
+        {lastCrumbTitle && (
           <>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbPage>{pageTitle}</BreadcrumbPage>
+              <BreadcrumbPage>{lastCrumbTitle}</BreadcrumbPage>
             </BreadcrumbItem>
           </>
         )}
