@@ -32,7 +32,7 @@ GitHub `main` 브랜치 push 시 Cloudflare Workers로 자동 배포됩니다.
 
 필요한 GitHub Secrets:
 
-- `CLOUDFLARE_API_TOKEN` — Workers/D1 배포 권한이 있는 API 토큰
+- `CLOUDFLARE_API_TOKEN` — [Cloudflare API 토큰](https://dash.cloudflare.com/profile/api-tokens)에서 **Edit Cloudflare Workers** 템플릿으로 생성
 - `CLOUDFLARE_ACCOUNT_ID` — `25197d91b2bb90ff76f27343cce57d7d`
 
 수동 배포:
