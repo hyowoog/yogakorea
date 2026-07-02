@@ -124,7 +124,8 @@ export function BranchPublicList({ branches, areas, isAdmin }: BranchPublicListP
   }
 
   return (
-    <div className="space-y-4">
+    <div className="overflow-x-auto">
+      <div className="min-w-[1024px] space-y-4">
       {isAdmin ? (
         <div className="flex justify-end">
           <Button type="button" onClick={() => setCreateDialogOpen(true)}>
@@ -230,6 +231,7 @@ export function BranchPublicList({ branches, areas, isAdmin }: BranchPublicListP
           />
         </>
       ) : null}
+      </div>
     </div>
   );
 }

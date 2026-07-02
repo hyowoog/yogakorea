@@ -57,19 +57,21 @@ export async function action({ request, params, context }: Route.ActionArgs) {
   const intent = formData.get("intent");
 
   if (intent === "comment") {
-    const authorName = String(formData.get("authorName") ?? "").trim();
-    const content = String(formData.get("content") ?? "").trim();
-    if (!authorName || !content) {
-      return data({ error: "댓글 내용을 입력해 주세요." }, { status: 400 });
+    const user = await getAuthUser(request, context.cloudflare.env.DB);
+    if (!user) {
+      return data({ error: "댓글 작성은 로그인 후 이용할 수 있습니다.", intent: "comment" }, { status: 403 });
     }
 
-    const user = await getAuthUser(request, context.cloudflare.env.DB);
+    const content = String(formData.get("content") ?? "").trim();
+    if (!content) {
+      return data({ error: "댓글 내용을 입력해 주세요.", intent: "comment" }, { status: 400 });
+    }
 
     await createComment(context.cloudflare.env.DB, {
       postId: Number(params.postId),
-      authorName,
+      authorName: user.name,
       content,
-      memberId: user?.id,
+      memberId: user.id,
     });
 
     return { ok: true, intent: "comment" };
@@ -137,8 +139,7 @@ export default function BoardPost({ loaderData }: Route.ComponentProps) {
   return (
     <SiteLayout
       navigation={mainNavigation}
-      pageTitle={post.title}
-      breadcrumbTitle={board.title}
+      pageTitle={board.title}
       sectionTitle={section?.sectionTitle ?? board.title}
     >
       <PageWithSidebar>

@@ -1,4 +1,4 @@
-import { Form, Link, useFetcher, useRouteLoaderData } from "react-router";
+import { Form, Link, useFetcher, useLocation, useRouteLoaderData } from "react-router";
 import { useEffect, useRef, useState } from "react";
 import type { Attachment, Post } from "~/lib/board.server";
 import type { Comment } from "~/lib/comments";
@@ -38,15 +38,28 @@ type CommentActionData = {
 function BoardCommentForm({ boardId, postId }: { boardId: string; postId: number }) {
   const rootData = useRouteLoaderData<typeof rootLoader>("root");
   const user = rootData?.user;
+  const { pathname, search } = useLocation();
   const fetcher = useFetcher<CommentActionData>();
   const formRef = useRef<HTMLFormElement>(null);
   const isSubmitting = fetcher.state !== "idle";
+  const loginHref = `/login?redirectTo=${encodeURIComponent(`${pathname}${search}`)}`;
 
   useEffect(() => {
     if (fetcher.state === "idle" && fetcher.data?.ok && fetcher.data.intent === "comment") {
       formRef.current?.reset();
     }
   }, [fetcher.state, fetcher.data]);
+
+  if (!user) {
+    return (
+      <div className="yk-comment-form rounded-md border bg-slate-50 px-4 py-3 text-sm text-muted-foreground">
+        댓글 작성은 로그인 후 이용할 수 있습니다.{" "}
+        <Link to={loginHref} className="font-medium text-primary hover:underline">
+          로그인하기
+        </Link>
+      </div>
+    );
+  }
 
   return (
     <fetcher.Form
@@ -56,16 +69,15 @@ function BoardCommentForm({ boardId, postId }: { boardId: string; postId: number
       className="yk-comment-form"
     >
       <input type="hidden" name="intent" value="comment" />
-      {fetcher.data?.error && fetcher.data.intent !== "updateComment" ? (
+      {fetcher.data?.error && fetcher.data.intent === "comment" ? (
         <p className="text-sm text-red-600">{fetcher.data.error}</p>
       ) : null}
       <Input
         name="authorName"
-        placeholder="이름"
-        required
-        disabled={isSubmitting}
-        defaultValue={user?.name ?? ""}
-        readOnly={Boolean(user)}
+        defaultValue={user.name}
+        readOnly
+        disabled
+        aria-readonly="true"
       />
       <Textarea
         name="content"
@@ -217,10 +229,10 @@ export function BoardView({
   return (
     <article className="yk-board-view">
       <div className="yk-board-view-header">
-        <p className="yk-breadcrumb">
+        {/* <p className="yk-breadcrumb">
           <Link to={getBoardBasePath(boardId)}>{boardTitle}</Link>
-        </p>
-        <h1>{post.title}</h1>
+        </p> */}
+        <h1 className="font-bold">{post.title}</h1>
         <div className="yk-post-meta">
           <span>{post.author_name ?? "익명"}</span>
           <span>{post.created_at}</span>

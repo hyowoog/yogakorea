@@ -4,7 +4,9 @@ import Image from "@tiptap/extension-image";
 import Link from "@tiptap/extension-link";
 import Placeholder from "@tiptap/extension-placeholder";
 import { useCallback, useState } from "react";
-import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { ButtonGroup } from "@/components/ui/button-group";
+import { CodeXmlIcon, BoldIcon, ItalicIcon, HeadingIcon, ListIcon, ListOrderedIcon, ImageIcon } from "lucide-react";
 
 interface RichTextEditorProps {
   name: string;
@@ -92,51 +94,58 @@ export function RichTextEditor({
   return (
     <div className="yk-rich-editor">
       <div className="yk-editor-toolbar">
-        <button
+        <ButtonGroup>
+        <Button
           type="button"
-          className={cn(isSourceMode && "active")}
+          variant={isSourceMode ? "secondary" : "outline"}
           onClick={toggleSourceMode}
         >
-          {isSourceMode ? "편집" : "소스"}
-        </button>
-        <button
+          <CodeXmlIcon />{isSourceMode ? "편집" : "소스"}
+        </Button>
+        <Button
           type="button"
+          variant="outline"
           disabled={isSourceMode}
           onClick={() => editor.chain().focus().toggleBold().run()}
         >
-          굵게
-        </button>
-        <button
+          <BoldIcon />굵게
+        </Button>
+        <Button
           type="button"
+          variant="outline"
           disabled={isSourceMode}
           onClick={() => editor.chain().focus().toggleItalic().run()}
         >
-          기울임
-        </button>
-        <button
+          <ItalicIcon />기울임
+        </Button>
+        <Button
           type="button"
+          variant="outline"
           disabled={isSourceMode}
           onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
         >
-          제목
-        </button>
-        <button
+          <HeadingIcon />제목
+        </Button>
+        <Button
           type="button"
+          variant="outline"
           disabled={isSourceMode}
           onClick={() => editor.chain().focus().toggleBulletList().run()}
         >
-          목록
-        </button>
-        <button
+          <ListIcon />목록
+        </Button>
+        <Button
           type="button"
+          variant="outline"
           disabled={isSourceMode}
           onClick={() => editor.chain().focus().toggleOrderedList().run()}
         >
-          번호
-        </button>
-        <button type="button" disabled={isSourceMode} onClick={uploadImage}>
-          이미지
-        </button>
+          <ListOrderedIcon />번호
+        </Button>
+        <Button type="button" variant="outline" disabled={isSourceMode} onClick={uploadImage}>
+          <ImageIcon />이미지
+        </Button>
+        </ButtonGroup>
       </div>
       {isSourceMode ? (
         <textarea

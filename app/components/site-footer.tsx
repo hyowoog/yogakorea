@@ -1,7 +1,7 @@
 export function SiteFooter() {
   return (
     <footer className="yk-footer">
-      <div className="yk-container">
+      <div className="yk-container text-sm md:text-base">
         <div className="space-y-2">
           <div className="">
             <strong>사단법인 한국요가연합회</strong>

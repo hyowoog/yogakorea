@@ -1,6 +1,7 @@
 import { Form, Link } from "react-router";
 import { RichTextEditor } from "~/components/rich-text-editor";
 import { getBoardBasePath } from "~/lib/route-paths";
+import { Separator } from "../ui/separator";
 
 interface BoardWriteFormProps {
   boardId: string;
@@ -29,7 +30,7 @@ export function BoardWriteForm({
         </p>
         <h1>글쓰기</h1>
       </div>
-
+      <Separator className="my-4" />
       <Form method="post" encType="multipart/form-data" action={action} className="yk-form">
         <label>
           제목
