@@ -186,7 +186,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
           <LatestList title="구인구직" boardId="job" posts={loaderData.job} />
           <div className="yk-home-brbr">
             <div className="yk-home-latest-header">
-              <h3>빠람빠라</h3>
+              <h3 className="text-xl font-semibold text-neutral-700">빠람빠라</h3>
               <Link to="/board/brbr">더보기</Link>
             </div>
             <Link to="/board/brbr">

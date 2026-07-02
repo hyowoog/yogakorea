@@ -1,4 +1,7 @@
 /** Eyoom 페이지 HTML (public_html/eyoom/theme/basic2/page 기반) — scripts/import-eyoom-pages.mjs 로 생성 */
+import swami from "~/assets/images/swami.png";
+import member_id from "~/assets/images/member_in.gif";
+
 export const pageContent: Record<string, string> = {
   greetings: `
 <style>
@@ -85,17 +88,16 @@ p {
 <div class="greetings hte-pages">  
 <div class="tab-e2 margin-top-30"> 
 <div class="tag-box tag-box-e3"> 	
-	<div class="row" align="center">
-	<div> 			
-			<div class="sub-img">
-			<img src="/site-assets/img/swami.png" alt="" class="img-responsive">	
-			</div>
-		</div>			
-		</div>
+				
 		<div class="row">	
-		<div class="col-md-1">			
-			</div>
 		<div class="col-md-10">		
+    <div class="lg:flex lg:gap-4">
+      <img src="${swami}" alt="swami" class="img-responsive">
+      <div class=" text-green-600 text-xl p-12 font-bold">
+      <p>요가연합회는 배우고 배운것을 수행하고 실천하는 단체입니다.</p>
+      <p>수행을 통해서 악업에서 벗어나 자유롭고 평화롭고 풍요로운 삶이 되기를 소망합니다.</p>
+      </div>
+      </div>
 			<p><br>예수라는 분이 계셨습니다.<br>그의 아버지는 목수이고 어머니는 시골 여인이었습니다.<br>그 아들은 지혜가 출중하며 열두 살이라 당시 종교 지도자들을 놀라게 하였습니다.<br> 그러던 어느 날 그 소년은 홀연히 자취를 감춥니다. 그리고 18년이 지난 어느 날 갈릴리에 나타났습니다.<br> 사람의 아들인 자신이 하늘에서 왔다고 선언합니다. 그 선언은 복음이며 기쁜 소식이었습니다.<br> 종교 지도자들은 분노했고 민중들은 환호 했습니다. 웅장하고 화려한 성전 안에 갇혀 있는 하늘을 민중들은 만날 수 없었습니다.<br> 극히 제한 된 특권 사제들의 독점물이었습니다. “사람의 아들이 하늘의 아들이다”라는 선언은 그들에게 신성모독이며 민중들은 해방(자유)이었습니다.<br> 나는 이 예수님을 참으로 좋아했습니다. 그러나 그 분이 깨달은 하늘이 내 안에 내가 하늘 안에 있다는 사실을 알아차리지 못하고 헤매고 다녔습니다. </p><br>
 			<p>그 때 나에게 요가는 운명적으로 찾아왔습니다.<br>요가를 통해서 하늘은 무엇이며 나는 어디서 왔으며 어떤 존재이며 어디로 가는지를 제시해 주었고, 근원인 불명성의 하늘과 만나는 행법을 제시해 주었습니다.<br> 수행을 통해 하늘과 하나가 되는 깨달음에 이르게 되었습니다.<br> 나는 2016년 7월 9일 분에 넘치는 스와미 추대를 받았습니다.<br> 내겐 한없는 광영이지만 무거운 책무를 느낍니다. 모든 존재들이 하늘에게 왔고 그래서 귀중한 존재들이기에 앞으로 남은 날 육신을 벗는 날까지 현현한 모든 존재들을 사랑하고 헌신하는 수행을 게을리 하지 않겠습니다.</p><br>
 			<p>요가연합회는 배우고 배운 것을 수행하고 실천하는 단체입니다.<br> 수행을 통해서 악업에서 벗어나 자유롭고 평화롭고 풍요로운 삶이되기를 소망합니다. <br>요가를 배우고 수행하는 모든 도반 여러분들과 연합회를 이끌어 가시는 이사님들, 그리고 회장단 모두에게 진심으로 고마운 마음을 전합니다.</p><br>
@@ -103,13 +105,11 @@ p {
 스와미 석류</p> <br><br><br>
 		</div>
 	</div>
-	</div>
+</div>
 	<blockquote class="hero hero-dark text-center">
 	       <p><em>"언제나 함께 나누고 수행의 향기가 피어나는 아름다운 전통을 만들어 가겠습니다."</em></p>
 	       <small><em>사단법인 한국요가연합회</em></small>
 	</blockquote>	
-</div>
-</div>
 <style>
 .greetings h4 {font-size: 16px;font-weight: 600} 
 </style>
@@ -330,213 +330,213 @@ p {
 </div>
 <div class="tab-e2">
 <ul class="nav nav-tabs">
-<li class="active"><a href="#tab-0" data-toggle="tab">강원</a></li>
-<li><a href="#tab-1" data-toggle="tab">경남</a></li>
-<li><a href="#tab-2" data-toggle="tab">경북</a></li>
-<li><a href="#tab-3" data-toggle="tab">광주·전남</a></li>
-<li><a href="#tab-4" data-toggle="tab">대구</a></li>
-<li><a href="#tab-5" data-toggle="tab">대전·충남</a></li>
-<li><a href="#tab-6" data-toggle="tab">부산</a></li>
-<li><a href="#tab-7" data-toggle="tab">서울·인천</a></li>
-<li><a href="#tab-8" data-toggle="tab">수도권</a></li>
-<li><a href="#tab-9" data-toggle="tab">울산</a></li>
-<li><a href="#tab-10" data-toggle="tab">전북</a></li>
-<li><a href="#tab-11" data-toggle="tab">제주</a></li>
-<li><a href="#tab-12" data-toggle="tab">충북</a></li>
+<li class="active"><a href="#tab-0" data-toggle="tab" class="text-sm">강원</a></li>
+<li><a href="#tab-1" data-toggle="tab" class="text-sm">경남</a></li>
+<li><a href="#tab-2" data-toggle="tab" class="text-sm">경북</a></li>
+<li><a href="#tab-3" data-toggle="tab" class="text-sm">광주·전남</a></li>
+<li><a href="#tab-4" data-toggle="tab" class="text-sm">대구</a></li>
+<li><a href="#tab-5" data-toggle="tab" class="text-sm">대전·충남</a></li>
+<li><a href="#tab-6" data-toggle="tab" class="text-sm">부산</a></li>
+<li><a href="#tab-7" data-toggle="tab" class="text-sm">서울·인천</a></li>
+<li><a href="#tab-8" data-toggle="tab" class="text-sm">수도권</a></li>
+<li><a href="#tab-9" data-toggle="tab" class="text-sm">울산</a></li>
+<li><a href="#tab-10" data-toggle="tab" class="text-sm">전북</a></li>
+<li><a href="#tab-11" data-toggle="tab" class="text-sm">제주</a></li>
+<li><a href="#tab-12" data-toggle="tab" class="text-sm">충북</a></li>
 </ul>
 <div class="tab-content padding-all-15">
 <div class="tab-pane fade in active" id="tab-0">
 <table class="table table-hover">
-<thead><tr><th style="text-align: center">회장</th></tr></thead>
-<tbody><tr style="text-align: center;"><th style="text-align: center">이장희</th></tr></tbody>
+<thead><tr><th style="text-align: center; font-size: 13px;">회장</th></tr></thead>
+<tbody><tr style="text-align: center;"><th style="text-align: center; font-size: 13px;">이장희</th></tr></tbody>
 </table>
 </div>
 <div class="tab-pane fade in" id="tab-1">
 <table class="table table-hover">
-<thead><tr><th style="text-align: center">회장</th>
-<th style="text-align: center">부회장</th>
-<th style="text-align: center">총무이사</th>
-<th style="text-align: center">이사</th>
-<th style="text-align: center">이사</th>
-<th style="text-align: center">이사</th>
-<th style="text-align: center">이사</th>
-<th style="text-align: center">이사</th>
-<th style="text-align: center">이사</th>
-<th style="text-align: center">이사</th>
-<th style="text-align: center">이사</th>
-<th style="text-align: center">이사</th>
-<th style="text-align: center">이사</th>
-<th style="text-align: center">이사</th>
-<th style="text-align: center">회계감사</th>
-<th style="text-align: center">사업감사</th></tr></thead>
-<tbody><tr style="text-align: center;"><th style="text-align: center">이미애</th>
-<th style="text-align: center">한외순</th>
-<th style="text-align: center">하은숙</th>
-<th style="text-align: center">성원남</th>
-<th style="text-align: center">조외숙</th>
-<th style="text-align: center">한광희</th>
-<th style="text-align: center">김현주</th>
-<th style="text-align: center">김나경</th>
-<th style="text-align: center">최경옥</th>
-<th style="text-align: center">신지윤</th>
-<th style="text-align: center">최경화</th>
-<th style="text-align: center">이은경</th>
-<th style="text-align: center">장정이</th>
-<th style="text-align: center">권효선</th>
-<th style="text-align: center">안세진</th>
-<th style="text-align: center">반순옥</th></tr></tbody>
+<thead><tr><th style="text-align: center; font-size: 13px;">회장</th>
+<th style="text-align: center; font-size: 13px;">부회장</th>
+<th style="text-align: center; font-size: 13px;">총무이사</th>
+<th style="text-align: center; font-size: 13px;">이사</th>
+<th style="text-align: center; font-size: 13px;">이사</th>
+<th style="text-align: center; font-size: 13px;">이사</th>
+<th style="text-align: center; font-size: 13px;">이사</th>
+<th style="text-align: center; font-size: 13px;">이사</th>
+<th style="text-align: center; font-size: 13px;">이사</th>
+<th style="text-align: center; font-size: 13px;">이사</th>
+<th style="text-align: center; font-size: 13px;">이사</th>
+<th style="text-align: center; font-size: 13px;">이사</th>
+<th style="text-align: center; font-size: 13px;">이사</th>
+<th style="text-align: center; font-size: 13px;">이사</th>
+<th style="text-align: center; font-size: 13px;">회계감사</th>
+<th style="text-align: center; font-size: 13px;">사업감사</th></tr></thead>
+<tbody><tr style="text-align: center;"><th style="text-align: center; font-size: 13px;">이미애</th>
+<th style="text-align: center; font-size: 13px;">한외순</th>
+<th style="text-align: center; font-size: 13px;">하은숙</th>
+<th style="text-align: center; font-size: 13px;">성원남</th>
+<th style="text-align: center; font-size: 13px;">조외숙</th>
+<th style="text-align: center; font-size: 13px;">한광희</th>
+<th style="text-align: center; font-size: 13px;">김현주</th>
+<th style="text-align: center; font-size: 13px;">김나경</th>
+<th style="text-align: center; font-size: 13px;">최경옥</th>
+<th style="text-align: center; font-size: 13px;">신지윤</th>
+<th style="text-align: center; font-size: 13px;">최경화</th>
+<th style="text-align: center; font-size: 13px;">이은경</th>
+<th style="text-align: center; font-size: 13px;">장정이</th>
+<th style="text-align: center; font-size: 13px;">권효선</th>
+<th style="text-align: center; font-size: 13px;">안세진</th>
+<th style="text-align: center; font-size: 13px;">반순옥</th></tr></tbody>
 </table>
 </div>
 <div class="tab-pane fade in" id="tab-2">
 <table class="table table-hover">
-<thead><tr><th style="text-align: center">회장</th>
-<th style="text-align: center">부회장</th>
-<th style="text-align: center">부회장</th>
-<th style="text-align: center">총무</th>
-<th style="text-align: center">감사</th></tr></thead>
-<tbody><tr style="text-align: center;"><th style="text-align: center">장숙희</th>
-<th style="text-align: center">심옥선</th>
-<th style="text-align: center">전연자</th>
-<th style="text-align: center">송정선</th>
-<th style="text-align: center">권명옥</th></tr></tbody>
+<thead><tr><th style="text-align: center; font-size: 13px;">회장</th>
+<th style="text-align: center; font-size: 13px;">부회장</th>
+<th style="text-align: center; font-size: 13px;">부회장</th>
+<th style="text-align: center; font-size: 13px;">총무</th>
+<th style="text-align: center; font-size: 13px;">감사</th></tr></thead>
+<tbody><tr style="text-align: center;"><th style="text-align: center; font-size: 13px;">장숙희</th>
+<th style="text-align: center; font-size: 13px;">심옥선</th>
+<th style="text-align: center; font-size: 13px;">전연자</th>
+<th style="text-align: center; font-size: 13px;">송정선</th>
+<th style="text-align: center; font-size: 13px;">권명옥</th></tr></tbody>
 </table>
 </div>
 <div class="tab-pane fade in" id="tab-3">
 <table class="table table-hover">
-<thead><tr><th style="text-align: center">회장</th>
-<th style="text-align: center">부회장</th>
-<th style="text-align: center">부회장</th>
-<th style="text-align: center">총무</th>
-<th style="text-align: center">감사</th>
-<th style="text-align: center">명예회장</th>
-<th style="text-align: center">고문</th>
-<th style="text-align: center">고문</th>
-<th style="text-align: center">고문</th></tr></thead>
-<tbody><tr style="text-align: center;"><th style="text-align: center">윤경숙</th>
-<th style="text-align: center">윤영희</th>
-<th style="text-align: center">정수정</th>
-<th style="text-align: center">정금숙</th>
-<th style="text-align: center">김명자</th>
-<th style="text-align: center">유명아</th>
-<th style="text-align: center">박정애</th>
-<th style="text-align: center">류민수</th>
-<th style="text-align: center">박효정</th></tr></tbody>
+<thead><tr><th style="text-align: center; font-size: 13px;">회장</th>
+<th style="text-align: center; font-size: 13px;">부회장</th>
+<th style="text-align: center; font-size: 13px;">부회장</th>
+<th style="text-align: center; font-size: 13px;">총무</th>
+<th style="text-align: center; font-size: 13px;">감사</th>
+<th style="text-align: center; font-size: 13px;">명예회장</th>
+<th style="text-align: center; font-size: 13px;">고문</th>
+<th style="text-align: center; font-size: 13px;">고문</th>
+<th style="text-align: center; font-size: 13px;">고문</th></tr></thead>
+<tbody><tr style="text-align: center;"><th style="text-align: center; font-size: 13px;">윤경숙</th>
+<th style="text-align: center; font-size: 13px;">윤영희</th>
+<th style="text-align: center; font-size: 13px;">정수정</th>
+<th style="text-align: center; font-size: 13px;">정금숙</th>
+<th style="text-align: center; font-size: 13px;">김명자</th>
+<th style="text-align: center; font-size: 13px;">유명아</th>
+<th style="text-align: center; font-size: 13px;">박정애</th>
+<th style="text-align: center; font-size: 13px;">류민수</th>
+<th style="text-align: center; font-size: 13px;">박효정</th></tr></tbody>
 </table>
 </div>
 <div class="tab-pane fade in" id="tab-4">
 <table class="table table-hover">
-<thead><tr><th style="text-align: center">회장</th>
-<th style="text-align: center">부회장</th>
-<th style="text-align: center">총무</th></tr></thead>
-<tbody><tr style="text-align: center;"><th style="text-align: center">강령아</th>
-<th style="text-align: center">이진우</th>
-<th style="text-align: center">이기연</th></tr></tbody>
+<thead><tr><th style="text-align: center; font-size: 13px;">회장</th>
+<th style="text-align: center; font-size: 13px;">부회장</th>
+<th style="text-align: center; font-size: 13px;">총무</th></tr></thead>
+<tbody><tr style="text-align: center;"><th style="text-align: center; font-size: 13px;">강령아</th>
+<th style="text-align: center; font-size: 13px;">이진우</th>
+<th style="text-align: center; font-size: 13px;">이기연</th></tr></tbody>
 </table>
 </div>
 <div class="tab-pane fade in" id="tab-5">
 <table class="table table-hover">
-<thead><tr><th style="text-align: center">회장</th>
-<th style="text-align: center">총무</th>
-<th style="text-align: center">감사</th>
-<th style="text-align: center">이사</th>
-<th style="text-align: center">이사</th></tr></thead>
-<tbody><tr style="text-align: center;"><th style="text-align: center">지혜정</th>
-<th style="text-align: center">전인숙</th>
-<th style="text-align: center">김혜정</th>
-<th style="text-align: center">최혜진</th>
-<th style="text-align: center">윤지애</th></tr></tbody>
+<thead><tr><th style="text-align: center; font-size: 13px;">회장</th>
+<th style="text-align: center; font-size: 13px;">총무</th>
+<th style="text-align: center; font-size: 13px;">감사</th>
+<th style="text-align: center; font-size: 13px;">이사</th>
+<th style="text-align: center; font-size: 13px;">이사</th></tr></thead>
+<tbody><tr style="text-align: center;"><th style="text-align: center; font-size: 13px;">지혜정</th>
+<th style="text-align: center; font-size: 13px;">전인숙</th>
+<th style="text-align: center; font-size: 13px;">김혜정</th>
+<th style="text-align: center; font-size: 13px;">최혜진</th>
+<th style="text-align: center; font-size: 13px;">윤지애</th></tr></tbody>
 </table>
 </div>
 <div class="tab-pane fade in" id="tab-6">
 <table class="table table-hover">
-<thead><tr><th style="text-align: center">회장</th>
-<th style="text-align: center">이사</th>
-<th style="text-align: center">이사</th>
-<th style="text-align: center">이사</th>
-<th style="text-align: center">이사</th>
-<th style="text-align: center">이사</th></tr></thead>
-<tbody><tr style="text-align: center;"><th style="text-align: center">손주혜</th>
-<th style="text-align: center">정영자</th>
-<th style="text-align: center">최도향</th>
-<th style="text-align: center">박제민</th>
-<th style="text-align: center">조선제</th>
-<th style="text-align: center">김경전</th></tr></tbody>
+<thead><tr><th style="text-align: center; font-size: 13px;">회장</th>
+<th style="text-align: center; font-size: 13px;">이사</th>
+<th style="text-align: center; font-size: 13px;">이사</th>
+<th style="text-align: center; font-size: 13px;">이사</th>
+<th style="text-align: center; font-size: 13px;">이사</th>
+<th style="text-align: center; font-size: 13px;">이사</th></tr></thead>
+<tbody><tr style="text-align: center;"><th style="text-align: center; font-size: 13px;">손주혜</th>
+<th style="text-align: center; font-size: 13px;">정영자</th>
+<th style="text-align: center; font-size: 13px;">최도향</th>
+<th style="text-align: center; font-size: 13px;">박제민</th>
+<th style="text-align: center; font-size: 13px;">조선제</th>
+<th style="text-align: center; font-size: 13px;">김경전</th></tr></tbody>
 </table>
 </div>
 <div class="tab-pane fade in" id="tab-7">
 <table class="table table-hover">
-<thead><tr><th style="text-align: center">회장</th>
-<th style="text-align: center">총무</th>
-<th style="text-align: center">이사</th>
-<th style="text-align: center">이사</th></tr></thead>
-<tbody><tr style="text-align: center;"><th style="text-align: center">이미숙</th>
-<th style="text-align: center">이인숙</th>
-<th style="text-align: center">정평둘</th>
-<th style="text-align: center">황나현</th></tr></tbody>
+<thead><tr><th style="text-align: center; font-size: 13px;">회장</th>
+<th style="text-align: center; font-size: 13px;">총무</th>
+<th style="text-align: center; font-size: 13px;">이사</th>
+<th style="text-align: center; font-size: 13px;">이사</th></tr></thead>
+<tbody><tr style="text-align: center;"><th style="text-align: center; font-size: 13px;">이미숙</th>
+<th style="text-align: center; font-size: 13px;">이인숙</th>
+<th style="text-align: center; font-size: 13px;">정평둘</th>
+<th style="text-align: center; font-size: 13px;">황나현</th></tr></tbody>
 </table>
 </div>
 <div class="tab-pane fade in" id="tab-8">
 <table class="table table-hover">
-<thead><tr><th style="text-align: center">회장</th>
-<th style="text-align: center">부회장</th>
-<th style="text-align: center">총무</th>
-<th style="text-align: center">이사</th>
-<th style="text-align: center">이사</th>
-<th style="text-align: center">이사</th>
-<th style="text-align: center">이사</th>
-<th style="text-align: center">이사</th></tr></thead>
-<tbody><tr style="text-align: center;"><th style="text-align: center">현명복</th>
-<th style="text-align: center">임덕</th>
-<th style="text-align: center">송명희</th>
-<th style="text-align: center">김영옥</th>
-<th style="text-align: center">이광진</th>
-<th style="text-align: center">김도하</th>
-<th style="text-align: center">이영순</th>
-<th style="text-align: center">조서현</th></tr></tbody>
+<thead><tr><th style="text-align: center; font-size: 13px;">회장</th>
+<th style="text-align: center; font-size: 13px;">부회장</th>
+<th style="text-align: center; font-size: 13px;">총무</th>
+<th style="text-align: center; font-size: 13px;">이사</th>
+<th style="text-align: center; font-size: 13px;">이사</th>
+<th style="text-align: center; font-size: 13px;">이사</th>
+<th style="text-align: center; font-size: 13px;">이사</th>
+<th style="text-align: center; font-size: 13px;">이사</th></tr></thead>
+<tbody><tr style="text-align: center;"><th style="text-align: center; font-size: 13px;">현명복</th>
+<th style="text-align: center; font-size: 13px;">임덕</th>
+<th style="text-align: center; font-size: 13px;">송명희</th>
+<th style="text-align: center; font-size: 13px;">김영옥</th>
+<th style="text-align: center; font-size: 13px;">이광진</th>
+<th style="text-align: center; font-size: 13px;">김도하</th>
+<th style="text-align: center; font-size: 13px;">이영순</th>
+<th style="text-align: center; font-size: 13px;">조서현</th></tr></tbody>
 </table>
 </div>
 <div class="tab-pane fade in" id="tab-9">
 <table class="table table-hover">
-<thead><tr><th style="text-align: center">회장</th>
-<th style="text-align: center">총무</th></tr></thead>
-<tbody><tr style="text-align: center;"><th style="text-align: center">이선근</th>
-<th style="text-align: center">박소연</th></tr></tbody>
+<thead><tr><th style="text-align: center; font-size: 13px;">회장</th>
+<th style="text-align: center; font-size: 13px;">총무</th></tr></thead>
+<tbody><tr style="text-align: center;"><th style="text-align: center; font-size: 13px;">이선근</th>
+<th style="text-align: center; font-size: 13px;">박소연</th></tr></tbody>
 </table>
 </div>
 <div class="tab-pane fade in" id="tab-10">
 <table class="table table-hover">
-<thead><tr><th style="text-align: center">회장</th>
-<th style="text-align: center">부회장</th>
-<th style="text-align: center">총무</th>
-<th style="text-align: center">이사</th>
-<th style="text-align: center">감사</th></tr></thead>
-<tbody><tr style="text-align: center;"><th style="text-align: center">장지영</th>
-<th style="text-align: center">신주연</th>
-<th style="text-align: center">이은옥</th>
-<th style="text-align: center">김유진</th>
-<th style="text-align: center">유명선</th></tr></tbody>
+<thead><tr><th style="text-align: center; font-size: 13px;">회장</th>
+<th style="text-align: center; font-size: 13px;">부회장</th>
+<th style="text-align: center; font-size: 13px;">총무</th>
+<th style="text-align: center; font-size: 13px;">이사</th>
+<th style="text-align: center; font-size: 13px;">감사</th></tr></thead>
+<tbody><tr style="text-align: center;"><th style="text-align: center; font-size: 13px;">장지영</th>
+<th style="text-align: center; font-size: 13px;">신주연</th>
+<th style="text-align: center; font-size: 13px;">이은옥</th>
+<th style="text-align: center; font-size: 13px;">김유진</th>
+<th style="text-align: center; font-size: 13px;">유명선</th></tr></tbody>
 </table>
 </div>
 <div class="tab-pane fade in" id="tab-11">
 <table class="table table-hover">
-<thead><tr><th style="text-align: center">회장</th>
-<th style="text-align: center">총무이사</th>
-<th style="text-align: center">이사</th></tr></thead>
-<tbody><tr style="text-align: center;"><th style="text-align: center">윤수정</th>
-<th style="text-align: center">이미숙</th>
-<th style="text-align: center">신지윤</th></tr></tbody>
+<thead><tr><th style="text-align: center; font-size: 13px;">회장</th>
+<th style="text-align: center; font-size: 13px;">총무이사</th>
+<th style="text-align: center; font-size: 13px;">이사</th></tr></thead>
+<tbody><tr style="text-align: center;"><th style="text-align: center; font-size: 13px;">윤수정</th>
+<th style="text-align: center; font-size: 13px;">이미숙</th>
+<th style="text-align: center; font-size: 13px;">신지윤</th></tr></tbody>
 </table>
 </div>
 <div class="tab-pane fade in" id="tab-12">
 <table class="table table-hover">
-<thead><tr><th style="text-align: center">회장</th>
-<th style="text-align: center">총무</th>
-<th style="text-align: center">이사</th>
-<th style="text-align: center">이사</th></tr></thead>
-<tbody><tr style="text-align: center;"><th style="text-align: center">이재연</th>
-<th style="text-align: center">반현희</th>
-<th style="text-align: center">이지선</th>
-<th style="text-align: center">최윤경</th></tr></tbody>
+<thead><tr><th style="text-align: center; font-size: 13px;">회장</th>
+<th style="text-align: center; font-size: 13px;">총무</th>
+<th style="text-align: center; font-size: 13px;">이사</th>
+<th style="text-align: center; font-size: 13px;">이사</th></tr></thead>
+<tbody><tr style="text-align: center;"><th style="text-align: center; font-size: 13px;">이재연</th>
+<th style="text-align: center; font-size: 13px;">반현희</th>
+<th style="text-align: center; font-size: 13px;">이지선</th>
+<th style="text-align: center; font-size: 13px;">최윤경</th></tr></tbody>
 </table>
 </div>
 </div>
@@ -591,11 +591,11 @@ p {
 		<br>
 		<span class="text-highlights text-highlights-green">응시방법</span><br><br>
 		<div class="sub-img">
-       <img src="/site-assets/img/member_in.gif" alt="" class="img-responsive">
+       <img src="${member_id}" alt="" class="img-responsive">
 	   </div>
 	   <br><br>
 	<span class="text-highlights text-highlights-green">시험결과</span><br><br>
-	<ol>
+	<ol class="mb-8">
     <li> 평균점수가 70점 미만은 불합격으로 하며, 평균점수가 70점 이상인 경우에도 과목낙제가 있으면 불합격으로 한다.</li>
     <li> 과목낙제는 객관식, 주관식, 아사나, 호흡, 지도력, 구술, 인성으로 나누어 각각 평가된다. (예, 평균점수가 70점 일 때, 객관식 10점 미만은 불합격)</li>
 	</ol>    	
@@ -1425,9 +1425,9 @@ p {
   <table class="table table-bordered">
     <thead>
         <tr>
-            <th style="text-align: center">구분</th>
-            <th style="text-align: center">단체 및 대학명</th>
-            <th style="text-align: center">홈페이지</th>         
+            <th style="text-align: center; font-size: 13px;">구분</th>
+            <th style="text-align: center; font-size: 13px;">단체 및 대학명</th>
+            <th style="text-align: center; font-size: 13px;">홈페이지</th>         
         </tr>
     </thead>
     <tbody>
@@ -1484,9 +1484,9 @@ p {
   <table class="table table-bordered">
     <thead>
         <tr>
-            <th style="text-align: center">구분</th>
-            <th style="text-align: center">업체명</th>
-            <th style="text-align: center">홈페이지</th>         
+            <th style="text-align: center; font-size: 13px;">구분</th>
+            <th style="text-align: center; font-size: 13px;">업체명</th>
+            <th style="text-align: center; font-size: 13px;">홈페이지</th>         
         </tr>
     </thead>
     <tbody>
@@ -1530,9 +1530,9 @@ p {
   <table class="table table-bordered">
     <thead>
         <tr>
-            <th style="text-align: center">구분</th>
-            <th style="text-align: center">사이트명</th>
-            <th style="text-align: center">홈페이지</th>         
+            <th style="text-align: center; font-size: 13px;">구분</th>
+            <th style="text-align: center; font-size: 13px;">사이트명</th>
+            <th style="text-align: center; font-size: 13px;">홈페이지</th>         
         </tr>
     </thead>
     <tbody>

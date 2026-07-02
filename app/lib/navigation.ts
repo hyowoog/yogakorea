@@ -30,7 +30,6 @@ export const mainNavigation: NavItem[] = [
       { label: "지도자양성 및 자격시험", href: "/pages/biz01" },
       { label: "특수자격증 발급", href: "/pages/biz02" },
       { label: "교육사업", href: "/pages/biz03" },
-      { label: "기타지원", href: "/pages/biz04" },
     ],
   },
   {
@@ -103,7 +102,6 @@ export const pageMeta: Record<
   biz01: { title: "지도자양성 및 자격시험", section: "work", sectionTitle: "주요사업" },
   biz02: { title: "특수자격증 발급", section: "work", sectionTitle: "주요사업" },
   biz03: { title: "교육사업", section: "work", sectionTitle: "주요사업" },
-  biz04: { title: "기타지원", section: "work", sectionTitle: "주요사업" },
   relative01: { title: "참여대학 및 단체", section: "link", sectionTitle: "관련단체" },
   relative02: { title: "후원 및 협찬사", section: "link", sectionTitle: "관련단체" },
   relative03: { title: "관련 사이트", section: "link", sectionTitle: "관련단체" },

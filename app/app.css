@@ -249,6 +249,47 @@ a {
   font-weight: 600;
 }
 
+.yk-brbr-reader {
+  min-height: 24rem;
+}
+
+.yk-brbr-nav {
+  position: sticky;
+  top: 5.5rem;
+}
+
+.yk-brbr-nav-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.yk-brbr-nav-list a {
+  display: block;
+  padding: 0.625rem 0.75rem;
+  border-radius: 6px;
+  color: var(--yk-text);
+  font-size: 0.9rem;
+  line-height: 1.4;
+  text-decoration: none;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.yk-brbr-nav-list a:hover {
+  background: var(--yk-bg);
+  color: var(--yk-primary);
+}
+
+.yk-brbr-nav-list a.active {
+  background: #eef4ff;
+  color: var(--yk-primary);
+  font-weight: 600;
+}
+
+.yk-brbr-content .yk-post-content {
+  line-height: 1.7;
+}
+
 @media (max-width: 900px) {
   .yk-page-with-sidebar {
     grid-template-columns: 1fr;
@@ -729,6 +770,32 @@ a {
   border-radius: 6px;
   background: #fff;
   cursor: pointer;
+}
+
+.yk-editor-toolbar button.active {
+  background: #eef4ff;
+  border-color: var(--yk-primary);
+  color: var(--yk-primary);
+  font-weight: 600;
+}
+
+.yk-editor-toolbar button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.yk-editor-source {
+  display: block;
+  width: 100%;
+  min-height: 280px;
+  padding: 1rem;
+  border: 0;
+  background: #fff;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  resize: vertical;
+  outline: none;
 }
 
 .yk-editor-content {

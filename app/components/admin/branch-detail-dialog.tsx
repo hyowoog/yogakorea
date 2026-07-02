@@ -23,12 +23,14 @@ interface BranchDetailDialogProps {
   branchId: number | null;
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  showDelete?: boolean;
 }
 
 export function BranchDetailDialog({
   branchId,
   open,
   onOpenChange,
+  showDelete = true,
 }: BranchDetailDialogProps) {
   const fetcher = useFetcher<BranchDetailFetcherData>({
     key: branchId ? `branch-detail-${branchId}` : "branch-detail",
@@ -121,24 +123,26 @@ export function BranchDetailDialog({
               </div>
             </fetcher.Form>
 
-            <DialogFooter className="sm:justify-start">
-              <fetcher.Form
-                method="post"
-                action={detailUrl ?? undefined}
-                onSubmit={(event) => {
-                  if (!confirm("정말 삭제하시겠습니까?")) {
-                    event.preventDefault();
-                    return;
-                  }
-                  closeAfterDeleteRef.current = true;
-                }}
-              >
-                <input type="hidden" name="intent" value="delete" />
-                <Button type="submit" variant="destructive" size="sm" disabled={isSubmitting}>
-                  삭제
-                </Button>
-              </fetcher.Form>
-            </DialogFooter>
+            {showDelete ? (
+              <DialogFooter className="sm:justify-start">
+                <fetcher.Form
+                  method="post"
+                  action={detailUrl ?? undefined}
+                  onSubmit={(event) => {
+                    if (!confirm("정말 삭제하시겠습니까?")) {
+                      event.preventDefault();
+                      return;
+                    }
+                    closeAfterDeleteRef.current = true;
+                  }}
+                >
+                  <input type="hidden" name="intent" value="delete" />
+                  <Button type="submit" variant="destructive" size="sm" disabled={isSubmitting}>
+                    삭제
+                  </Button>
+                </fetcher.Form>
+              </DialogFooter>
+            ) : null}
           </div>
         ) : null}
       </DialogContent>

@@ -18,7 +18,7 @@ type BranchCreateActionData = {
 interface BranchCreateDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  onCreated: (branchId: number) => void;
+  onCreated?: (branchId: number) => void;
 }
 
 export function BranchCreateDialog({
@@ -41,7 +41,7 @@ export function BranchCreateDialog({
       formRef.current?.reset();
       revalidator.revalidate();
       onOpenChange(false);
-      onCreated(fetcher.data.detailId);
+      onCreated?.(fetcher.data.detailId);
       return;
     }
 

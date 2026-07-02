@@ -23,24 +23,24 @@ export function SiteHeader({ navigation, variant = "main" }: SiteHeaderProps) {
         <div className="yk-container yk-topbar-inner">
           <span>사단법인 한국요가연합회</span>
           <div className="yk-topbar-links">
-            <Link to="/board/notice">공지사항</Link>
-            <Link to="/pages/contactus">오시는길</Link>
+            {/* <Link to="/board/notice">공지사항</Link>
+            <Link to="/pages/contactus">오시는길</Link> */}
             {user ? (
               <>
-                <span className="yk-topbar-user">{user.name}님</span>
+                <span className="text-lime-400 font-thin">{user.name}님 로그인중</span>
                 {user.level >= ADMIN_LEVEL ? (
-                  <Link to="/admin">관리자</Link>
+                  <Link to="/admin">관리자모드</Link>
                 ) : null}
                 <Link to="/logout">로그아웃</Link>
               </>
             ) : (
               <Link to="/login">로그인</Link>
             )}
-            {variant === "main" ? (
+            {/* {variant === "main" ? (
               <Link to="/renew">리뉴얼 사이트</Link>
             ) : (
               <Link to="/">메인 사이트</Link>
-            )}
+            )} */}
           </div>
         </div>
       </div>

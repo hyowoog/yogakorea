@@ -1,5 +1,5 @@
 import type { Route } from "./+types/board.$boardId.$postId";
-import { data } from "react-router";
+import { data, redirect } from "react-router";
 import { BoardView } from "~/components/board/board-view";
 import { PageWithSidebar } from "~/components/page-sidebar";
 import { SiteLayout } from "~/components/site-layout";
@@ -17,6 +17,7 @@ import {
   updateComment,
 } from "~/lib/board.server";
 import { getAuthUser } from "~/lib/auth.server";
+import { isBrbrBoard } from "~/lib/board-access";
 import { getSectionSidebar, mainNavigation } from "~/lib/navigation";
 
 export function meta({ data: loaderData }: Route.MetaArgs) {
@@ -30,6 +31,10 @@ export async function loader({ params, request, context }: Route.LoaderArgs) {
 
   if (!board || !post || post.board_id !== params.boardId) {
     throw data("게시글을 찾을 수 없습니다.", { status: 404 });
+  }
+
+  if (isBrbrBoard(board)) {
+    throw redirect(`/board/${params.boardId}?post=${params.postId}`);
   }
 
   await requireBoardAccess(request, db, params.boardId);

@@ -20,3 +20,16 @@ export function formatPostContent(content: string | null): string {
     .replace(/\r\n/g, "\n")
     .replace(/\n/g, "<br>");
 }
+
+export function getPostPlainTextExcerpt(content: string | null, maxLength = 120) {
+  if (!content?.trim()) return "";
+
+  const text = rewriteLegacyMediaUrls(normalizeLegacyPostHtml(content))
+    .replace(/<[^>]+>/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+
+  if (!text) return "";
+  if (text.length <= maxLength) return text;
+  return `${text.slice(0, maxLength)}…`;
+}

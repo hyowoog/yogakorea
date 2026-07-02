@@ -1,6 +1,6 @@
 import { redirect } from "react-router";
-import { isPublicBoard } from "~/lib/board-access";
-import { getAuthUser, type Member } from "~/lib/auth.server";
+import { isBrbrBoard, isPublicBoard } from "~/lib/board-access";
+import { getAuthUser, requireAdmin, type Member } from "~/lib/auth.server";
 import { canEditComment, type Comment } from "~/lib/comments";
 
 export type { Comment };
@@ -293,4 +293,16 @@ export async function requireBoardAccess(
   }
 
   return user;
+}
+
+export async function requireBoardMutationAccess(
+  request: Request,
+  db: Env["DB"],
+  boardId: string,
+): Promise<Member | null> {
+  if (isBrbrBoard({ id: boardId })) {
+    return requireAdmin(request, db);
+  }
+
+  return requireBoardAccess(request, db, boardId);
 }

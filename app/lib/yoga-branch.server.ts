@@ -51,6 +51,33 @@ export interface BranchFilters {
   yYn?: string;
 }
 
+/** 전국요가원 공개 페이지 탭 순서 */
+export const BRANCH_AREA_TAB_ORDER = [
+  "경기강원권",
+  "서울인천권",
+  "경남권",
+  "경북권",
+  "광주전남권",
+  "대구권",
+  "부산권",
+  "울산권",
+  "전북권",
+  "제주권",
+  "충청권",
+] as const;
+
+export function sortBranchAreas(areas: string[]) {
+  const order = new Map<string, number>(
+    BRANCH_AREA_TAB_ORDER.map((area, index) => [area, index]),
+  );
+  return [...areas].sort((a, b) => {
+    const left = order.get(a) ?? 999;
+    const right = order.get(b) ?? 999;
+    if (left !== right) return left - right;
+    return a.localeCompare(b, "ko");
+  });
+}
+
 function buildBranchWhere(filters: BranchFilters) {
   const clauses = ["y_name IS NOT NULL"];
   const binds: string[] = [];
@@ -140,6 +167,28 @@ export async function listBranchFilterOptions(db: Env["DB"]) {
     areas: areas.results?.map((r) => r.value) ?? [],
     types: types.results?.map((r) => r.value) ?? [],
   };
+}
+
+export async function listPublicBranches(db: Env["DB"]) {
+  const result = await db
+    .prepare(
+      `SELECT * FROM yoga_branches
+       WHERE y_yn = 'Y' AND y_name IS NOT NULL AND TRIM(y_name) != ''
+       ORDER BY y_area_dscd, y_name`,
+    )
+    .all<YogaBranch>();
+  return result.results ?? [];
+}
+
+export async function listPublicBranchAreas(db: Env["DB"]) {
+  const result = await db
+    .prepare(
+      `SELECT DISTINCT y_area_dscd AS value FROM yoga_branches
+       WHERE y_yn = 'Y' AND y_area_dscd IS NOT NULL AND TRIM(y_area_dscd) != ''`,
+    )
+    .all<{ value: string }>();
+  const areas = result.results?.map((row) => row.value) ?? [];
+  return sortBranchAreas(areas);
 }
 
 export async function createBranch(db: Env["DB"], input: BranchInput) {
