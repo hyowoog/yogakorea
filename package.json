@@ -4,7 +4,10 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "prebuild": "node scripts/prepare-public.mjs",
     "build": "react-router build && node scripts/write-assetsignore.mjs",
+    "assets:pack": "node scripts/pack-static-assets.mjs",
+    "assets:upload": "node scripts/upload-static-assets.mjs",
     "cf-typegen": "wrangler types && react-router typegen",
     "check": "tsc && react-router build && wrangler deploy --dry-run",
     "deploy": "wrangler deploy",

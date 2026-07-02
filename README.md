@@ -43,6 +43,12 @@ npm run db:migrate:remote
 npm run deploy
 ```
 
+레거시 정적 파일(`public_html`)은 git에 포함되지 않습니다. CI 빌드는 R2의 `ci/static-assets.tgz`를 내려받아 사용합니다. 로컬에서 `public_html`을 갱신한 뒤에는 아래로 R2에 다시 올려주세요.
+
+```bash
+npm run assets:upload
+```
+
 ## Cloudflare 리소스
 
 - Worker: `yogakorea`

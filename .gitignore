@@ -203,6 +203,9 @@ dist
 /build/
 
 ### Project ###
+static-assets.tgz
+public/site-assets/
+public/renew-assets/
 scripts/output/
 .wrangler/
 dump.sql
