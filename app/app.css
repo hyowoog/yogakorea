@@ -291,6 +291,21 @@ a {
 }
 
 @media (max-width: 900px) {
+  .yk-logo img {
+    height: 56px;
+  }
+
+  .yk-topbar-inner {
+    justify-content: flex-end;
+  }
+
+  .yk-topbar-links {
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 0.5rem 0.75rem;
+    font-size: 0.8rem;
+  }
+
   .yk-page-with-sidebar {
     grid-template-columns: 1fr;
     gap: 1.5rem;
