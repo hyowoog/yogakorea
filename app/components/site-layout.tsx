@@ -10,6 +10,8 @@ interface SiteLayoutProps {
   pageTitle?: string;
   sectionTitle?: string;
   hidePageHero?: boolean;
+  hideHeader?: boolean;
+  hideFooter?: boolean;
 }
 
 export function SiteLayout({
@@ -19,10 +21,12 @@ export function SiteLayout({
   pageTitle,
   sectionTitle,
   hidePageHero = false,
+  hideHeader = false,
+  hideFooter = false,
 }: SiteLayoutProps) {
   return (
     <div className="yk-site">
-      <SiteHeader navigation={navigation} variant={variant} />
+      {hideHeader ? null : <SiteHeader navigation={navigation} variant={variant} />}
       {!hidePageHero && (pageTitle || sectionTitle) && (
         <div className="yk-page-hero">
           <div className="yk-container">
@@ -39,7 +43,7 @@ export function SiteLayout({
         </div>
       )}
       <main className="yk-main">{children}</main>
-      <SiteFooter />
+      {hideFooter ? null : <SiteFooter />}
     </div>
   );
 }

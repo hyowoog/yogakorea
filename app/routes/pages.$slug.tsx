@@ -21,21 +21,31 @@ export async function loader({ params }: Route.LoaderArgs) {
     pageContent[params.slug] ??
     `<p>${info.title} 페이지입니다. 상세 콘텐츠는 마이그레이션 중입니다.</p>`;
 
-  return { info, html };
+  return { info, html, slug: params.slug };
 }
 
 export default function Page({ loaderData }: Route.ComponentProps) {
-  const { info, html } = loaderData;
+  const { info, html, slug } = loaderData;
+  const isInfoDetail = slug === "info_detail";
 
   return (
     <SiteLayout
-      navigation={mainNavigation}
+      navigation={isInfoDetail ? [] : mainNavigation}
       pageTitle={info.title}
       sectionTitle={info.sectionTitle}
+      hidePageHero={isInfoDetail}
+      hideHeader={isInfoDetail}
+      hideFooter={isInfoDetail}
     >
-      <PageWithSidebar>
-        <LegacyPageContent html={html} />
-      </PageWithSidebar>
+      {isInfoDetail ? (
+        <div className="yk-container yk-page-content">
+          <LegacyPageContent html={html} />
+        </div>
+      ) : (
+        <PageWithSidebar>
+          <LegacyPageContent html={html} />
+        </PageWithSidebar>
+      )}
     </SiteLayout>
   );
 }
