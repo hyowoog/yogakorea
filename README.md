@@ -26,18 +26,29 @@ npm run db:import
 
 ## 배포
 
+개발 서버: **https://dev.yogakorea.or.kr**
+
 GitHub `main` 브랜치 push 시 Cloudflare Workers로 자동 배포됩니다.
 
 필요한 GitHub Secrets:
 
-- `CLOUDFLARE_API_TOKEN`
-- `CLOUDFLARE_ACCOUNT_ID`
+- `CLOUDFLARE_API_TOKEN` — Workers/D1 배포 권한이 있는 API 토큰
+- `CLOUDFLARE_ACCOUNT_ID` — `25197d91b2bb90ff76f27343cce57d7d`
+
+수동 배포:
+
+```bash
+npm run build
+npm run db:migrate:remote
+npm run deploy
+```
 
 ## Cloudflare 리소스
 
 - Worker: `yogakorea`
 - D1: `yogakorea`
 - R2: `yogakorea-uploads`
+- 도메인: `dev.yogakorea.or.kr` (Workers Custom Domain)
 
 ## 원본 소스
 

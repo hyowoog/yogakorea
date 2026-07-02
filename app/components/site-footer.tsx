@@ -2,17 +2,21 @@ export function SiteFooter() {
   return (
     <footer className="yk-footer">
       <div className="yk-container">
-        <div className="yk-footer-grid">
-          <div>
+        <div className="space-y-2">
+          <div className="">
             <strong>사단법인 한국요가연합회</strong>
-            <p>서울특별시 강남구 테헤란로 123 (예시)</p>
-            <p>Tel. 02-000-0000 | Fax. 02-000-0001</p>
+            <div>
+              경남 창원시 의창구 도계로 41, 일호하이파이데파트 302호(㉾51164)
+            </div>
+            <div>Tel. (055)724-4144, 4145 | Fax. (055)724-4146</div>
           </div>
-          <div>
-            <p>Copyright © 한국요가연합회. All Rights Reserved.</p>
-            <p>
-              <a href="/pages/privacy">개인정보처리방침</a>
-            </p>
+          <div className="space-y-2">
+            <div>Copyright © 한국요가연합회. All Rights Reserved.</div>
+            <div className="flex gap-2 text-sm">
+              <a href="/pages/privacy">개인정보처리방침</a> |
+              <a href="/pages/provision">이용약관</a> |
+              <a href="/pages/noemail">이메일무단수집거부</a>
+            </div>
           </div>
         </div>
       </div>

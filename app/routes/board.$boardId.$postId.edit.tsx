@@ -3,10 +3,10 @@ import { data, redirect } from "react-router";
 import { BoardWriteForm } from "~/components/board/board-write-form";
 import { PageWithSidebar } from "~/components/page-sidebar";
 import { SiteLayout } from "~/components/site-layout";
-import { getBoard, getPost, updatePost } from "~/lib/board.server";
+import { getBoard, getPost, requireBoardAccess, updatePost } from "~/lib/board.server";
 import { getSectionSidebar, mainNavigation } from "~/lib/navigation";
 
-export async function loader({ params, context }: Route.LoaderArgs) {
+export async function loader({ params, request, context }: Route.LoaderArgs) {
   const db = context.cloudflare.env.DB;
   const board = await getBoard(db, params.boardId);
   const post = await getPost(db, Number(params.postId));
@@ -15,10 +15,14 @@ export async function loader({ params, context }: Route.LoaderArgs) {
     throw data("게시글을 찾을 수 없습니다.", { status: 404 });
   }
 
+  await requireBoardAccess(request, db, params.boardId);
+
   return { board, post };
 }
 
 export async function action({ request, params, context }: Route.ActionArgs) {
+  await requireBoardAccess(request, context.cloudflare.env.DB, params.boardId);
+
   const formData = await request.formData();
   const title = String(formData.get("title") ?? "").trim();
   const content = String(formData.get("content") ?? "").trim();

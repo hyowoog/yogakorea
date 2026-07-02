@@ -7,6 +7,7 @@ import {
   createAttachment,
   createPost,
   getBoard,
+  requireBoardAccess,
 } from "~/lib/board.server";
 import { uploadToR2 } from "~/lib/r2.server";
 import { getSectionSidebar, mainNavigation } from "~/lib/navigation";
@@ -15,13 +16,16 @@ export function meta({ data: loaderData }: Route.MetaArgs) {
   return [{ title: `글쓰기 - ${loaderData?.board.title ?? "게시판"}` }];
 }
 
-export async function loader({ params, context }: Route.LoaderArgs) {
+export async function loader({ params, request, context }: Route.LoaderArgs) {
   const board = await getBoard(context.cloudflare.env.DB, params.boardId);
   if (!board) throw data("게시판을 찾을 수 없습니다.", { status: 404 });
+  await requireBoardAccess(request, context.cloudflare.env.DB, params.boardId);
   return { board };
 }
 
 export async function action({ request, params, context }: Route.ActionArgs) {
+  await requireBoardAccess(request, context.cloudflare.env.DB, params.boardId);
+
   const db = context.cloudflare.env.DB;
   const bucket = context.cloudflare.env.UPLOADS;
   const formData = await request.formData();

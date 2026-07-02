@@ -11,4 +11,13 @@ export default defineConfig({
 		reactRouter(),
 		tsconfigPaths(),
 	],
+	resolve: {
+		dedupe: ["react", "react-dom", "react-router"],
+	},
+	optimizeDeps: {
+		include: ["@tanstack/react-table"],
+	},
+	ssr: {
+		noExternal: ["@tanstack/react-table"],
+	},
 });

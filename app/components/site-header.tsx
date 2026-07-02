@@ -1,6 +1,8 @@
-import { Link } from "react-router";
+import { Link, useRouteLoaderData } from "react-router";
 import { MainNav } from "~/components/main-nav";
+import { ADMIN_LEVEL } from "~/lib/event-constants";
 import type { NavItem } from "~/lib/navigation";
+import type { loader as rootLoader } from "~/root";
 
 interface SiteHeaderProps {
   navigation: NavItem[];
@@ -8,6 +10,8 @@ interface SiteHeaderProps {
 }
 
 export function SiteHeader({ navigation, variant = "main" }: SiteHeaderProps) {
+  const rootData = useRouteLoaderData<typeof rootLoader>("root");
+  const user = rootData?.user;
   const logoSrc =
     variant === "renew"
       ? "/renew-assets/images/logo.png"
@@ -21,6 +25,17 @@ export function SiteHeader({ navigation, variant = "main" }: SiteHeaderProps) {
           <div className="yk-topbar-links">
             <Link to="/board/notice">공지사항</Link>
             <Link to="/pages/contactus">오시는길</Link>
+            {user ? (
+              <>
+                <span className="yk-topbar-user">{user.name}님</span>
+                {user.level >= ADMIN_LEVEL ? (
+                  <Link to="/admin">관리자</Link>
+                ) : null}
+                <Link to="/logout">로그아웃</Link>
+              </>
+            ) : (
+              <Link to="/login">로그인</Link>
+            )}
             {variant === "main" ? (
               <Link to="/renew">리뉴얼 사이트</Link>
             ) : (

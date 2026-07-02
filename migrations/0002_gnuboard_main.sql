@@ -6,7 +6,7 @@ INSERT OR REPLACE INTO boards (id, title, board_type, list_count, allow_reply, m
   ('fieldnews', '권역별소식', 'list', 15, 1, 0, 'gnuboard'),
   ('job', '구인구직', 'list', 15, 1, 0, 'gnuboard'),
   ('member', '회원게시판', 'list', 15, 1, 0, 'gnuboard'),
-  ('gallery', '포토앨범', 'gallery', 15, 1, 0, 'gnuboard'),
+  ('gallery', '포토앨범', 'gallery', 12, 1, 0, 'gnuboard'),
   ('qna', '묻고 답하기', 'qna', 15, 1, 0, 'gnuboard'),
   ('free2', '자유게시판', 'list', 15, 1, 0, 'gnuboard'),
   ('headroom', '본부자료실', 'list', 15, 1, 0, 'gnuboard'),

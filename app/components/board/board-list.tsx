@@ -1,6 +1,21 @@
 import { Form, Link } from "react-router";
 import { BoardPagination } from "~/components/board/board-pagination";
+import {
+  getBoardColumns,
+  type BoardTableRow,
+} from "~/components/board/board-columns";
 import type { Post } from "~/lib/board.server";
+import { DataTable } from "@/components/ui/data-table";
+import { Button } from "../ui/button";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../ui/select";
+import { Input } from "../ui/input";
 
 interface BoardListProps {
   boardId: string;
@@ -23,73 +38,22 @@ export function BoardList({
   searchQuery,
   searchField,
 }: BoardListProps) {
+  const columns = getBoardColumns({ boardId });
+  const tableData: BoardTableRow[] = posts.map((post, index) => ({
+    ...post,
+    rowNumber: total - (page - 1) * 15 - index,
+  }));
+
   return (
     <div className="yk-board">
-      <div className="yk-board-header">
-        <h2>{boardTitle}</h2>
-        <Link to={`/board/${boardId}/write`} className="yk-btn yk-btn-primary">
-          글쓰기
-        </Link>
-      </div>
-
-      <Form method="get" className="yk-board-search">
-        <select name="field" defaultValue={searchField ?? "title"}>
-          <option value="title">제목</option>
-          <option value="content">내용</option>
-          <option value="author">작성자</option>
-        </select>
-        <input
-          type="search"
-          name="q"
-          placeholder="검색어"
-          defaultValue={searchQuery ?? ""}
-        />
-        <button type="submit" className="yk-btn">
-          검색
-        </button>
-      </Form>
-
-      <p className="yk-board-meta">
-        Total {total} articles / {page} page
+      <DataTable
+        columns={columns}
+        data={tableData}
+        emptyMessage="등록된 게시글이 없습니다."
+      />
+      <p className="text-sm text-muted-foreground mt-2 flex justify-end">
+        전체 {total} 건 &middot; {page} 페이지
       </p>
-
-      <div className="yk-board-table-wrap">
-        <table className="yk-board-table">
-          <thead>
-            <tr>
-              <th>번호</th>
-              <th>제목</th>
-              <th>작성자</th>
-              <th>날짜</th>
-              <th>조회</th>
-            </tr>
-          </thead>
-          <tbody>
-            {posts.length === 0 ? (
-              <tr>
-                <td colSpan={5} className="yk-empty">
-                  등록된 게시글이 없습니다.
-                </td>
-              </tr>
-            ) : (
-              posts.map((post, index) => (
-                <tr key={post.id}>
-                  <td>{total - (page - 1) * 15 - index}</td>
-                  <td className="yk-board-title">
-                    <Link to={`/board/${boardId}/${post.id}`}>
-                      {post.depth > 0 && <span className="yk-reply">↳</span>}
-                      {post.title}
-                    </Link>
-                  </td>
-                  <td>{post.author_name ?? "-"}</td>
-                  <td>{post.created_at.slice(0, 10)}</td>
-                  <td>{post.view_count}</td>
-                </tr>
-              ))
-            )}
-          </tbody>
-        </table>
-      </div>
 
       <BoardPagination
         boardId={boardId}
@@ -98,6 +62,33 @@ export function BoardList({
         searchQuery={searchQuery}
         searchField={searchField}
       />
+
+      <Form method="get" className="yk-board-search mt-6">
+        <Select name="field" defaultValue={searchField ?? "title"}>
+          <SelectTrigger className="w-[180px]">
+            <SelectValue placeholder="검색조건" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectGroup>
+              <SelectItem value="title">제목</SelectItem>
+              <SelectItem value="content">내용</SelectItem>
+              <SelectItem value="author">작성자</SelectItem>
+            </SelectGroup>
+          </SelectContent>
+        </Select>
+        <Input
+          type="search"
+          name="q"
+          placeholder="검색어"
+          defaultValue={searchQuery ?? ""}
+        />
+        <Button type="submit" variant="outline">
+          검색
+        </Button>
+        <Link to={`/board/${boardId}/write`}>
+          <Button variant="outline">글쓰기</Button>
+        </Link>
+      </Form>
     </div>
   );
 }

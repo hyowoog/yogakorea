@@ -24,15 +24,16 @@ export async function loader({ context }: Route.LoaderArgs) {
   const db = context.cloudflare.env.DB;
 
   try {
-    const [slides, notice, job, qna, fieldnews] = await Promise.all([
+    const [slides, notice, job, qna, fieldnews, videoroom] = await Promise.all([
       getMainSlides(db),
       listLatestPosts(db, "notice", 7),
       listLatestPosts(db, "job", 7),
       listLatestPosts(db, "qna", 7),
       listLatestPosts(db, "fieldnews", 7),
+      listLatestPosts(db, "videoroom", 7),
     ]);
 
-    return { slides, notice, job, qna, fieldnews };
+    return { slides, notice, job, qna, fieldnews, videoroom };
   } catch {
     return {
       slides: [],
@@ -40,6 +41,7 @@ export async function loader({ context }: Route.LoaderArgs) {
       job: [],
       qna: [],
       fieldnews: [],
+      videoroom: [],
     };
   }
 }
@@ -221,18 +223,11 @@ export default function Home({ loaderData }: Route.ComponentProps) {
             boardId="qna"
             posts={loaderData.qna}
           />
-          <div className="yk-home-quick">
-            <h3>바로가기</h3>
-
-            <div className="yk-quick-links">
-              <Link to="/board/gallery">포토앨범</Link>
-              <Link to="/board/headroom">본부자료실</Link>
-              <Link to="/board/photoroom">사진자료실</Link>
-              <Link to="/board/webzine">회보자료실</Link>
-              <Link to="/board/branch">전국요가원</Link>
-              <Link to="/pages/info">민간자격안내</Link>
-            </div>
-          </div>
+          <LatestList
+            title="교육동영상"
+            boardId="videoroom"
+            posts={loaderData.videoroom}
+          />
         </div>
       </section>
     </SiteLayout>

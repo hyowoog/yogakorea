@@ -6,7 +6,7 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --yk-primary: #5b98ff;
+  --yk-primary: #fa7a83;
   --yk-primary-dark: #3d78e0;
   --yk-text: #333;
   --yk-muted: #666;
@@ -582,6 +582,19 @@ a {
   border-top: 1px solid var(--yk-border);
   border-bottom: 1px solid var(--yk-border);
   line-height: 1.8;
+  word-break: break-word;
+}
+
+.yk-post-content p {
+  margin: 0.75em 0;
+}
+
+.yk-post-content p:first-child {
+  margin-top: 0;
+}
+
+.yk-post-content p:last-child {
+  margin-bottom: 0;
 }
 
 .yk-post-content img {
@@ -589,15 +602,92 @@ a {
   height: auto;
 }
 
+.yk-post-links,
 .yk-attachments,
 .yk-comments {
   margin-top: 2rem;
+}
+
+.yk-post-images {
+  display: grid;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.yk-post-images img {
+  max-width: 100%;
+  height: auto;
 }
 
 .yk-comment-form {
   display: grid;
   gap: 0.75rem;
   margin-top: 1rem;
+}
+
+.yk-comment-list {
+  margin-top: 1rem;
+}
+
+.yk-comment-item {
+  width: 100%;
+  padding: 0.875rem 1rem;
+  border: 1px solid var(--yk-border);
+  border-radius: 0.5rem;
+  background: var(--yk-surface, #fff);
+}
+
+.yk-comment-item-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.5rem 0.75rem;
+  margin-bottom: 0.5rem;
+  font-size: 0.875rem;
+}
+
+.yk-comment-edit-btn,
+.yk-comment-action-btn {
+  margin-left: auto;
+  height: auto;
+  min-height: 0;
+  padding: 0.125rem 0.5rem;
+  font-size: 0.8125rem;
+}
+
+.yk-comment-item-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin-left: auto;
+}
+
+.yk-comment-edit-form {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.yk-comment-edit-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.yk-comment-item-header time {
+  color: var(--yk-muted);
+  font-size: 0.8125rem;
+}
+
+.yk-comment-item p {
+  margin: 0;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.yk-comment-empty {
+  margin-top: 1rem;
+  font-size: 0.875rem;
+  color: var(--yk-muted);
 }
 
 .yk-form {
@@ -660,7 +750,7 @@ a {
 
 .yk-footer-grid {
   display: grid;
-  gap: 1rem;
+  gap:0.5rem;
 }
 
 .yk-home-grid-2 {
@@ -720,7 +810,7 @@ a {
 
 .yk-brbr-image {
   width: 100%;
-  max-height: 260px;
+  max-height: 330px;
   object-fit: cover;
   border-radius: 8px;
   border: 1px solid var(--yk-border);
@@ -754,7 +844,13 @@ a {
 
 .yk-topbar-links {
   display: flex;
+  align-items: center;
   gap: 1rem;
+}
+
+.yk-topbar-user {
+  color: #ecf0f1;
+  font-weight: 500;
 }
 
 .yk-topbar a {

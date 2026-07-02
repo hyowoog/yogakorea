@@ -1,3 +1,6 @@
 export function getPublicUploadUrl(key: string) {
-  return `/api/files/${encodeURIComponent(key)}`;
+  return `/api/files/${key
+    .split("/")
+    .map((segment) => encodeURIComponent(segment))
+    .join("/")}`;
 }

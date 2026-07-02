@@ -4,7 +4,7 @@
  * (같은 .wrangler/state 아래에 해시가 다른 sqlite 파일이 2개 생길 수 있음)
  */
 
-import { copyFileSync, existsSync, readdirSync, rmSync } from "node:fs";
+import { copyFileSync, existsSync, readdirSync, rmSync, statSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { execFileSync } from "node:child_process";
@@ -13,14 +13,30 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const root = join(__dirname, "..");
 const d1Dir = join(root, ".wrangler/state/v3/d1/miniflare-D1DatabaseObject");
 
-function countPosts(dbPath) {
+function countTable(dbPath, table) {
   try {
-    const out = execFileSync("sqlite3", [dbPath, "SELECT COUNT(*) FROM posts;"], {
+    const out = execFileSync("sqlite3", [dbPath, `SELECT COUNT(*) FROM ${table};`], {
       encoding: "utf8",
     }).trim();
     return Number(out);
   } catch {
     return -1;
+  }
+}
+
+function countPosts(dbPath) {
+  return countTable(dbPath, "posts");
+}
+
+function countYogaGrades(dbPath) {
+  return countTable(dbPath, "yoga_mem_grades");
+}
+
+function getMtime(dbPath) {
+  try {
+    return statSync(dbPath).mtimeMs;
+  } catch {
+    return 0;
   }
 }
 
@@ -39,17 +55,28 @@ if (databases.length === 0) {
 }
 
 const ranked = databases
-  .map((path) => ({ path, posts: countPosts(path) }))
+  .map((path) => ({
+    path,
+    posts: countPosts(path),
+    grades: countYogaGrades(path),
+    mtime: getMtime(path),
+  }))
   .filter((db) => db.posts >= 0)
-  .sort((a, b) => b.posts - a.posts);
+  .sort(
+    (a, b) =>
+      b.mtime - a.mtime ||
+      b.grades - a.grades ||
+      b.posts - a.posts,
+  );
 
+// wrangler CLI가 import 직후 갱신하는 DB를 기준으로 동기화
 const source = ranked[0];
 if (!source || source.posts === 0) {
   console.log("동기화할 게시글 데이터가 없습니다. npm run db:import 를 먼저 실행하세요.");
   process.exit(1);
 }
 
-const targets = ranked.filter((db) => db.path !== source.path && db.posts < source.posts);
+const targets = ranked.filter((db) => db.path !== source.path);
 
 if (targets.length === 0) {
   console.log(`이미 동기화되어 있습니다. (게시글 ${source.posts}건)`);
@@ -63,7 +90,9 @@ for (const target of targets) {
   }
 
   copyFileSync(source.path, target.path);
-  console.log(`동기화: ${source.posts}건 → ${target.path.split("/").pop()}`);
+  console.log(
+    `동기화: 게시글 ${source.posts}건, 교육이수 ${source.grades}건 → ${target.path.split("/").pop()}`,
+  );
 }
 
 console.log("완료. 실행 중인 dev 서버가 있다면 재시작하세요.");

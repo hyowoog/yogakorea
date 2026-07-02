@@ -207,3 +207,4 @@ scripts/output/
 .wrangler/
 dump.sql
 public_html/
+legacy/

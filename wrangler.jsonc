@@ -27,5 +27,12 @@
   ],
   "vars": {
     "SITE_NAME": "사단법인 한국요가연합회"
-  }
+  },
+  "workers_dev": true,
+  "routes": [
+    {
+      "pattern": "dev.yogakorea.or.kr",
+      "custom_domain": true
+    }
+  ]
 }

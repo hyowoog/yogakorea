@@ -9,6 +9,7 @@ interface SiteLayoutProps {
   variant?: "main" | "renew";
   pageTitle?: string;
   sectionTitle?: string;
+  hidePageHero?: boolean;
 }
 
 export function SiteLayout({
@@ -17,11 +18,12 @@ export function SiteLayout({
   variant = "main",
   pageTitle,
   sectionTitle,
+  hidePageHero = false,
 }: SiteLayoutProps) {
   return (
     <div className="yk-site">
       <SiteHeader navigation={navigation} variant={variant} />
-      {(pageTitle || sectionTitle) && (
+      {!hidePageHero && (pageTitle || sectionTitle) && (
         <div className="yk-page-hero">
           <div className="yk-container">
             {/* {sectionTitle && <p className="yk-section-label">{sectionTitle}</p>} */}
