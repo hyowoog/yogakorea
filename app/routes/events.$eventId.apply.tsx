@@ -9,7 +9,6 @@ import {
   getEvent,
   parseApplicationFormData,
 } from "~/lib/event.server";
-import { mainNavigation } from "~/lib/navigation";
 
 export function meta({ data: loaderData }: Route.MetaArgs) {
   const title = loaderData?.event.title ?? "행사 참가신청";
@@ -77,7 +76,7 @@ export default function EventApplyPage({ loaderData, actionData }: Route.Compone
 
   if ("closed" in loaderData && loaderData.closed) {
     return (
-      <SiteLayout navigation={mainNavigation} pageTitle="참가신청">
+      <SiteLayout navigation={[]} hideHeader hideFooter hidePageHero>
         <div className="yk-container py-16 text-center">
           <h1 className="text-xl font-semibold">{loaderData.event.title}</h1>
           <p className="mt-4 text-red-600">{loaderData.message}</p>
@@ -89,7 +88,7 @@ export default function EventApplyPage({ loaderData, actionData }: Route.Compone
   const { event } = loaderData;
 
   return (
-    <SiteLayout navigation={mainNavigation} pageTitle="참가신청">
+    <SiteLayout navigation={[]} hideHeader hideFooter hidePageHero>
       <div className="yk-container py-8">
         <div className="mx-auto max-w-4xl space-y-6">
           <div className="text-center">

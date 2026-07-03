@@ -28,7 +28,7 @@ export function AdminNav() {
               pathname === "/admin" && "bg-sky-900 font-semibold",
             )}
           >
-            <Link to="/admin">관리홈</Link>
+            <Link to="/admin">관리자모드홈</Link>
           </Button>
         </li>
         {ADMIN_LINKS.map((link) => (

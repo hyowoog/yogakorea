@@ -3,9 +3,9 @@ import { useEffect, useState } from "react";
 import { data, Link, useNavigate, useSearchParams } from "react-router";
 import { EventApplicationCreateDialog } from "~/components/admin/event-application-create-dialog";
 import { EventApplicationDetailDialog } from "~/components/admin/event-application-detail-dialog";
+import { AdminLayout } from "~/components/admin/admin-layout";
 import { AdminPagination } from "~/components/admin/admin-pagination";
 import { Button } from "~/components/ui/button";
-import { SiteLayout } from "~/components/site-layout";
 import { getClientIp, requireAdmin } from "~/lib/auth.server";
 import {
   ADMIN_PAGE_SIZE,
@@ -119,16 +119,12 @@ export default function AdminEventApplications({ loaderData }: Route.ComponentPr
   }
 
   return (
-    <SiteLayout navigation={mainNavigation} pageTitle="참가신청 관리" hidePageHero>
-      <div className="yk-container space-y-8 py-8">
-        <div className="space-y-2 text-center">
-          <h1 className="text-2xl font-semibold">{event.title}</h1>
-          <p className="text-sky-700">
-            접수기간 {event.starts_on} ~ {event.ends_on}
-          </p>
-        </div>
-
-        <div className="flex flex-wrap justify-end gap-2">
+    <AdminLayout
+      navigation={mainNavigation}
+      pageTitle="참가신청 관리"
+      title="참가신청관리"
+      actions={
+        <>
           <Button asChild variant="outline" size="sm">
             <Link to="/admin/events">행사목록</Link>
           </Button>
@@ -138,6 +134,15 @@ export default function AdminEventApplications({ loaderData }: Route.ComponentPr
           <Button type="button" size="sm" onClick={() => setCreateDialogOpen(true)}>
             신청 추가
           </Button>
+        </>
+      }
+    >
+      <div className="space-y-4">
+        <div className="space-y-1">
+          <h2 className="text-xl font-semibold">{event.title}</h2>
+          <p className="text-sm text-muted-foreground">
+            접수기간 {event.starts_on} ~ {event.ends_on}
+          </p>
         </div>
 
         <AdminPagination
@@ -224,6 +229,6 @@ export default function AdminEventApplications({ loaderData }: Route.ComponentPr
           onOpenChange={handleDialogOpenChange}
         />
       </div>
-    </SiteLayout>
+    </AdminLayout>
   );
 }

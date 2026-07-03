@@ -2,11 +2,17 @@ import type { Route } from "./+types/admin.events._index";
 import { useEffect, useState } from "react";
 import { data, Link, useNavigate, useSearchParams } from "react-router";
 import { AdminLayout } from "~/components/admin/admin-layout";
+import { AdminPagination } from "~/components/admin/admin-pagination";
 import { EventCreateDialog } from "~/components/admin/event-create-dialog";
 import { EventDetailDialog } from "~/components/admin/event-detail-dialog";
 import { Button } from "~/components/ui/button";
 import { requireAdmin } from "~/lib/auth.server";
-import { createEvent, listEvents, parseEventFormData } from "~/lib/event.server";
+import {
+  ADMIN_PAGE_SIZE,
+  parsePagination,
+  withPaginationTotal,
+} from "~/lib/admin-pagination";
+import { countEvents, createEvent, listEvents, parseEventFormData } from "~/lib/event.server";
 import { mainNavigation } from "~/lib/navigation";
 
 export function meta() {
@@ -15,8 +21,17 @@ export function meta() {
 
 export async function loader({ request, context }: Route.LoaderArgs) {
   await requireAdmin(request, context.cloudflare.env.DB);
-  const events = await listEvents(context.cloudflare.env.DB);
-  return { events };
+  const db = context.cloudflare.env.DB;
+  const pagination = parsePagination(new URL(request.url).searchParams);
+  const [total, events] = await Promise.all([
+    countEvents(db),
+    listEvents(db, pagination.offset, ADMIN_PAGE_SIZE),
+  ]);
+
+  return {
+    events,
+    pagination: withPaginationTotal(pagination, total),
+  };
 }
 
 export async function action({ request, context }: Route.ActionArgs) {
@@ -38,7 +53,7 @@ export async function action({ request, context }: Route.ActionArgs) {
 }
 
 export default function AdminEventsIndex({ loaderData }: Route.ComponentProps) {
-  const { events } = loaderData;
+  const { events, pagination } = loaderData;
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
   const detailParam = searchParams.get("detail");
@@ -103,7 +118,7 @@ export default function AdminEventsIndex({ loaderData }: Route.ComponentProps) {
           <tbody>
             {events.map((event, index) => (
               <tr key={event.id} className="border-t hover:bg-slate-50">
-                <td className="px-3 py-3">{index + 1}</td>
+                <td className="px-3 py-3">{pagination.offset + index + 1}</td>
                 <td className="px-3 py-3">
                   <Button
                     type="button"
@@ -123,10 +138,23 @@ export default function AdminEventsIndex({ loaderData }: Route.ComponentProps) {
                     <Button asChild size="sm" variant="outline">
                       <Link to={`/admin/events/${event.id}`}>참가신청리스트</Link>
                     </Button>
-                    <Button asChild size="sm" variant="outline">
-                      <a href={`/events/${event.id}/apply`} target="_blank" rel="noreferrer">
-                        신청양식보기
-                      </a>
+                    <Button
+                      type="button"
+                      size="sm"
+                      variant="outline"
+                      onClick={() => {
+                        const width = 1000;
+                        const height = 800;
+                        const left = Math.max(0, Math.round((window.screen.width - width) / 2));
+                        const top = Math.max(0, Math.round((window.screen.height - height) / 2));
+                        window.open(
+                          `/events/${event.id}/apply`,
+                          `event-apply-${event.id}`,
+                          `noopener,noreferrer,width=${width},height=${height},left=${left},top=${top},scrollbars=yes,resizable=yes`,
+                        );
+                      }}
+                    >
+                      신청양식보기
                     </Button>
                   </div>
                 </td>
@@ -135,6 +163,13 @@ export default function AdminEventsIndex({ loaderData }: Route.ComponentProps) {
           </tbody>
         </table>
       </div>
+
+      <AdminPagination
+        pathname="/admin/events"
+        page={pagination.page}
+        totalPages={pagination.totalPages}
+        total={pagination.total}
+      />
 
       <EventCreateDialog
         open={createDialogOpen}

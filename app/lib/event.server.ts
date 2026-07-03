@@ -52,9 +52,24 @@ function formatTimestamp(date = new Date()) {
   return date.toISOString().slice(0, 19).replace("T", " ");
 }
 
-export async function listEvents(db: Env["DB"]) {
+export async function countEvents(db: Env["DB"]) {
+  const row = await db
+    .prepare(`SELECT COUNT(*) AS total FROM events`)
+    .first<{ total: number }>();
+  return row?.total ?? 0;
+}
+
+export async function listEvents(db: Env["DB"], offset = 0, limit?: number) {
+  if (limit === undefined) {
+    const result = await db
+      .prepare(`SELECT * FROM events ORDER BY id DESC`)
+      .all<Event>();
+    return result.results ?? [];
+  }
+
   const result = await db
-    .prepare(`SELECT * FROM events ORDER BY id DESC`)
+    .prepare(`SELECT * FROM events ORDER BY id DESC LIMIT ? OFFSET ?`)
+    .bind(limit, offset)
     .all<Event>();
   return result.results ?? [];
 }
