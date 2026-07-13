@@ -1112,6 +1112,7 @@ p {
     <div class="panel-heading">
         <h3 class="panel-title"><i class="fa fa-edit"></i> 2026년 분기별 사업계획</h3>
     </div>
+    <div class="">
     <table class="table table-hover">
         <thead>
             <tr>
@@ -1121,14 +1122,14 @@ p {
                 <th width="10%" rowspan="2" style="text-align: center">담당부서</th>
                 <th width="15%" rowspan="2" style="text-align: center">비고</th>
             </tr>
-            <tr style="text-align: center">
+            <tr style="text-align: center" class="text-sm">
               <th>1/4분기</th>
               <th>2/4분기</th>
               <th>3/4분기</th>
               <th>4/4분기</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody class="text-sm">
             <tr style="text-align: center">
                 <td rowspan="11">특수자격증발급</td>
                 <td>어린이&청소년 요가지도자<br>
@@ -1206,34 +1207,9 @@ p {
               <td>교육/사무국</td>
               <td>위탁 교육 30명</td>
             </tr>
-     <!--       <tr style="text-align: center">
-              <td>요가명상지도자과정</td>
-              <td colspan="4">미정</td>
-              <td>교육/사무국</td>
-              <td>15명</td>
-            </tr>
-           <tr style="text-align: center">
-              <td>치유요가지도자과정</td>
-              <td colspan="4">미정</td>
-              <td>교육/사무국</td>
-              <td>15명</td>
-            </tr>
-            <tr style="text-align: center">
-              <td>음악명상지도자과정<br>
-              (15년 신설)</td>
-              <td colspan="4">미정</td>
-              <td>교육/사무국</td>
-              <td>15명</td>
-            </tr>
-            <tr style="text-align: center">
-                <td>몸의학교 협력<br>
-                댄싱톡과정(예정)</td>
-                <td colspan="4">미정</td>
-                <td>교육/사무국</td>
-                <td>15명</td>
-            </tr>
-  -->      </tbody>
+        </tbody>
     </table>
+    </div>
 </div>
 </div>
 `,
