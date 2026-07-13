@@ -1,7 +1,12 @@
 export interface NavItem {
   label: string;
   href?: string;
+  target?: string;
+  rel?: string;
   children?: NavItem[];
+  className?: string;
+  /** 호버 시 전체 하위메뉴를 한 번에 표시 */
+  mega?: boolean;
 }
 
 /** public_html Eyoom(basic2) 메뉴 구조 */
@@ -62,6 +67,14 @@ export const mainNavigation: NavItem[] = [
     ],
   },
   { label: "빠람빠라", href: "/comm/brbr" },
+  { label: "전체메뉴", mega: true },
+  {
+    label: "모크샤오가몰",
+    href: "https://yogamall.co.kr",
+    target: "_blank",
+    rel: "noopener noreferrer",
+    className: "ml-4",
+  },
 ];
 
 /** public_html/renew 메뉴 (보조 사이트) */

@@ -144,13 +144,13 @@ p {
                     <ul style="word-break: keep-all;">
                         <li>회장 : 김성홍</li>
                         <li>부회장 : 수석 박정애, 김동환, 김안득, 김영옥, 장지영</li>
-                        <li>웰니스분과 : 김동환 부회장<br/>분과이사 : 김민선, 이준희, 허은실</li>
-                        <li>교육분과 : 장지영 부회장<br/>분과이사 : 전인숙, 심준보, 신주연</li>
+                        <li>웰니스분과 : 김동환 부회장<br/>분과이사 : 김민선, 허은실</li>
+                        <li>교육분과 : 장지영 부회장<br/>분과이사 : 전인숙, 심준보, 김태희, 유명선</li>
                         <li>조직분과 : 김영옥 부회장<br/>분과이사 : 임덕</li>
                         <li>홍보분과 : 김안득 부회장<br/>분과이사 : 반창용</li>
                         <li>출제분과 : 김재민 이사 <br/>분과이사 : 성호정, 조남주</li>
                         <li>심사분과 : 이광진 이사<br/>분과이사 : 조동현, 박정애, 김재민, 김안득, 이미애</li>
-                        <li>본부이사 : 김경전, 김나경, 김옥단, 김유진, 박신애, 박효정, 신주연, 신지윤, 오성희, 유명아, 이미숙, 이태환, 이한석, 정수아, 정윤애, 정평둘, 한외순   </li>
+                        <li>본부이사 : 김경전, 김나경, 김유진, 박신애, 박효정, 신지윤, 오성희, 유명아, 이미숙, 이태환, 이한석, 정수아, 정평둘, 한외순, 이영순   </li>
                     </ul>
 
                     <p>&nbsp;</p>
@@ -353,190 +353,190 @@ p {
 </div>
 <div class="tab-pane fade in" id="tab-1">
 <table class="table table-hover">
-<thead><tr><th style="text-align: center; font-size: 13px;">회장</th>
-<th style="text-align: center; font-size: 13px;">부회장</th>
-<th style="text-align: center; font-size: 13px;">총무이사</th>
-<th style="text-align: center; font-size: 13px;">이사</th>
-<th style="text-align: center; font-size: 13px;">이사</th>
-<th style="text-align: center; font-size: 13px;">이사</th>
-<th style="text-align: center; font-size: 13px;">이사</th>
-<th style="text-align: center; font-size: 13px;">이사</th>
-<th style="text-align: center; font-size: 13px;">이사</th>
-<th style="text-align: center; font-size: 13px;">이사</th>
-<th style="text-align: center; font-size: 13px;">이사</th>
-<th style="text-align: center; font-size: 13px;">이사</th>
-<th style="text-align: center; font-size: 13px;">이사</th>
-<th style="text-align: center; font-size: 13px;">이사</th>
-<th style="text-align: center; font-size: 13px;">회계감사</th>
-<th style="text-align: center; font-size: 13px;">사업감사</th></tr></thead>
-<tbody><tr style="text-align: center;"><th style="text-align: center; font-size: 13px;">이미애</th>
-<th style="text-align: center; font-size: 13px;">한외순</th>
-<th style="text-align: center; font-size: 13px;">하은숙</th>
-<th style="text-align: center; font-size: 13px;">성원남</th>
-<th style="text-align: center; font-size: 13px;">조외숙</th>
-<th style="text-align: center; font-size: 13px;">한광희</th>
-<th style="text-align: center; font-size: 13px;">김현주</th>
-<th style="text-align: center; font-size: 13px;">김나경</th>
-<th style="text-align: center; font-size: 13px;">최경옥</th>
-<th style="text-align: center; font-size: 13px;">신지윤</th>
-<th style="text-align: center; font-size: 13px;">최경화</th>
-<th style="text-align: center; font-size: 13px;">이은경</th>
-<th style="text-align: center; font-size: 13px;">장정이</th>
-<th style="text-align: center; font-size: 13px;">권효선</th>
-<th style="text-align: center; font-size: 13px;">안세진</th>
-<th style="text-align: center; font-size: 13px;">반순옥</th></tr></tbody>
+<thead><tr><th style="text-align: center; font-size: 11px;">회장</th>
+<th style="text-align: center; font-size: 11px;">부회장</th>
+<th style="text-align: center; font-size: 11px;">총무이사</th>
+<th style="text-align: center; font-size: 11px;">이사</th>
+<th style="text-align: center; font-size: 11px;">이사</th>
+<th style="text-align: center; font-size: 11px;">이사</th>
+<th style="text-align: center; font-size: 11px;">이사</th>
+<th style="text-align: center; font-size: 11px;">이사</th>
+<th style="text-align: center; font-size: 11px;">이사</th>
+<th style="text-align: center; font-size: 11px;">이사</th>
+<th style="text-align: center; font-size: 11px;">이사</th>
+<th style="text-align: center; font-size: 11px;">이사</th>
+<th style="text-align: center; font-size: 11px;">이사</th>
+<th style="text-align: center; font-size: 11px;">이사</th>
+<th style="text-align: center; font-size: 11px;">회계감사</th>
+<th style="text-align: center; font-size: 11px;">사업감사</th></tr></thead>
+<tbody><tr style="text-align: center;"><th style="text-align: center; font-size: 11px;">이미애</th>
+<th style="text-align: center; font-size: 11px;">한외순</th>
+<th style="text-align: center; font-size: 11px;">하은숙</th>
+<th style="text-align: center; font-size: 11px;">성원남</th>
+<th style="text-align: center; font-size: 11px;">조외숙</th>
+<th style="text-align: center; font-size: 11px;">한광희</th>
+<th style="text-align: center; font-size: 11px;">김현주</th>
+<th style="text-align: center; font-size: 11px;">김나경</th>
+<th style="text-align: center; font-size: 11px;">최경옥</th>
+<th style="text-align: center; font-size: 11px;">신지윤</th>
+<th style="text-align: center; font-size: 11px;">최경화</th>
+<th style="text-align: center; font-size: 11px;">이은경</th>
+<th style="text-align: center; font-size: 11px;">장정이</th>
+<th style="text-align: center; font-size: 11px;">권효선</th>
+<th style="text-align: center; font-size: 11px;">안세진</th>
+<th style="text-align: center; font-size: 11px;">반순옥</th></tr></tbody>
 </table>
 </div>
 <div class="tab-pane fade in" id="tab-2">
 <table class="table table-hover">
-<thead><tr><th style="text-align: center; font-size: 13px;">회장</th>
-<th style="text-align: center; font-size: 13px;">부회장</th>
-<th style="text-align: center; font-size: 13px;">부회장</th>
-<th style="text-align: center; font-size: 13px;">총무</th>
-<th style="text-align: center; font-size: 13px;">감사</th></tr></thead>
-<tbody><tr style="text-align: center;"><th style="text-align: center; font-size: 13px;">장숙희</th>
-<th style="text-align: center; font-size: 13px;">심옥선</th>
-<th style="text-align: center; font-size: 13px;">전연자</th>
-<th style="text-align: center; font-size: 13px;">송정선</th>
-<th style="text-align: center; font-size: 13px;">권명옥</th></tr></tbody>
+<thead><tr><th style="text-align: center; font-size: 11px;">회장</th>
+<th style="text-align: center; font-size: 11px;">부회장</th>
+<th style="text-align: center; font-size: 11px;">부회장</th>
+<th style="text-align: center; font-size: 11px;">총무</th>
+<th style="text-align: center; font-size: 11px;">감사</th></tr></thead>
+<tbody><tr style="text-align: center;"><th style="text-align: center; font-size: 11px;">장숙희</th>
+<th style="text-align: center; font-size: 11px;">심옥선</th>
+<th style="text-align: center; font-size: 11px;">전연자</th>
+<th style="text-align: center; font-size: 11px;">송정선</th>
+<th style="text-align: center; font-size: 11px;">권명옥</th></tr></tbody>
 </table>
 </div>
 <div class="tab-pane fade in" id="tab-3">
 <table class="table table-hover">
-<thead><tr><th style="text-align: center; font-size: 13px;">회장</th>
-<th style="text-align: center; font-size: 13px;">부회장</th>
-<th style="text-align: center; font-size: 13px;">부회장</th>
-<th style="text-align: center; font-size: 13px;">총무</th>
-<th style="text-align: center; font-size: 13px;">감사</th>
-<th style="text-align: center; font-size: 13px;">명예회장</th>
-<th style="text-align: center; font-size: 13px;">고문</th>
-<th style="text-align: center; font-size: 13px;">고문</th>
-<th style="text-align: center; font-size: 13px;">고문</th></tr></thead>
-<tbody><tr style="text-align: center;"><th style="text-align: center; font-size: 13px;">윤경숙</th>
-<th style="text-align: center; font-size: 13px;">윤영희</th>
-<th style="text-align: center; font-size: 13px;">정수정</th>
-<th style="text-align: center; font-size: 13px;">정금숙</th>
-<th style="text-align: center; font-size: 13px;">김명자</th>
-<th style="text-align: center; font-size: 13px;">유명아</th>
-<th style="text-align: center; font-size: 13px;">박정애</th>
-<th style="text-align: center; font-size: 13px;">류민수</th>
-<th style="text-align: center; font-size: 13px;">박효정</th></tr></tbody>
+<thead><tr><th style="text-align: center; font-size: 11px;">회장</th>
+<th style="text-align: center; font-size: 11px;">부회장</th>
+<th style="text-align: center; font-size: 11px;">부회장</th>
+<th style="text-align: center; font-size: 11px;">총무</th>
+<th style="text-align: center; font-size: 11px;">감사</th>
+<th style="text-align: center; font-size: 11px;">명예회장</th>
+<th style="text-align: center; font-size: 11px;">고문</th>
+<th style="text-align: center; font-size: 11px;">고문</th>
+<th style="text-align: center; font-size: 11px;">고문</th></tr></thead>
+<tbody><tr style="text-align: center;"><th style="text-align: center; font-size: 11px;">윤경숙</th>
+<th style="text-align: center; font-size: 11px;">윤영희</th>
+<th style="text-align: center; font-size: 11px;">정수정</th>
+<th style="text-align: center; font-size: 11px;">정금숙</th>
+<th style="text-align: center; font-size: 11px;">김명자</th>
+<th style="text-align: center; font-size: 11px;">유명아</th>
+<th style="text-align: center; font-size: 11px;">박정애</th>
+<th style="text-align: center; font-size: 11px;">류민수</th>
+<th style="text-align: center; font-size: 11px;">박효정</th></tr></tbody>
 </table>
 </div>
 <div class="tab-pane fade in" id="tab-4">
 <table class="table table-hover">
-<thead><tr><th style="text-align: center; font-size: 13px;">회장</th>
-<th style="text-align: center; font-size: 13px;">부회장</th>
-<th style="text-align: center; font-size: 13px;">총무</th></tr></thead>
-<tbody><tr style="text-align: center;"><th style="text-align: center; font-size: 13px;">강령아</th>
-<th style="text-align: center; font-size: 13px;">이진우</th>
-<th style="text-align: center; font-size: 13px;">이기연</th></tr></tbody>
+<thead><tr><th style="text-align: center; font-size: 11px;">회장</th>
+<th style="text-align: center; font-size: 11px;">부회장</th>
+<th style="text-align: center; font-size: 11px;">총무</th></tr></thead>
+<tbody><tr style="text-align: center;"><th style="text-align: center; font-size: 11px;">강령아</th>
+<th style="text-align: center; font-size: 11px;">이진우</th>
+<th style="text-align: center; font-size: 11px;">이기연</th></tr></tbody>
 </table>
 </div>
 <div class="tab-pane fade in" id="tab-5">
 <table class="table table-hover">
-<thead><tr><th style="text-align: center; font-size: 13px;">회장</th>
-<th style="text-align: center; font-size: 13px;">총무</th>
-<th style="text-align: center; font-size: 13px;">감사</th>
-<th style="text-align: center; font-size: 13px;">이사</th>
-<th style="text-align: center; font-size: 13px;">이사</th></tr></thead>
-<tbody><tr style="text-align: center;"><th style="text-align: center; font-size: 13px;">지혜정</th>
-<th style="text-align: center; font-size: 13px;">전인숙</th>
-<th style="text-align: center; font-size: 13px;">김혜정</th>
-<th style="text-align: center; font-size: 13px;">최혜진</th>
-<th style="text-align: center; font-size: 13px;">윤지애</th></tr></tbody>
+<thead><tr><th style="text-align: center; font-size: 11px;">회장</th>
+<th style="text-align: center; font-size: 11px;">총무</th>
+<th style="text-align: center; font-size: 11px;">감사</th>
+<th style="text-align: center; font-size: 11px;">이사</th>
+<th style="text-align: center; font-size: 11px;">이사</th></tr></thead>
+<tbody><tr style="text-align: center;"><th style="text-align: center; font-size: 11px;">지혜정</th>
+<th style="text-align: center; font-size: 11px;">전인숙</th>
+<th style="text-align: center; font-size: 11px;">김혜정</th>
+<th style="text-align: center; font-size: 11px;">최혜진</th>
+<th style="text-align: center; font-size: 11px;">윤지애</th></tr></tbody>
 </table>
 </div>
 <div class="tab-pane fade in" id="tab-6">
 <table class="table table-hover">
-<thead><tr><th style="text-align: center; font-size: 13px;">회장</th>
-<th style="text-align: center; font-size: 13px;">이사</th>
-<th style="text-align: center; font-size: 13px;">이사</th>
-<th style="text-align: center; font-size: 13px;">이사</th>
-<th style="text-align: center; font-size: 13px;">이사</th>
-<th style="text-align: center; font-size: 13px;">이사</th></tr></thead>
-<tbody><tr style="text-align: center;"><th style="text-align: center; font-size: 13px;">손주혜</th>
-<th style="text-align: center; font-size: 13px;">정영자</th>
-<th style="text-align: center; font-size: 13px;">최도향</th>
-<th style="text-align: center; font-size: 13px;">박제민</th>
-<th style="text-align: center; font-size: 13px;">조선제</th>
-<th style="text-align: center; font-size: 13px;">김경전</th></tr></tbody>
+<thead><tr><th style="text-align: center; font-size: 11px;">회장</th>
+<th style="text-align: center; font-size: 11px;">이사</th>
+<th style="text-align: center; font-size: 11px;">이사</th>
+<th style="text-align: center; font-size: 11px;">이사</th>
+<th style="text-align: center; font-size: 11px;">이사</th>
+<th style="text-align: center; font-size: 11px;">이사</th></tr></thead>
+<tbody><tr style="text-align: center;"><th style="text-align: center; font-size: 11px;">손주혜</th>
+<th style="text-align: center; font-size: 11px;">정영자</th>
+<th style="text-align: center; font-size: 11px;">최도향</th>
+<th style="text-align: center; font-size: 11px;">박제민</th>
+<th style="text-align: center; font-size: 11px;">조선제</th>
+<th style="text-align: center; font-size: 11px;">김경전</th></tr></tbody>
 </table>
 </div>
 <div class="tab-pane fade in" id="tab-7">
 <table class="table table-hover">
-<thead><tr><th style="text-align: center; font-size: 13px;">회장</th>
-<th style="text-align: center; font-size: 13px;">총무</th>
-<th style="text-align: center; font-size: 13px;">이사</th>
-<th style="text-align: center; font-size: 13px;">이사</th></tr></thead>
-<tbody><tr style="text-align: center;"><th style="text-align: center; font-size: 13px;">이미숙</th>
-<th style="text-align: center; font-size: 13px;">이인숙</th>
-<th style="text-align: center; font-size: 13px;">정평둘</th>
-<th style="text-align: center; font-size: 13px;">황나현</th></tr></tbody>
+<thead><tr><th style="text-align: center; font-size: 11px;">회장</th>
+<th style="text-align: center; font-size: 11px;">총무</th>
+<th style="text-align: center; font-size: 11px;">이사</th>
+<th style="text-align: center; font-size: 11px;">이사</th></tr></thead>
+<tbody><tr style="text-align: center;"><th style="text-align: center; font-size: 11px;">이미숙</th>
+<th style="text-align: center; font-size: 11px;">이인숙</th>
+<th style="text-align: center; font-size: 11px;">정평둘</th>
+<th style="text-align: center; font-size: 11px;">황나현</th></tr></tbody>
 </table>
 </div>
 <div class="tab-pane fade in" id="tab-8">
 <table class="table table-hover">
-<thead><tr><th style="text-align: center; font-size: 13px;">회장</th>
-<th style="text-align: center; font-size: 13px;">부회장</th>
-<th style="text-align: center; font-size: 13px;">총무</th>
-<th style="text-align: center; font-size: 13px;">이사</th>
-<th style="text-align: center; font-size: 13px;">이사</th>
-<th style="text-align: center; font-size: 13px;">이사</th>
-<th style="text-align: center; font-size: 13px;">이사</th>
-<th style="text-align: center; font-size: 13px;">이사</th></tr></thead>
-<tbody><tr style="text-align: center;"><th style="text-align: center; font-size: 13px;">현명복</th>
-<th style="text-align: center; font-size: 13px;">임덕</th>
-<th style="text-align: center; font-size: 13px;">송명희</th>
-<th style="text-align: center; font-size: 13px;">김영옥</th>
-<th style="text-align: center; font-size: 13px;">이광진</th>
-<th style="text-align: center; font-size: 13px;">김도하</th>
-<th style="text-align: center; font-size: 13px;">이영순</th>
-<th style="text-align: center; font-size: 13px;">조서현</th></tr></tbody>
+<thead><tr><th style="text-align: center; font-size: 11px;">회장</th>
+<th style="text-align: center; font-size: 11px;">부회장</th>
+<th style="text-align: center; font-size: 11px;">총무</th>
+<th style="text-align: center; font-size: 11px;">이사</th>
+<th style="text-align: center; font-size: 11px;">이사</th>
+<th style="text-align: center; font-size: 11px;">이사</th>
+<th style="text-align: center; font-size: 11px;">이사</th>
+<th style="text-align: center; font-size: 11px;">이사</th></tr></thead>
+<tbody><tr style="text-align: center;"><th style="text-align: center; font-size: 11px;">현명복</th>
+<th style="text-align: center; font-size: 11px;">임덕</th>
+<th style="text-align: center; font-size: 11px;">송명희</th>
+<th style="text-align: center; font-size: 11px;">김영옥</th>
+<th style="text-align: center; font-size: 11px;">이광진</th>
+<th style="text-align: center; font-size: 11px;">김도하</th>
+<th style="text-align: center; font-size: 11px;">이영순</th>
+<th style="text-align: center; font-size: 11px;">조서현</th></tr></tbody>
 </table>
 </div>
 <div class="tab-pane fade in" id="tab-9">
 <table class="table table-hover">
-<thead><tr><th style="text-align: center; font-size: 13px;">회장</th>
-<th style="text-align: center; font-size: 13px;">총무</th></tr></thead>
-<tbody><tr style="text-align: center;"><th style="text-align: center; font-size: 13px;">이선근</th>
-<th style="text-align: center; font-size: 13px;">박소연</th></tr></tbody>
+<thead><tr><th style="text-align: center; font-size: 11px;">회장</th>
+<th style="text-align: center; font-size: 11px;">총무</th></tr></thead>
+<tbody><tr style="text-align: center;"><th style="text-align: center; font-size: 11px;">이선근</th>
+<th style="text-align: center; font-size: 11px;">박소연</th></tr></tbody>
 </table>
 </div>
 <div class="tab-pane fade in" id="tab-10">
 <table class="table table-hover">
-<thead><tr><th style="text-align: center; font-size: 13px;">회장</th>
-<th style="text-align: center; font-size: 13px;">부회장</th>
-<th style="text-align: center; font-size: 13px;">총무</th>
-<th style="text-align: center; font-size: 13px;">이사</th>
-<th style="text-align: center; font-size: 13px;">감사</th></tr></thead>
-<tbody><tr style="text-align: center;"><th style="text-align: center; font-size: 13px;">장지영</th>
-<th style="text-align: center; font-size: 13px;">신주연</th>
-<th style="text-align: center; font-size: 13px;">이은옥</th>
-<th style="text-align: center; font-size: 13px;">김유진</th>
-<th style="text-align: center; font-size: 13px;">유명선</th></tr></tbody>
+<thead><tr><th style="text-align: center; font-size: 11px;">회장</th>
+<th style="text-align: center; font-size: 11px;">부회장</th>
+<th style="text-align: center; font-size: 11px;">총무</th>
+<th style="text-align: center; font-size: 11px;">이사</th>
+<th style="text-align: center; font-size: 11px;">감사</th></tr></thead>
+<tbody><tr style="text-align: center;"><th style="text-align: center; font-size: 11px;">장지영</th>
+<th style="text-align: center; font-size: 11px;">신주연</th>
+<th style="text-align: center; font-size: 11px;">이은옥</th>
+<th style="text-align: center; font-size: 11px;">김유진</th>
+<th style="text-align: center; font-size: 11px;">유명선</th></tr></tbody>
 </table>
 </div>
 <div class="tab-pane fade in" id="tab-11">
 <table class="table table-hover">
-<thead><tr><th style="text-align: center; font-size: 13px;">회장</th>
-<th style="text-align: center; font-size: 13px;">총무이사</th>
-<th style="text-align: center; font-size: 13px;">이사</th></tr></thead>
-<tbody><tr style="text-align: center;"><th style="text-align: center; font-size: 13px;">윤수정</th>
-<th style="text-align: center; font-size: 13px;">이미숙</th>
-<th style="text-align: center; font-size: 13px;">신지윤</th></tr></tbody>
+<thead><tr><th style="text-align: center; font-size: 11px;">회장</th>
+<th style="text-align: center; font-size: 11px;">총무이사</th>
+<th style="text-align: center; font-size: 11px;">이사</th></tr></thead>
+<tbody><tr style="text-align: center;"><th style="text-align: center; font-size: 11px;">윤수정</th>
+<th style="text-align: center; font-size: 11px;">이미숙</th>
+<th style="text-align: center; font-size: 11px;">신지윤</th></tr></tbody>
 </table>
 </div>
 <div class="tab-pane fade in" id="tab-12">
 <table class="table table-hover">
-<thead><tr><th style="text-align: center; font-size: 13px;">회장</th>
-<th style="text-align: center; font-size: 13px;">총무</th>
-<th style="text-align: center; font-size: 13px;">이사</th>
-<th style="text-align: center; font-size: 13px;">이사</th></tr></thead>
-<tbody><tr style="text-align: center;"><th style="text-align: center; font-size: 13px;">이재연</th>
-<th style="text-align: center; font-size: 13px;">반현희</th>
-<th style="text-align: center; font-size: 13px;">이지선</th>
-<th style="text-align: center; font-size: 13px;">최윤경</th></tr></tbody>
+<thead><tr><th style="text-align: center; font-size: 11px;">회장</th>
+<th style="text-align: center; font-size: 11px;">총무</th>
+<th style="text-align: center; font-size: 11px;">이사</th>
+<th style="text-align: center; font-size: 11px;">이사</th></tr></thead>
+<tbody><tr style="text-align: center;"><th style="text-align: center; font-size: 11px;">이재연</th>
+<th style="text-align: center; font-size: 11px;">반현희</th>
+<th style="text-align: center; font-size: 11px;">이지선</th>
+<th style="text-align: center; font-size: 11px;">최윤경</th></tr></tbody>
 </table>
 </div>
 </div>
@@ -583,22 +583,21 @@ p {
 `,
 
   guide: `
-<div class="sub-main history">
+<div class="sub-main history tracking-tight">
 	<div class="tab-e2 margin-top-30">
 	<div class="tag-box tag-box-e3">   	
-        <span class="text-highlights text-highlights-green">응시자격</span><br><br>
-        <p>요가지도자자격증 발급규정 제9조 응시자격 의거 3급 응시자격은 연합회교육기관에서 최소 6개월 이상 교육을 받은 초시자로 교육기관장의<br> 추천을 받은 자여야 하며, 교육기간 내에 연합회에서 개최하는 동.하계 수련회 1회, 권역심화교육 1회를 반드시 이수하여야 한다. </p>
+        <span class="text-highlights text-highlights-green">응시자격</span><br>
+        <p>요가지도자자격증 발급규정 제9조 응시자격 의거 3급 응시자격은 연합회교육기관에서 최소 6개월 이상 교육을 받은 초시자로 교육기관장의 추천을 받은 자여야 하며, 교육기간 내에 연합회에서 개최하는 동.하계 수련회 1회, 권역심화교육 1회를 반드시 이수하여야 한다. </p>
 		<br>
-		<span class="text-highlights text-highlights-green">응시방법</span><br><br>
+		<span class="text-highlights text-highlights-green mb-2">응시방법</span><br>
 		<div class="sub-img">
        <img src="${member_id}" alt="" class="img-responsive">
 	   </div>
 	   <br><br>
-	<span class="text-highlights text-highlights-green">시험결과</span><br><br>
-	<ol class="mb-8">
-    <li> 평균점수가 70점 미만은 불합격으로 하며, 평균점수가 70점 이상인 경우에도 과목낙제가 있으면 불합격으로 한다.</li>
-    <li> 과목낙제는 객관식, 주관식, 아사나, 호흡, 지도력, 구술, 인성으로 나누어 각각 평가된다. (예, 평균점수가 70점 일 때, 객관식 10점 미만은 불합격)</li>
-	</ol>    	
+	<span class="text-highlights text-highlights-green mb-4">시험결과</span><br>
+	<div class="mb-8">
+    평균점수가 70점 미만은 불합격으로 하며, 평균점수가 70점 이상인 경우에도 과목낙제가 있으면 불합격으로 한다.<br/>
+    과목낙제는 객관식, 주관식, 아사나, 호흡, 지도력, 구술, 인성으로 나누어 각각 평가된다. <br/>(예, 평균점수가 70점 일 때, 객관식 10점 미만은 불합격)</div>    	
     <span class="text-highlights text-highlights-green">합격 및 승급취소</span><br><br>
 	<strong> 1. 합격 및 승급취소</strong>
         <ol>
@@ -658,7 +657,7 @@ p {
                 <th width="23%" style="text-align: center">환불규정</th>
             </tr>          
         </thead>
-        <tbody>
+        <tbody class="text-sm">
             <tr style="text-align: center">
                 <td>요가지도자 특/1/2/3급</td>
                 <td>등록(비공인)민간자격</td>
@@ -850,8 +849,8 @@ p {
                 <td  rowspan=4>초시: 5만원<br>재시: 3만원<br>갱신: 5만원<br>승급: 3만원</td>
                 <td>62만원<br>(연회비 12만원 포함)</td>
                 <td rowspan=4></td>
-                <td rowspan=4>본부교육 무료<br>권역교육 1만원</td>
-                <td rowspan=4>10만원<br>도구 필요시 별도 금액 추가</td>
+                <td rowspan=4>본부교육 무료<br>권역교육 권역교육별 상이</td>
+                <td rowspan=4>연수별 금액 상이</td>
                 <td>50만원</td>
                 <td rowspan=4>12만원</td>
                 <td rowspan=17>1만원</td>
@@ -992,71 +991,69 @@ p {
   biz01: `
 <div class="sub-main history">
 	<div class="tab-e2 margin-top-30">
-	<div class="tag-box tag-box-e3">   
-	<!--
-	<div class="alert alert-success fade in">
-    <strong>한국요가연합회 자격과정은 RYTK 300 (Registered Yoga Teacher in Korea 300 hour) 과정으로서 국제 통용이 가능합니다.<br> - 국제통용자격증, 대한요가연맹 공동자격과정</strong>
-</div>
--->
-        <span class="text-highlights text-highlights-green">사업방침</span><br><br>
-        <p>1) 정통요가의 전통을 살리면서 현대인의 생활방식과 신체구조에 맞게 요가지도법을 연구하고 발전시켜, 지도의 체계와 효율성을 도모한다.<br>2) 요가를 통한 국민건강에 이바지 할 수 있도록 지속적인 지도자 심화교육 및 연수와 국제적인 요가교류, 요가논문 발표를 통하여 요가지도자의 질을 높인다.</p>
-		<br>
-		<span class="text-highlights text-highlights-green">사업목표</span><br><br>
-       <ol>
-    <li> 지도자교육내실화 및 자질향상</li>
-    <li> 지역사회에 요가보급</li>
-    <li> 국제적인 요가교류</li>
-    <li> 요가지도자 양성 및 회원 확보</li>
-    <li> 요가용품 보급(요가행법 보조기구 제작)</li>
-    <li> 지도자간 유대강화</li>
-	</ol>
-	<span class="text-highlights text-highlights-green">교육과정</span><br><br>
-	<strong> 1. 지도자자격증 발급 교육기관 공통 사항</strong>
-        <ol>
-    <li> 자격증발급: (사)한국요가연합회 주최하는 시험에 합격한 자로 (사)한국요가연합회 명의로 발급된다.</li>
-    <li> 지도자자격 교육 기관 : 교육개시 1개월 전에 이사회의 심의를 받은 후 시행한다.<br>심의 시 필요서류-지도자과정 개설 신청서1부, 입학자 신상명세 명단, 교육커리큘럼, 지도강사이력</li>
-    <li> 교육 시간 : 6개월 이론 100시간, 실기 200시간 이상으로 외부강사 2명 이상을 초빙한다.</li>
-    <li> 교과 과목 : 필수 20시간(요가철학, 요가심리학, 요가생리학, 인도사상과 동양사상사) 자유 80시간(교육기관성격에 따라) 참고교재-요가디피카, 우파니샤드, 인도철학사, 쿤달리니 탄트라, 요가철학 등</li>
-    <li> 지도자교육강사 : 자격취득 2년 이상 된 자로 연합회 자격증을 발급 받고 연합회 심화교육 192시간 후 이사회 사전 승인을 얻어야 함</li>
-    <li> 지도자자격시험 : 정기시험은 매년 1월, 4월, 7월, 10월 (필요에 따라 임시시험 있음)</li>
-	<li> 자격증취득 후 6개월간 심화교육과정 의무참여</li>
-	</ol>    
-
-	<strong> 2. 지도자자격증 취득 시험 심사기준</strong>
-        <ol>
-    <li> 합격점수 : 300점 만점에 평균 70점 이상 되어야 함<br>이론 및 실기 시험 - 이론 100점(객관식40점, 주관식60점), 실기 100점(아사나75점<수리야나마스까라 10점, 지도(발표) 25점, 시르시아사나 15점, 좌법 10점, 심사위원 질문 15점>), 호흡 25점(3종 15점, 심사위원 질문 10점)<br>면접 시험 - 면점 100점<구술 80점(명상/호흡/아사나/기타), 인성20점></li>
-    <li> 이론시험 : 다음 문항 중 심시위원이 선택 출제하는 2문항
-	<ul>
-	<li type="circle">요가란 무엇인가?</li>
-	<li type="circle">요가슈트라 1절~2절</li>
-	<li type="circle">아쉬탕가요가</li>
-	<li type="circle">바가바드기타에 나타난 요가 종류</li>
-	<li type="circle">쿤달리니와 차크라</li>
-	<li type="circle">삿뜨까르마</li>
-	<li type="circle">판차코샤</li>
-	<li type="circle">반다와 무드라</li>
-	</ul>
-	</li>
-    <li> 아사나: 필수3종( 수리야 나마스까라, 시르시아사나, 빠드마 아사나) 과 심사위원이 선택한 1종</li>
-    <li> 호흡법 : 나디소나다, 까발라바띠, 바스트리카, 싯탈리, 브라마리, 완전호흡</li>
-    <li> 구술 : 요가에 관한 전반적 질의 응답</li>
-    <li> 지도력 : 요가지도 5분 이상 발표</li>
-	<li> 인성 : 요가 수행자와 요가지도자로서의 적합한 성품</li>
-	</ol>    
-
-	<strong> 3. 입회비 및 지도자교육 기관 교육비</strong>
-        <ol>
-    <li> (자격증) 30만원, 月1만원 연회비 자동이체 신청</li>
-    <li> 자격시험시 심사비 : 심사비 5만원, 재시험시 3만원</li>
-    <li> 교육비 : 6개월 과정(각 기관성격에 따라 차이가 있을수 있으므로 기관에 직접 문의)</li>    
-	</ol>    
-		</div>
+	<div class="tag-box tag-box-e3 space-y-4">   
+        <span class="text-highlights text-highlights-green">사업방침</span>
+        <ol class="list-decimal text-sm ml-4 leading-relaxed">
+            <li>정통요가의 전통을 살리면서 현대인의 생활방식과 신체구조에 맞게 요가지도법을 연구하고 발전시켜, 지도의 체계와 효율성을 도모한다.</li>
+            <li>요가를 통한 국민건강에 이바지 할 수 있도록 지속적인 지도자 심화교육 및 연수와 국제적인 요가교류, 요가논문 발표를 통하여 요가지도자의 질을 높인다.</li>
+        </ol>
+		<span class="text-highlights text-highlights-green">사업목표</span>
+        <ol class="list-decimal text-sm ml-4 leading-relaxed">
+            <li> 지도자교육내실화 및 자질향상</li>
+            <li> 지역사회에 요가보급</li>
+            <li> 국제적인 요가교류</li>
+            <li> 요가지도자 양성 및 회원 확보</li>
+            <li> 요가용품 보급(요가행법 보조기구 제작)</li>
+            <li> 지도자간 유대강화</li>
+	    </ol>
+	    <span class="text-highlights text-highlights-green">교육과정</span>
+        <ol class="list-decimal text-sm ml-4 leading-relaxed">
+	        <li><strong>지도자자격증 발급 교육기관 공통 사항</strong>
+                <ul class="list-disc text-sm ml-4">
+                    <li> 자격증발급: (사)한국요가연합회 주최하는 시험에 합격한 자로 (사)한국요가연합회 명의로 발급된다.</li>
+                    <li> 지도자자격 교육 기관 : 교육개시 1개월 전에 이사회의 심의를 받은 후 시행한다.<br>심의 시 필요서류-지도자과정 개설 신청서1부, 입학자 신상명세 명단, 교육커리큘럼, 지도강사이력</li>
+                    <li> 교육 시간 : 6개월 이론 100시간, 실기 200시간 이상으로 외부강사 2명 이상을 초빙한다.</li>
+                    <li> 교과 과목 : 필수 20시간(요가철학, 요가심리학, 요가생리학, 인도사상과 동양사상사) 자유 80시간(교육기관성격에 따라) 참고교재-요가디피카, 우파니샤드, 인도철학사, 쿤달리니 탄트라, 요가철학 등</li>
+                    <li> 지도자교육강사 : 자격취득 2년 이상 된 자로 연합회 자격증을 발급 받고 연합회 심화교육 192시간 후 이사회 사전 승인을 얻어야 함</li>
+                    <li> 지도자자격시험 : 정기시험은 매년 1월, 4월, 7월, 10월 (필요에 따라 임시시험 있음)</li>
+                    <li> 자격증취득 후 6개월간 심화교육과정 의무참여</li>
+                </ul>
+            </li>
+            <li><strong>지도자자격증 취득 시험 심사기준</strong>
+                <ul class="list-disc text-sm ml-4 leading-relaxed">
+                    <li> 합격점수 : 300점 만점에 평균 70점 이상 되어야 함</li>
+                    <li> 이론 및 실기 시험 : 이론 100점(객관식40점, 주관식60점), 실기 100점(아사나75점<수리야나마스까라 10점, 지도(발표) 25점, 시르시아사나 15점, 좌법 10점, 심사위원 질문 15점>), 호흡 25점(3종 15점, 심사위원 질문 10점)</li>
+                    <li>면접 시험 - 면점 100점<구술 80점(명상/호흡/아사나/기타), 인성20점></li>
+                    <li> 이론시험 : 다음 문항 중 심시위원이 선택 출제하는 2문항
+                        <ul class="list-disc text-sm ml-4 leading-relaxed">
+                        <li type="circle">요가란 무엇인가?</li>
+                        <li type="circle">요가슈트라 1절~2절</li>
+                        <li type="circle">아쉬탕가요가</li>
+                        <li type="circle">바가바드기타에 나타난 요가 종류</li>
+                        <li type="circle">쿤달리니와 차크라</li>
+                        <li type="circle">삿뜨까르마</li>
+                        <li type="circle">판차코샤</li>
+                        <li type="circle">반다와 무드라</li>
+                        </ul>
+                    </li>
+                    <li> 아사나: 필수3종( 수리야 나마스까라, 시르시아사나, 빠드마 아사나) 과 심사위원이 선택한 1종</li>
+                    <li> 호흡법 : 나디소나다, 까발라바띠, 바스트리카, 싯탈리, 브라마리, 완전호흡</li>
+                    <li> 구술 : 요가에 관한 전반적 질의 응답</li>
+                    <li> 지도력 : 요가지도 5분 이상 발표</li>
+                    <li> 인성 : 요가 수행자와 요가지도자로서의 적합한 성품</li>
+                </ul>    
+            </li>
+            <li><strong>입회비 및 지도자교육 기관 교육비</strong>
+                <ul class="list-disc text-sm ml-4 leading-relaxed">
+                    <li> (자격증) 30만원, 月1만원 연회비 자동이체 신청</li>
+                    <li> 자격시험시 심사비 : 심사비 5만원, 재시험시 3만원</li>
+                    <li> 교육비 : 6개월 과정(각 기관성격에 따라 차이가 있을수 있으므로 기관에 직접 문의)</li>    
+                </ul>
+            </li>
+        </ol>    
 	</div>
-	<div class="panel panel-green">
-    <div class="panel-heading">
-        <h3 class="panel-title"><i class="fa fa-edit"></i> 2025년 분기별 사업계획</h3>
-    </div>
-   <table class="table table-hover">
+	</div>
+	<table class="table table-hover">
         <thead>
 		    <tr><th colspan="8" style="text-align: right">요가지도자 1/2/3급 자격증 (민간자격번호 : 2008-0095)</th></tr>
             <tr>
@@ -1077,7 +1074,7 @@ p {
             <tr>
                 <td rowspan="3" style="text-align: center">요가지도자양성및 정회원 확보</td>
                 <td>3급</td>   
-				 <td style="text-align: center">1월 4째</td>
+				 <td style="text-align: center">4월 3째</td>
                 <td style="text-align: center">4월 4째</td>
                 <td style="text-align: center">7월 4째</td>
                 <td style="text-align: center">10월 4째</td>
@@ -1086,7 +1083,7 @@ p {
             </tr>
             <tr>
                 <td>승급(1, 2급)</td> 	
-			    <td style="text-align: center">1월 4째</td>
+			    <td style="text-align: center">4월 3째</td>
                 <td style="text-align: center">4월 4째</td>
                 <td style="text-align: center">7월 4째</td>
                 <td style="text-align: center">10월 4째</td>
@@ -1095,7 +1092,7 @@ p {
             </tr>
             <tr> 
               <td>타 단체 갱신</td>  
-			   <td style="text-align: center">1월 4째</td>
+			   <td style="text-align: center">4월 3째</td>
                 <td style="text-align: center">4월 4째</td>
                 <td style="text-align: center">7월 4째</td>
                 <td style="text-align: center">10월 4째</td>
@@ -1113,7 +1110,7 @@ p {
 <div class="tab-e2 margin-top-30">
 <div class="panel panel-green">
     <div class="panel-heading">
-        <h3 class="panel-title"><i class="fa fa-edit"></i> 2025년 분기별 사업계획</h3>
+        <h3 class="panel-title"><i class="fa fa-edit"></i> 2026년 분기별 사업계획</h3>
     </div>
     <table class="table table-hover">
         <thead>
@@ -1245,7 +1242,7 @@ p {
 <div class="tab-e2 margin-top-30">
 <div class="panel panel-green">
     <div class="panel-heading">
-        <h3 class="panel-title"><i class="fa fa-edit"></i> 2025년 분기별 사업계획</h3>
+        <h3 class="panel-title"><i class="fa fa-edit"></i> 2026년 분기별 사업계획</h3>
     </div>
    <table class="table table-hover">
         <thead>

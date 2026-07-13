@@ -267,6 +267,55 @@ export async function listLatestPosts(db: Env["DB"], boardId: string, limit = 10
   return result.results;
 }
 
+export interface RecentPost {
+  id: number;
+  board_id: string;
+  board_title: string;
+  title: string;
+  created_at: string;
+}
+
+export interface RecentComment {
+  id: number;
+  post_id: number;
+  board_id: string;
+  board_title: string;
+  post_title: string;
+  content: string;
+  created_at: string;
+}
+
+export async function listRecentPosts(db: Env["DB"], limit = 10) {
+  const result = await db
+    .prepare(
+      `SELECT p.id, p.board_id, p.title, p.created_at, b.title AS board_title
+       FROM posts p
+       JOIN boards b ON b.id = p.board_id
+       WHERE p.parent_id IS NULL OR p.parent_id = p.legacy_id
+       ORDER BY p.created_at DESC, p.id DESC
+       LIMIT ?`,
+    )
+    .bind(limit)
+    .all<RecentPost>();
+  return result.results;
+}
+
+export async function listRecentComments(db: Env["DB"], limit = 10) {
+  const result = await db
+    .prepare(
+      `SELECT c.id, c.post_id, c.content, c.created_at,
+              p.board_id, p.title AS post_title, b.title AS board_title
+       FROM comments c
+       JOIN posts p ON p.id = c.post_id
+       JOIN boards b ON b.id = p.board_id
+       ORDER BY c.created_at DESC, c.id DESC
+       LIMIT ?`,
+    )
+    .bind(limit)
+    .all<RecentComment>();
+  return result.results;
+}
+
 export async function getMainSlides(db: Env["DB"]) {
   const result = await db
     .prepare(

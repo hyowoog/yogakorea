@@ -148,7 +148,7 @@ a {
 }
 
 .yk-home-section {
-  padding: 3rem 0;
+  padding: 3rem 0 0 0;
 }
 
 .yk-home-grid {
@@ -779,8 +779,6 @@ a {
   background: var(--yk-bg);
 }
 
-
-
 .yk-editor-toolbar button.active {
   background: #eef4ff;
   border-color: var(--yk-primary);
@@ -844,13 +842,53 @@ a {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 2px solid var(--yk-primary);
-  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--yk-primary);
+  padding-bottom: 0.15rem;
   margin-bottom: 0.75rem;
 }
 
 .yk-home-latest-header h3 {
   margin: 0;
+}
+
+.yk-home-latest-tabs .yk-home-latest-header {
+  gap: 1rem;
+}
+
+.yk-home-latest-tabs [data-slot="tabs-list"] {
+  min-width: 0;
+}
+
+.yk-home-login {
+  margin-bottom: 1.5rem;
+}
+
+.yk-home-login-form {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.yk-home-login-form label {
+  display: grid;
+  gap: 0.375rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.yk-home-login-user {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.yk-home-login-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  font-size: 0.875rem;
+}
+
+.yk-home-login-links a {
+  color: var(--yk-primary);
 }
 
 .yk-home-latest ul {
@@ -872,6 +910,20 @@ a {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.yk-home-latest-item {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+.yk-home-latest-board {
+  color: var(--yk-primary);
+  font-size: 0.75rem;
+  font-weight: 600;
 }
 
 .yk-home-latest time {
@@ -941,7 +993,7 @@ a {
 
 @theme inline {
   --font-heading: var(--font-sans);
-  --font-sans: "Geist Variable", sans-serif;
+  --font-sans: 'Geist Variable', sans-serif;
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
