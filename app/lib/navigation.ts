@@ -69,7 +69,7 @@ export const mainNavigation: NavItem[] = [
   { label: "빠람빠라", href: "/comm/brbr" },
   { label: "전체메뉴", mega: true },
   {
-    label: "모크샤오가몰",
+    label: "모크샤요가몰",
     href: "https://yogamall.co.kr",
     target: "_blank",
     rel: "noopener noreferrer",
