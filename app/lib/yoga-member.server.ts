@@ -391,6 +391,32 @@ export async function createYogaPayment(db: Env["DB"], input: YogaPaymentInput) 
   return id;
 }
 
+export async function createYogaPaymentsBatch(db: Env["DB"], inputs: YogaPaymentInput[]) {
+  if (!inputs.length) return 0;
+
+  const maxRow = await db
+    .prepare(`SELECT COALESCE(MAX(id), 0) AS max_id FROM yoga_payments`)
+    .first<{ max_id: number }>();
+  let nextId = (maxRow?.max_id ?? 0) + 1;
+
+  const statements = inputs.map((input) => {
+    const id = nextId++;
+    return db
+      .prepare(
+        `INSERT INTO yoga_payments (id, lic_id, pay_date, pay_amount, pay_yy, pay_etc)
+         VALUES (?, ?, ?, ?, ?, ?)`,
+      )
+      .bind(id, input.licId, input.payDate, input.payAmount, input.payYy, input.payEtc ?? null);
+  });
+
+  const chunkSize = 100;
+  for (let i = 0; i < statements.length; i += chunkSize) {
+    await db.batch(statements.slice(i, i + chunkSize));
+  }
+
+  return inputs.length;
+}
+
 export async function updateYogaPayment(db: Env["DB"], id: number, input: Omit<YogaPaymentInput, "licId">) {
   await db
     .prepare(

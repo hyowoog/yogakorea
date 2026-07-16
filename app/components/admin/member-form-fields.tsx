@@ -17,6 +17,15 @@ interface MemberFormFieldProps {
   children: ReactNode;
 }
 
+/** 레거시 데이터에 이스케이프된 \\r\\n 문자열이 들어 있는 경우 실제 줄바꿈으로 변환 */
+function decodeLineBreaks(value: string | null | undefined) {
+  if (!value) return "";
+  return value
+    .replace(/\\r\\n/g, "\n")
+    .replace(/\\n/g, "\n")
+    .replace(/\\r/g, "\n");
+}
+
 function MemberFormField({ label, htmlFor, className, children }: MemberFormFieldProps) {
   return (
     <div className={cn("space-y-1", className)}>
@@ -230,7 +239,7 @@ export function MemberFormFields({
         <Textarea
           id={fieldId("etc")}
           name="etc"
-          defaultValue={member?.etc ?? ""}
+          defaultValue={decodeLineBreaks(member?.etc)}
           disabled={disabled}
         />
       </MemberFormField>

@@ -138,17 +138,17 @@ export function MemberDetailDialog({
                   <tbody>
                     {payments.map((payment) => (
                       <tr key={payment.id} className="border-t">
-                        <td className="px-3 py-2 align-top">{payment.pay_date}</td>
-                        <td className="px-3 py-2 align-top">{payment.pay_yy}</td>
-                        <td className="px-3 py-2 align-top">
+                        <td className="px-3 py-2 align-middle">{payment.pay_date}</td>
+                        <td className="px-3 py-2 align-middle">{payment.pay_yy}</td>
+                        <td className="px-3 py-2 align-middle">
                           {(payment.pay_amount ?? 0).toLocaleString("ko-KR")}
                         </td>
-                        <td className="px-3 py-2 align-top">{payment.pay_etc}</td>
-                        <td className="px-3 py-2 align-top">
+                        <td className="px-3 py-2 align-middle">{payment.pay_etc}</td>
+                        <td className="px-3 py-2 align-middle">
                           <fetcher.Form
                             method="post"
                             action={detailUrl ?? undefined}
-                            className="space-y-2"
+                            className="flex items-center gap-2"
                             onSubmit={(event) => {
                               if (
                                 (event.nativeEvent as SubmitEvent).submitter?.getAttribute(

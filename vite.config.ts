@@ -18,6 +18,6 @@ export default defineConfig({
 		include: ["@tanstack/react-table"],
 	},
 	ssr: {
-		noExternal: ["@tanstack/react-table"],
+		noExternal: ["@tanstack/react-table", "xlsx"],
 	},
 });

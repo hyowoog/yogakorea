@@ -10,6 +10,7 @@ const ADMIN_LINKS = [
   // { to: "/admin/slides", label: "메인사진관리" },
   { to: "/admin/events", label: "참가신청관리" },
   { to: "/admin/tshirts", label: "티셔츠신청관리" },
+  { to: "/admin/xls-to-money", label: "회비입금처리" },
 ] as const;
 
 export function AdminNav() {
