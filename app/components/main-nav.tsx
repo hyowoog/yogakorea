@@ -104,7 +104,7 @@ function MegaMenuContent({
   pathname: string;
 }) {
   return (
-    <div className="grid w-[min(56rem,calc(100vw-2rem))] grid-cols-2 gap-4 p-4 sm:grid-cols-3 lg:grid-cols-6">
+    <div className="grid w-[min(60rem,calc(100vw-2rem))] grid-cols-2 gap-4 p-4 sm:grid-cols-3 lg:grid-cols-6">
       {sections.map((section) => (
         <div key={section.label} className="min-w-0">
           <p className="mb-2 border-b border-border pb-1.5 text-sm font-semibold text-foreground">
@@ -117,7 +117,7 @@ function MegaMenuContent({
                   <NavigationMenuLink
                     asChild
                     active={isLinkActive(pathname, child.href)}
-                    className="rounded-md px-2 py-1.5 text-sm"
+                    className="rounded-sm px-0 py-1.5 text-sm"
                   >
                     <NavAnchor item={{ ...child, className: undefined }}>
                       {child.label}
