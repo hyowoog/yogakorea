@@ -1115,21 +1115,21 @@ p {
     <div class="">
     <table class="table table-hover">
         <thead>
-            <tr>
-                <th width="15%" rowspan="2" style="text-align: center">목적</th>
-                <th width="25%" rowspan="2" style="text-align: center">사업내용</th>
-                <th width="30%" colspan="4" style="text-align: center">시행시기</th>
-                <th width="10%" rowspan="2" style="text-align: center">담당부서</th>
-                <th width="15%" rowspan="2" style="text-align: center">비고</th>
+            <tr class="text-xs">
+                <th width="13%" rowspan="2" style="text-align: center;">목적</th>
+                <th width="25%" rowspan="2" style="text-align: center;">사업내용</th>
+                <th width="32%" colspan="4" style="text-align: center;">시행시기</th>
+                <th width="15%" rowspan="2" style="text-align: center;">담당부서</th>
+                <th width="15%" rowspan="2" style="text-align: center;">비고</th>
             </tr>
-            <tr style="text-align: center" class="text-sm">
+            <tr style="text-align: center;" class="text-xs">
               <th>1/4분기</th>
               <th>2/4분기</th>
               <th>3/4분기</th>
               <th>4/4분기</th>
             </tr>
         </thead>
-        <tbody class="text-sm">
+        <tbody style="text-align: center;" class="text-xs">
             <tr style="text-align: center">
                 <td rowspan="11">특수자격증발급</td>
                 <td>어린이&청소년 요가지도자<br>
@@ -1222,21 +1222,21 @@ p {
     </div>
    <table class="table table-hover">
         <thead>
-            <tr>
-                <th width="15%" rowspan="2" style="text-align: center">목적</th>
+            <tr class="text-sm">
+                <th width="13%" rowspan="2" style="text-align: center">목적</th>
                 <th width="20%" rowspan="2" style="text-align: center">사업내용</th>
-                <th width="35%" colspan="4" style="text-align: center">시행시기</th>
+                <th width="37%" colspan="4" style="text-align: center">시행시기</th>
                 <th width="15%" rowspan="2" style="text-align: center">담당부서</th>
                 <th width="15%" rowspan="2" style="text-align: center">비고</th>
             </tr>
-            <tr>
+            <tr class="text-sm">
               <th>1/4분기</th>
               <th>2/4분기</th>
               <th>3/4분기</th>
               <th>4/4분기</th>
             </tr>
         </thead>
-        <tbody style="text-align: center">
+        <tbody style="text-align: center;" class="text-sm">
             <tr>
                 <td rowspan="4" align="center">지도자 교육 및<br>
                 유대 강화</td>
@@ -1251,7 +1251,7 @@ p {
                 <td>동계 200명<br>
                 하계 250명</td>
             </tr>
-            <tr>
+            <tr class="text-sm">
               <td>심화교육</td>
                 <td style="text-align: center">3월</td>
                 <td style="text-align: center">5월<br>
@@ -1262,7 +1262,7 @@ p {
                 <td>교육/사무국</td>
                 <td></td>
             </tr>
-            <tr>
+            <tr class="text-sm">
               <td>철학강좌<br>
               (갱신자보수교육)</td>
               <td style="text-align: center">&nbsp;</td>
@@ -1272,55 +1272,55 @@ p {
               <td>교육/사무국</td>
               <td></td>
             </tr>
-            <tr>
+            <tr class="text-sm">
               <td>원장단 워크숍</td>
               <td colspan="4" style="text-align: center">4월 둘째주 / 11월 둘째주 (1박2일로 년2회 시행)</td>
               <td>교육/사무국</td>
               <td>요가원장단<br>
               실무이사 및 국장</td>
             </tr>
-            <tr>
+            <tr class="text-sm">
               <td rowspan="5" align="center">교육 및 워크숍</td>
               <td>요가3대 경전강독</td>
               <td colspan="4" style="text-align: center">상시접수</td>
               <td>교육/사무국</td>
               <td>30명</td>
             </tr>
-            <tr>
+            <tr class="text-sm">
               <td>경전 강독<br>
               (권역지원사업)</td>
               <td colspan="4" style="text-align: center">권역별 일정 조정</td>
               <td>사무국/권역</td>
               <td>권역별 20명</td>
             </tr>
-            <tr>
+            <tr class="text-sm">
               <td>게릴라 특강<br>
               (권역지원사업)</td>
               <td colspan="4" style="text-align: center">권역별 일정 조정</td>
               <td>사무국/권역</td>
               <td>권역별 20명</td>
             </tr>
-            <tr>
+            <tr class="text-sm">
               <td>특수자격증 보수교육</td>
               <td colspan="4" style="text-align: center">어린이, 임산부, 실버 각 1회</td>
               <td>사무국/권역</td>
               <td>회당 20명</td>
             </tr>            
-            <tr>
+            <tr class="text-sm">
               <td>기타 워크숍<br>
               (비움워크숍, 명상프로그램 등)</td>
                 <td colspan="4" style="text-align: center">미정</td>
                 <td>교육/사무국</td>
                 <td>40명</td>
             </tr>
-			 <tr>
+			 <tr class="text-sm">
               <td rowspan="2" align="center">기타</td>
               <td>홈피관리</td>
               <td colspan="4" style="text-align: center">수시</td>
               <td>사무국/홍보국</td>
               <td>수시관리</td>
             </tr>
-            <tr>
+            <tr class="text-sm">
               <td>요가원 및 교육기관 등록</td>
               <td colspan="4" style="text-align: center">수시</td>
               <td>사무국</td>

@@ -180,7 +180,7 @@ function DesktopNav({ navigation, pathname }: { navigation: NavItem[]; pathname:
                 {item.label}
               </NavigationMenuTrigger>
               <NavigationMenuContent>
-                <ul className="grid w-[168px] gap-1 p-2">
+                <ul className="grid w-[220px] gap-1 p-2">
                   {item.children?.map((child) => (
                     <li key={child.href} className={child.className}>
                       <NavigationMenuLink
