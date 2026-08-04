@@ -1115,21 +1115,21 @@ p {
     <div class="">
     <table class="table table-hover">
         <thead>
-            <tr class="text-xs">
+            <tr class="text-sm">
                 <th width="13%" rowspan="2" style="text-align: center;">목적</th>
-                <th width="25%" rowspan="2" style="text-align: center;">사업내용</th>
-                <th width="32%" colspan="4" style="text-align: center;">시행시기</th>
-                <th width="15%" rowspan="2" style="text-align: center;">담당부서</th>
-                <th width="15%" rowspan="2" style="text-align: center;">비고</th>
+                <th width="27%" rowspan="2" style="text-align: center;">사업내용</th>
+                <th width="34%" colspan="4" style="text-align: center;">시행시기</th>
+                <th width="12%" rowspan="2" style="text-align: center;">담당부서</th>
+                <th width="14%" rowspan="2" style="text-align: center;">비고</th>
             </tr>
-            <tr style="text-align: center;" class="text-xs">
+            <tr style="text-align: center;" class="text-sm">
               <th>1/4분기</th>
               <th>2/4분기</th>
               <th>3/4분기</th>
               <th>4/4분기</th>
             </tr>
         </thead>
-        <tbody style="text-align: center;" class="text-xs">
+        <tbody style="text-align: center;" class="text-sm">
             <tr style="text-align: center">
                 <td rowspan="11">특수자격증발급</td>
                 <td>어린이&청소년 요가지도자<br>
@@ -1224,9 +1224,9 @@ p {
         <thead>
             <tr class="text-sm">
                 <th width="13%" rowspan="2" style="text-align: center">목적</th>
-                <th width="20%" rowspan="2" style="text-align: center">사업내용</th>
+                <th width="22%" rowspan="2" style="text-align: center">사업내용</th>
                 <th width="37%" colspan="4" style="text-align: center">시행시기</th>
-                <th width="15%" rowspan="2" style="text-align: center">담당부서</th>
+                <th width="13%" rowspan="2" style="text-align: center">담당부서</th>
                 <th width="15%" rowspan="2" style="text-align: center">비고</th>
             </tr>
             <tr class="text-sm">
