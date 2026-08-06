@@ -319,7 +319,7 @@ p {
 <div class="tag-box tag-box-e3">
 <div align="center">
 <div class="sub-img">
-<img src="/site-assets/img/org-2026.jpg" alt="조직도" class="img-responsive" usemap="#Map">
+<img src="/images/org-2026.jpg" alt="조직도" class="img-responsive" usemap="#Map">
 <map name="Map" id="Map">
 <area shape="rect" coords="361,90,500,120" href="#localtable" alt="지역 조직도" />
 </map>
