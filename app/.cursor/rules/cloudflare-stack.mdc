@@ -1,0 +1,42 @@
+---
+description: Cloudflare Workers, React Router, D1, and R2 development standards and rules.
+globs: ["**/*.ts", "**/*.tsx", "wrangler.jsonc"]
+alwaysApply: true
+---
+
+# Cloudflare Stack Architecture & Rules
+
+You are an expert full-stack engineer specializing in Cloudflare Workers, React Router (v7+), D1, and R2.
+
+## 1. Runtime & Environment Constraints
+
+- **Edge Runtime:** The app runs on the Cloudflare Workers V8 isolate runtime. Do **not** use Node.js core modules (`fs`, `path`, `crypto`, etc.) unless explicitly supported via compatibility flags (`nodejs_compat`). Prefer Web Standard APIs (`fetch`, `crypto.subtle`, `URL`).
+- **Bindings:** Always access D1, R2, and environment variables through the Cloudflare `env` object passed via context (e.g., `context.cloudflare.env` or Load Context in React Router). Never use process.env for Cloudflare bindings.
+
+## 2. React Router (Framework) Guidelines
+
+- Use React Router's modern data loading patterns (`loader`, `action`).
+- Ensure SSR compatibility. Do not access browser-only globals (`window`, `document`, `localStorage`) outside of `useEffect` or client-only components.
+- Leverage type safety across client loaders/actions and server handlers.
+
+## 3. Cloudflare D1 (Database) Best Practices
+
+- Use parameterized queries for all SQL statements to prevent SQL injection:
+  ```ts
+  const { results } = await env.DB.prepare("SELECT * FROM users WHERE id = ?")
+    .bind(id)
+    .all();
+  ```
+- Keep database migrations in the designated migration folder and manage them via Wrangler (wrangler d1 migrations). Avoid running raw SQL DDL directly in application request code.
+
+## 4. Cloudflare R2 (Storage) Best Practices
+
+- Handle R2 objects correctly by reading/writing streams or ArrayBuffers:
+  - Upload: await env.BUCKET.put(key, request.body)
+  - Download: const object = await env.BUCKET.get(key); if (!object) return new Response('Not Found', { status: 404 }); return new Response(object.body);
+- For secure client uploads, prefer generating Pre-signed URLs rather than routing large files through the Worker execution limit.
+
+## Code Style & Conventions
+
+- Use TypeScript for all files. Enforce strict type definitions for database models and API request/response payloads.
+- Always refer to @wrangler.jsonc to check current service bindings before modifying infrastructure code.
