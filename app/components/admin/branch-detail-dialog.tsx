@@ -1,6 +1,5 @@
 import { useEffect, useRef } from "react";
 import { useFetcher, useRevalidator } from "react-router";
-import type { loader as branchDetailLoader } from "~/routes/admin.branches.api.$id";
 import { BranchFormFields } from "~/components/admin/branch-form-fields";
 import { Button } from "~/components/ui/button";
 import {
@@ -11,11 +10,15 @@ import {
   DialogHeader,
   DialogTitle,
 } from "~/components/ui/dialog";
+import type { loader as branchDetailLoader } from "~/routes/admin.branches.api.$id";
 
 type BranchDetailData = Awaited<ReturnType<typeof branchDetailLoader>>;
-type BranchDetailFetcherData = BranchDetailData | { error?: string; deleted?: boolean };
+type BranchDetailFetcherData =
+  BranchDetailData | { error?: string; deleted?: boolean };
 
-function isBranchDetail(data: BranchDetailFetcherData | undefined): data is BranchDetailData {
+function isBranchDetail(
+  data: BranchDetailFetcherData | undefined,
+): data is BranchDetailData {
   return Boolean(data && "branch" in data);
 }
 
@@ -40,7 +43,8 @@ export function BranchDetailDialog({
   const branch = detail?.branch;
   const error =
     fetcher.data && "error" in fetcher.data ? fetcher.data.error : undefined;
-  const isLoading = open && branchId !== null && fetcher.state !== "idle" && !branch;
+  const isLoading =
+    open && branchId !== null && fetcher.state !== "idle" && !branch;
   const isSubmitting = fetcher.state === "submitting";
   const detailUrl = branchId ? `/admin/branches/api/${branchId}` : null;
   const closeAfterSaveRef = useRef(false);
@@ -55,7 +59,11 @@ export function BranchDetailDialog({
   useEffect(() => {
     if (fetcher.state !== "idle") return;
 
-    if (closeAfterDeleteRef.current && fetcher.data && "deleted" in fetcher.data) {
+    if (
+      closeAfterDeleteRef.current &&
+      fetcher.data &&
+      "deleted" in fetcher.data
+    ) {
       closeAfterDeleteRef.current = false;
       revalidator.revalidate();
       onOpenChange(false);
@@ -81,7 +89,9 @@ export function BranchDetailDialog({
       <DialogContent className="max-h-[90vh] overflow-y-auto sm:max-w-4xl">
         <DialogHeader>
           <DialogTitle>
-            {branch ? `${branch.y_name ?? ""} · ${branch.y_ceo ?? ""}` : "요가원 상세"}
+            {branch
+              ? `${branch.y_name ?? ""} · ${branch.y_ceo ?? ""}`
+              : "요가원 상세"}
           </DialogTitle>
           <DialogDescription>요가원 정보 수정 및 삭제</DialogDescription>
         </DialogHeader>
@@ -91,7 +101,9 @@ export function BranchDetailDialog({
         ) : null}
 
         {open && branchId && fetcher.state === "idle" && !branch && !error ? (
-          <p className="text-sm text-muted-foreground">요가원 정보를 불러올 수 없습니다.</p>
+          <p className="text-sm text-muted-foreground">
+            요가원 정보를 불러올 수 없습니다.
+          </p>
         ) : null}
 
         {branch ? (
@@ -105,7 +117,7 @@ export function BranchDetailDialog({
             <fetcher.Form
               method="post"
               action={detailUrl ?? undefined}
-              className="grid gap-3 md:grid-cols-2"
+              className="grid gap-3 md:grid-cols-4"
               onSubmit={() => {
                 closeAfterSaveRef.current = true;
               }}
@@ -137,7 +149,12 @@ export function BranchDetailDialog({
                   }}
                 >
                   <input type="hidden" name="intent" value="delete" />
-                  <Button type="submit" variant="destructive" size="sm" disabled={isSubmitting}>
+                  <Button
+                    type="submit"
+                    variant="destructive"
+                    size="sm"
+                    disabled={isSubmitting}
+                  >
                     삭제
                   </Button>
                 </fetcher.Form>

@@ -18,7 +18,12 @@ interface BranchFormFieldProps {
   children: ReactNode;
 }
 
-function BranchFormField({ label, htmlFor, className, children }: BranchFormFieldProps) {
+function BranchFormField({
+  label,
+  htmlFor,
+  className,
+  children,
+}: BranchFormFieldProps) {
   return (
     <div className={cn("space-y-1", className)}>
       <label className="text-xs font-medium text-sky-700" htmlFor={htmlFor}>
@@ -127,6 +132,17 @@ export function BranchFormFields({
           options={YN_OPTIONS}
         />
       </BranchFormField>
+
+      <BranchFormField label="기타" htmlFor={fieldId("yEtc2")}>
+        <Input
+          id={fieldId("yEtc2")}
+          name="yEtc2"
+          type="text"
+          defaultValue={branch?.y_etc2 ?? ""}
+          disabled={disabled}
+        />
+      </BranchFormField>
+      <div></div>
       <BranchFormField label="우편번호" htmlFor={fieldId("yZipcode")}>
         <Input
           id={fieldId("yZipcode")}
@@ -135,7 +151,11 @@ export function BranchFormFields({
           disabled={disabled}
         />
       </BranchFormField>
-      <BranchFormField label="주소" htmlFor={fieldId("yAddr")} className="md:col-span-2">
+      <BranchFormField
+        label="주소"
+        htmlFor={fieldId("yAddr")}
+        className="md:col-span-3"
+      >
         <Input
           id={fieldId("yAddr")}
           name="yAddr"
@@ -143,7 +163,11 @@ export function BranchFormFields({
           disabled={disabled}
         />
       </BranchFormField>
-      <BranchFormField label="비고" htmlFor={fieldId("yEtc")} className="md:col-span-2">
+      <BranchFormField
+        label="비고"
+        htmlFor={fieldId("yEtc")}
+        className="md:col-span-4"
+      >
         <Textarea
           id={fieldId("yEtc")}
           name="yEtc"
