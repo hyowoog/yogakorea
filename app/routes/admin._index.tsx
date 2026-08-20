@@ -6,6 +6,7 @@ import { mainNavigation } from "~/lib/navigation";
 import {
   Building2Icon,
   CalendarDaysIcon,
+  FileUpIcon,
   GraduationCapIcon,
   IdCardIcon,
   ShirtIcon,
@@ -69,15 +70,13 @@ const ADMIN_SECTIONS = [
     ),
   },
   {
-    href: "/admin/tshirts",
-    name: "티셔츠신청관리",
-    description: "티셔츠 신청 현황 관리",
-    Icon: ShirtIcon,
+    href: "/admin/xls-to-money",
+    name: "회비입금처리",
+    description: "엑셀파일 업로드 후 입금처리",
+    Icon: FileUpIcon,
     cta: "관리하기",
     className: "col-span-1",
-    background: (
-      <div className="absolute -top-16 -right-16 size-40 rounded-full bg-cyan-100/80" />
-    ),
+    background: <div className="absolute -top-16 -right-16 size-40 rounded-full bg-cyan-100/80" />,
   },
 ] as const;
 
