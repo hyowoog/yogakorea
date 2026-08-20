@@ -1,6 +1,6 @@
 /** Eyoom 페이지 HTML (public_html/eyoom/theme/basic2/page 기반) — scripts/import-eyoom-pages.mjs 로 생성 */
-import member_id from "~/assets/images/member_in.gif";
 import swami from "~/assets/images/swami.png";
+import member_id from "~/assets/images/member_in.gif";
 
 export const pageContent: Record<string, string> = {
   greetings: `
@@ -319,7 +319,7 @@ p {
 <div class="tag-box tag-box-e3">
 <div align="center">
 <div class="sub-img">
-<img src="/images/org-2026.png" alt="조직도" class="img-responsive" usemap="#Map">
+<img src="/images/org-2026.jpg" alt="조직도" class="img-responsive" usemap="#Map">
 <map name="Map" id="Map">
 <area shape="rect" coords="361,90,500,120" href="#localtable" alt="지역 조직도" />
 </map>
@@ -642,7 +642,7 @@ p {
 <div class="tab-e2 margin-top-30">
 <div class="panel panel-green">
     <div class="panel-heading">
-        <h3 class="panel-title"><i class="fa fa-edit"></i> 자격정보 <button type='button' class='btn' onclick="window.open('/work/info_detail', '_blank', 'scrollbars=yes, resizable, width=1280px, height=960px, left='+(screen.width-1280)/2+', top='+(screen.height-960)/2)">자격정보 상세보기</button></h3>
+        <h3 class="panel-title"><i class="fa fa-edit"></i> 자격정보 <button type='button' class='btn' onclick="window.open('/work/info_detail', '_blank', 'scrollbars=yes, resizable, width=1000px, height=800px, left='+(screen.width-1000)/2+', top='+(screen.height-800)/2)">자격정보 상세보기</button></h3>
     </div>
 
 
@@ -813,178 +813,11 @@ p {
 
   info_detail: `
 <h3>민간자격정보 상세보기</h3>
-    <table class="table table-hover">
-        <thead>
-            <tr class="text-xs break-keep">
-                <th rowspan=2>과목</th>
-                <th rowspan=2>등급</th>
-                <th rowspan=2>검정총비용</th>
-                <th colspan=2>교육과정비</th>
-                <th rowspan=2>교재비</th>
-                <th rowspan=2>자격응시료</th>
-                <th colspan=2>자격증발급수수료</th>
-                <th rowspan=2>보수교육비<br>(심화교육)</th>
-                <th rowspan=2>연수비</th>
-                <th rowspan=2>입회비</th>
-                <th rowspan=2>연회비</th>
-                <th rowspan=2>재발급비</th>
-            </tr>
-            <tr class="text-xs break-keep">
-                <th>정회원</th>
-                <th>비회원</th>
-                <th>정회원</th>
-                <th>비회원</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr class="text-xs break-keep">
-                <td rowspan=4>요가지도자</td>
-                <td>특급</td>
-                <td>약128만원</td>
-                <td>-1급 취득 후 10년이상 실무경력 또는 요가경력 15년 이상 실무경력과 인지도 및 공헌도<br>
--요가관련학과 박사 소지자<br>
--교육과정비 : 없음</td>
-                <td>없음</td>
-                <td>별도</td>
-                <td  rowspan=4>초시: 5만원<br>재시: 3만원<br>갱신: 5만원<br>승급: 3만원</td>
-                <td>62만원<br>(연회비 12만원 포함)</td>
-                <td rowspan=4></td>
-                <td rowspan=4>본부교육 무료<br>권역교육 권역교육별 상이</td>
-                <td rowspan=4>연수별 금액 상이</td>
-                <td>50만원</td>
-                <td rowspan=4>12만원</td>
-                <td rowspan=17>1만원</td>
-            </tr> 
-            <tr class="text-xs break-keep">
-                <td>1급</td>
-                <td>약108만원</td>
-                <td>-2급 취득 후 3년간의 실무경력과 재교육 이수<br>
--교육과정비 : 없음</td>
-                <td>없음</td>
-                <td>별도</td>
-                <td>62만원<br>(연회비 12만원 포함)</td>
-                <td>30만원</td>
-            </tr>
-            <tr class="text-xs break-keep">
-                <td>2급</td>
-                <td>약88만원</td>
-                <td>-3급 취득 후 2년간의 실무경력과 재교육 이수<br>
--교육과정비 : 없음</td>
-                <td>없음</td>
-                <td>별도</td>
-                <td>52만원<br>(연회비 12만원 포함)</td>
-                <td>20만원</td>
-            </tr>
-            <tr class="text-xs break-keep">
-                <td>3급</td>
-                <td>약270만원</td>
-                <td>-6개월이상 300시간 교육(이론100시간, 실기200시간)<br>
--교육과정비 : 200만원 이상</td>
-                <td>없음</td>
-                <td>별도</td>
-                <td>42만원<br>(연회비 12만원 포함)</td>
-                <td>12만원</td>
-            </tr>
-            <tr class="text-xs break-keep">
-                <td rowspan=2>실버요가지도자</td>
-                <td>1급</td>
-                <td>90만원</td>
-                <td rowspan=6>- 40시간 이수<br>- 교육과정비: 50만원 이상</td>
-                <td rowspan=6 class='red'>- 40시간 이수<br>- 교육과정비: 80만원 이상</td>
-                <td>별도</td>
-                <td rowspan=13>없음</td>
-                <td rowspan=13>10만원</td>
-                <td rowspan=6>10만원</td>
-                <td rowspan=13>무료</td>
-                <td rowspan=13>별도</td>
-                <td rowspan=13>없음</td>
-                <td rowspan=13>없음</td>
-            </tr>
-            <tr class="text-xs break-keep">
-                <td>2급</td>
-                <td>90만원</td>
-                <td>별도</td>
-            </tr>
-            <tr class="text-xs break-keep">
-                <td rowspan=2>어린이&청소년 요가지도자</td>
-                <td>1급</td>
-                <td>90만원</td>
-                <td>별도</td>
-            </tr>
-            <tr class="text-xs break-keep">
-                <td>2급</td>
-                <td>90만원</td>
-                <td>별도</td>
-            </tr>
-            <tr class="text-xs break-keep">
-                <td rowspan=2>임산부&베이비 요가지도자</td>
-                <td>1급</td>
-                <td>90만원</td>
-                <td>별도</td>
-            </tr>
-            <tr class="text-xs break-keep">
-                <td>2급</td>
-                <td>90만원</td>
-                <td>별도</td>
-            </tr>
-            <tr class="text-xs break-keep">
-                <td rowspan=2>슬링(플라잉) 요가지도자</td>
-                <td>1급</td>
-                <td>150만원</td>
-                <td rowspan=2>- 40시간 이수<br>- 교육과정비: 70만원 이상</td>
-                <td rowspan=2>- 40시간 이수<br>- 교육과정비: 120만원 이상</td>
-                <td>별도</td>
-                <td rowspan=2>20만원</td>
-            </tr>
-            <tr class="text-xs break-keep">
-                <td>2급</td>
-                <td>150만원</td>
-                <td>별도</td>
-            </tr>
-            <tr class="text-xs break-keep">
-                <td rowspan=3>필라테스 지도자</td>
-                <td>매트</td>
-                <td>150만원</td>
-                <td>- 40시간 이수<br>- 교육과정비: 100만원 이상</td>
-                <td>- 40시간 이수<br>- 교육과정비: 120만원 이상</td>
-                <td>별도</td>
-                <td rowspan=3>20만원</td>
-            </tr>
-            <tr class="text-xs break-keep">
-                <td>소도구</td>
-                <td>120만원</td>
-                <td>- 40시간 이수<br>- 교육과정비: 70만원 이상</td>
-                <td>- 40시간 이수<br>- 교육과정비: 90만원 이상</td>
-                <td>별도</td>
-            </tr>
-            <tr class="text-xs break-keep">
-                <td>대기구</td>
-                <td>190만원</td>
-                <td>- 40시간 이수<br>- 교육과정비: 130만원 이상</td>
-                <td>- 40시간 이수<br>- 교육과정비: 160만원 이상</td>
-                <td>별도</td>
-            </tr>
-            <tr class="text-xs break-keep">
-                <td rowspan=2>비니요가 지도자</td>
-                <td>1급</td>
-                <td>90만원</td>
-                <td class='red'>- 40시간 이수<br>- 교육과정비: 130만원 이상</td>
-                <td></td>
-                <td>별도</td>
-                <td rowspan=2>20만원</td>
-            </tr>
-            <tr class="text-xs break-keep">
-                <td>2급</td>
-                <td>90만원</td>
-                <td></td>
-                <td></td>
-                <td>별도</td>
-            </tr>
-        </tbody>
-    </table>
+<img src="/images/detail.png" class="w-full" />
+    
 
-<div class='uc'>
-    <button type='button' class='btn' onclick="window.close()">창닫기</button>
+<div class='flex justify-center items-center p-2'>
+    <button type='button' class='rounded-sm border px-4 text-sm py-2 bg-zinc-200 border-gray-500' onclick="window.close()">창닫기</button>
 </div>
 `,
 
@@ -1007,7 +840,7 @@ p {
             <li> 지도자간 유대강화</li>
 	    </ol>
 	    <span class="text-highlights text-highlights-green">교육과정</span>
-        <ol class="list-decimal text-sm ml-4 space-y-4">
+        <ol class="list-decimal text-sm ml-4 leading-relaxed">
 	        <li><strong>지도자자격증 발급 교육기관 공통 사항</strong>
                 <ul class="list-disc text-sm ml-4">
                     <li> 자격증발급: (사)한국요가연합회 주최하는 시험에 합격한 자로 (사)한국요가연합회 명의로 발급된다.</li>
