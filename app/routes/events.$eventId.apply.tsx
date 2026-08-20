@@ -2,8 +2,8 @@ import type { Route } from "./+types/events.$eventId.apply";
 import { data, redirect, useSearchParams } from "react-router";
 import { EventApplicationForm } from "~/components/event/event-application-form";
 import { SiteLayout } from "~/components/site-layout";
-import { getClientIp } from "~/lib/auth.server";
-import { isEventOpen } from "~/lib/event-constants";
+import { getAuthUser, getClientIp } from "~/lib/auth.server";
+import { ADMIN_LEVEL, isEventOpen } from "~/lib/event-constants";
 import {
   createEventApplication,
   getEvent,
@@ -15,14 +15,20 @@ export function meta({ data: loaderData }: Route.MetaArgs) {
   return [{ title: `${title} - 한국요가연합회` }];
 }
 
-export async function loader({ params, context }: Route.LoaderArgs) {
+async function isAdminRequest(request: Request, db: Env["DB"]) {
+  const user = await getAuthUser(request, db);
+  return Boolean(user && user.level >= ADMIN_LEVEL);
+}
+
+export async function loader({ request, params, context }: Route.LoaderArgs) {
   const eventId = parseInt(params.eventId ?? "", 10);
   if (!eventId) throw data("행사를 찾을 수 없습니다.", { status: 404 });
 
-  const event = await getEvent(context.cloudflare.env.DB, eventId);
+  const db = context.cloudflare.env.DB;
+  const event = await getEvent(db, eventId);
   if (!event) throw data("행사를 찾을 수 없습니다.", { status: 404 });
 
-  if (!isEventOpen(event.starts_on, event.ends_on)) {
+  if (!isEventOpen(event.starts_on, event.ends_on) && !(await isAdminRequest(request, db))) {
     return data(
       {
         event,
@@ -44,7 +50,7 @@ export async function action({ request, params, context }: Route.ActionArgs) {
   const event = await getEvent(db, eventId);
   if (!event) return data({ error: "행사를 찾을 수 없습니다." }, { status: 404 });
 
-  if (!isEventOpen(event.starts_on, event.ends_on)) {
+  if (!isEventOpen(event.starts_on, event.ends_on) && !(await isAdminRequest(request, db))) {
     return data({ error: "신청기간이 지났습니다." }, { status: 403 });
   }
 
