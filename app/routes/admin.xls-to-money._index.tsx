@@ -60,7 +60,7 @@ export default function AdminXlsToMoney() {
       title="회비입금처리"
       description="엑셀파일 업로드 후 입금처리"
       actions={
-        <Button asChild variant="outline" size="sm">
+        <Button asChild variant="outline" size="sm" className="bg-green-500 hover:bg-green-600">
           <Link to="/admin/xls-to-money/upload">엑셀업로드</Link>
         </Button>
       }

@@ -3,7 +3,10 @@ import { data, redirect } from "react-router";
 import { BoardWriteForm } from "~/components/board/board-write-form";
 import { PageWithSidebar } from "~/components/page-sidebar";
 import { SiteLayout } from "~/components/site-layout";
+import { getAuthUser } from "~/lib/auth.server";
 import { getBoard, getPost, requireBoardMutationAccess, updatePost } from "~/lib/board.server";
+import { ADMIN_LEVEL } from "~/lib/event-constants";
+import { isJobBoard, parseJobTitle, resolvePostTitle } from "~/lib/job-board";
 import { getSectionSidebar, mainNavigation } from "~/lib/navigation";
 import { getBoardBasePath, getBoardPostPath } from "~/lib/route-paths";
 
@@ -17,26 +20,40 @@ export async function loader({ params, request, context }: Route.LoaderArgs) {
   }
 
   await requireBoardMutationAccess(request, db, params.boardId);
+  const user = await getAuthUser(request, db);
 
-  return { board, post };
+  return { board, post, isAdmin: Boolean(user && user.level >= ADMIN_LEVEL) };
 }
 
 export async function action({ request, params, context }: Route.ActionArgs) {
-  await requireBoardMutationAccess(request, context.cloudflare.env.DB, params.boardId);
+  const db = context.cloudflare.env.DB;
+  await requireBoardMutationAccess(request, db, params.boardId);
 
   const formData = await request.formData();
+  const user = await getAuthUser(request, db);
+  const isAdmin = Boolean(user && user.level >= ADMIN_LEVEL);
   const title = String(formData.get("title") ?? "").trim();
   const content = String(formData.get("content") ?? "").trim();
   const authorName = String(formData.get("authorName") ?? "").trim();
+  const resolvedTitle = resolvePostTitle(
+    params.boardId,
+    title,
+    String(formData.get("jobCategory") ?? ""),
+  );
 
   if (!title || !content) {
     return data({ error: "필수 항목을 입력해 주세요." }, { status: 400 });
   }
 
-  await updatePost(context.cloudflare.env.DB, Number(params.postId), {
-    title,
+  if (!resolvedTitle.ok) {
+    return data({ error: resolvedTitle.error }, { status: 400 });
+  }
+
+  await updatePost(db, Number(params.postId), {
+    title: resolvedTitle.title,
     content,
     authorName: authorName || undefined,
+    isNotice: isAdmin ? formData.get("isNotice") === "1" : undefined,
   });
 
   return redirect(getBoardPostPath(params.boardId, Number(params.postId)));
@@ -45,6 +62,7 @@ export async function action({ request, params, context }: Route.ActionArgs) {
 export default function BoardEdit({ loaderData }: Route.ComponentProps) {
   const { board, post } = loaderData;
   const section = getSectionSidebar(getBoardBasePath(board.id));
+  const jobTitle = isJobBoard(board.id) ? parseJobTitle(post.title) : null;
 
   return (
     <SiteLayout
@@ -56,11 +74,14 @@ export default function BoardEdit({ loaderData }: Route.ComponentProps) {
         <BoardWriteForm
           boardId={board.id}
           boardTitle={board.title}
+          isAdmin={loaderData.isAdmin}
           submitLabel="수정"
           defaultValues={{
-            title: post.title,
+            title: jobTitle?.body ?? post.title,
             content: post.content ?? "",
             authorName: post.author_name ?? "",
+            isNotice: post.is_notice === 1,
+            jobCategory: jobTitle?.category || undefined,
           }}
         />
       </PageWithSidebar>

@@ -7,7 +7,7 @@ import {
   PaginationItem,
 } from "@/components/ui/pagination";
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
-import { getBoardBasePath } from "~/lib/route-paths";
+import { getBoardListPath } from "~/lib/route-paths";
 
 interface BoardPaginationProps {
   boardId: string;
@@ -15,6 +15,7 @@ interface BoardPaginationProps {
   totalPages: number;
   searchQuery?: string;
   searchField?: string;
+  jobCategory?: string;
 }
 
 function buildPagePath(
@@ -22,14 +23,14 @@ function buildPagePath(
   pageNum: number,
   searchQuery?: string,
   searchField?: string,
+  jobCategory?: string,
 ) {
-  const params = new URLSearchParams();
-  params.set("page", String(pageNum));
-  if (searchQuery) {
-    params.set("q", searchQuery);
-    params.set("field", searchField ?? "title");
-  }
-  return `${getBoardBasePath(boardId)}?${params.toString()}`;
+  return getBoardListPath(boardId, {
+    page: pageNum,
+    searchQuery,
+    searchField,
+    jobCategory,
+  });
 }
 
 function getPageItems(current: number, total: number): (number | "ellipsis")[] {
@@ -58,12 +59,13 @@ export function BoardPagination({
   totalPages,
   searchQuery,
   searchField,
+  jobCategory,
 }: BoardPaginationProps) {
   if (totalPages <= 1) return null;
 
   const pageItems = getPageItems(page, totalPages);
-  const prevPath = buildPagePath(boardId, page - 1, searchQuery, searchField);
-  const nextPath = buildPagePath(boardId, page + 1, searchQuery, searchField);
+  const prevPath = buildPagePath(boardId, page - 1, searchQuery, searchField, jobCategory);
+  const nextPath = buildPagePath(boardId, page + 1, searchQuery, searchField, jobCategory);
 
   return (
     <Pagination className="mt-6">
@@ -103,7 +105,7 @@ export function BoardPagination({
                 size="icon"
               >
                 <Link
-                  to={buildPagePath(boardId, item, searchQuery, searchField)}
+                  to={buildPagePath(boardId, item, searchQuery, searchField, jobCategory)}
                   aria-current={item === page ? "page" : undefined}
                 >
                   {item}

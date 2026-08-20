@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { useFetcher, useRevalidator } from "react-router";
-import { EducationFormFields } from "~/components/admin/education-form-fields";
+import { EducationRadioRow } from "~/components/admin/education-radio-row";
 import { Button } from "~/components/ui/button";
 import {
   Dialog,
@@ -9,16 +9,23 @@ import {
   DialogHeader,
   DialogTitle,
 } from "~/components/ui/dialog";
+import { Input } from "~/components/ui/input";
+import {
+  EDUCATION_BULK_LICENSE_SLOTS,
+  EDUCATION_DSCD_OPTIONS,
+  EDUCATION_GUBUN_FORM_OPTIONS,
+} from "~/lib/yoga-constants";
 
 type EducationCreateActionData = {
   detailId?: number;
+  createdCount?: number;
   error?: string;
 };
 
 interface EducationCreateDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  onCreated: (educationId: number) => void;
+  onCreated?: (educationId: number) => void;
 }
 
 export function EducationCreateDialog({
@@ -36,12 +43,11 @@ export function EducationCreateDialog({
   useEffect(() => {
     if (!submittedRef.current || fetcher.state !== "idle") return;
 
-    if (fetcher.data?.detailId) {
+    if (fetcher.data?.createdCount) {
       submittedRef.current = false;
       formRef.current?.reset();
       revalidator.revalidate();
       onOpenChange(false);
-      onCreated(fetcher.data.detailId);
       return;
     }
 
@@ -59,10 +65,12 @@ export function EducationCreateDialog({
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
-      <DialogContent className="max-h-[90vh] overflow-y-auto sm:max-w-2xl">
+      <DialogContent className="max-h-[90vh] overflow-y-auto sm:max-w-6xl">
         <DialogHeader>
           <DialogTitle>교육이수 등록</DialogTitle>
-          <DialogDescription>새 교육이수 정보를 입력해 주세요.</DialogDescription>
+          <DialogDescription>
+            공통 교육 정보를 입력한 뒤 자격번호를 대량으로 등록할 수 있습니다.
+          </DialogDescription>
         </DialogHeader>
 
         {error ? (
@@ -75,20 +83,102 @@ export function EducationCreateDialog({
           ref={formRef}
           method="post"
           action="/admin/educations"
-          className="grid gap-3 md:grid-cols-2"
+          className="space-y-4"
           onSubmit={() => {
             submittedRef.current = true;
           }}
         >
           <input type="hidden" name="intent" value="create" />
-          <EducationFormFields disabled={isSubmitting} idPrefix="education-create" />
-          <Button
-            type="submit"
-            className="md:col-span-2 md:justify-self-end"
-            disabled={isSubmitting}
-          >
-            {isSubmitting ? "등록 중..." : "교육이수 등록"}
-          </Button>
+
+          <div className="space-y-3 rounded-md bg-slate-700 p-4 text-white">
+            <div className="grid gap-3 md:grid-cols-2">
+              <div className="space-y-1">
+                <p className="text-xs font-medium text-white/80">자격구분</p>
+                <EducationRadioRow
+                  name="dscd"
+                  options={EDUCATION_DSCD_OPTIONS}
+                  defaultValue="1"
+                  disabled={isSubmitting}
+                />
+              </div>
+              <div className="space-y-1">
+                <p className="text-xs font-medium text-white/80">구분</p>
+                <EducationRadioRow
+                  name="gubun"
+                  options={EDUCATION_GUBUN_FORM_OPTIONS}
+                  defaultValue="1"
+                  disabled={isSubmitting}
+                />
+              </div>
+            </div>
+            <div className="grid gap-3 md:grid-cols-4">
+              <label className="space-y-1 text-xs font-medium text-white/80">
+                취득일자
+                <Input
+                  name="basDate"
+                  placeholder="연도. 월. 일."
+                  disabled={isSubmitting}
+                  className="h-8 bg-white text-foreground"
+                />
+              </label>
+              <label className="space-y-1 text-xs font-medium text-white/80 md:col-span-2">
+                교육내용
+                <Input
+                  name="gradeTxt"
+                  disabled={isSubmitting}
+                  className="h-8 bg-white text-foreground"
+                />
+              </label>
+              <label className="space-y-1 text-xs font-medium text-white/80">
+                교육시간
+                <Input
+                  name="hour"
+                  disabled={isSubmitting}
+                  className="h-8 bg-white text-foreground"
+                />
+              </label>
+            </div>
+            <label className="block space-y-1 text-xs font-medium text-white/80">
+              교육기관
+              <Input
+                name="gradeEduLoc"
+                disabled={isSubmitting}
+                className="h-8 bg-white text-foreground"
+              />
+            </label>
+          </div>
+
+          <div className="grid grid-cols-2 gap-2 rounded-md bg-slate-100 p-3 sm:grid-cols-5 xl:grid-cols-10">
+            {Array.from({ length: EDUCATION_BULK_LICENSE_SLOTS }, (_, index) => (
+              <label key={index} className="space-y-1 text-[11px] font-medium text-slate-600">
+                자격번호
+                <Input
+                  name="licId"
+                  inputMode="numeric"
+                  disabled={isSubmitting}
+                  className="h-8 bg-white"
+                />
+              </label>
+            ))}
+          </div>
+
+          <div className="flex justify-center gap-2">
+            <Button
+              type="submit"
+              className="bg-blue-500 hover:bg-blue-600"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? "저장 중..." : "저장"}
+            </Button>
+            <Button
+              type="button"
+              className="bg-teal-500 hover:bg-teal-600"
+              disabled={isSubmitting}
+              onClick={() => handleOpenChange(false)}
+            >
+              목록으로 돌아가기
+            </Button>
+          </div>
         </fetcher.Form>
       </DialogContent>
     </Dialog>

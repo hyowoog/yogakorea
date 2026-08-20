@@ -100,7 +100,7 @@ export default function AdminEventsIndex({ loaderData }: Route.ComponentProps) {
       description="행사 등록 및 신청 목록 관리"
     >
       <div className="flex justify-end">
-        <Button type="button" size="sm" onClick={() => setCreateDialogOpen(true)}>
+        <Button type="button" size="sm" onClick={() => setCreateDialogOpen(true)} className="bg-yellow-500 hover:bg-yellow-600">
           행사 추가
         </Button>
       </div>
@@ -118,7 +118,7 @@ export default function AdminEventsIndex({ loaderData }: Route.ComponentProps) {
           <tbody>
             {events.map((event, index) => (
               <tr key={event.id} className="border-t hover:bg-slate-50">
-                <td className="px-3 py-3">{pagination.offset + index + 1}</td>
+                <td className="px-3 py-3">{pagination.total - pagination.offset - index}</td>
                 <td className="px-3 py-3">
                   <Button
                     type="button"

@@ -16,6 +16,7 @@ import {
   requireBoardAccess,
 } from "~/lib/board.server";
 import { isBrbrBoard, isGalleryBoard } from "~/lib/board-access";
+import { parseJobCategoryFilter } from "~/lib/job-board";
 import { buildPostThumbnailMap } from "~/lib/post-thumbnail";
 import { getSectionSidebar, mainNavigation } from "~/lib/navigation";
 import { listPublicBranchAreas, listPublicBranches } from "~/lib/yoga-branch.server";
@@ -102,6 +103,7 @@ export async function loader({ params, request, context }: Route.LoaderArgs) {
   const page = Number(url.searchParams.get("page") ?? "1");
   const searchQuery = url.searchParams.get("q") ?? undefined;
   const searchField = url.searchParams.get("field") ?? "title";
+  const jobCategory = parseJobCategoryFilter(url.searchParams.get("cat"));
 
   const result = await listPosts(
     db,
@@ -109,6 +111,7 @@ export async function loader({ params, request, context }: Route.LoaderArgs) {
     page,
     getBoardPageSize(board),
     searchQuery ? { field: searchField, query: searchQuery } : undefined,
+    jobCategory,
   );
 
   const thumbnails = isGalleryBoard(board)
@@ -121,6 +124,7 @@ export async function loader({ params, request, context }: Route.LoaderArgs) {
     ...result,
     searchQuery,
     searchField,
+    jobCategory,
     thumbnails,
     isGallery: isGalleryBoard(board),
     isBrbr: false as const,
@@ -176,6 +180,7 @@ export default function BoardIndex({ loaderData }: Route.ComponentProps) {
     total,
     searchQuery,
     searchField,
+    jobCategory,
     thumbnails,
     isGallery,
   } = loaderData;
@@ -208,6 +213,7 @@ export default function BoardIndex({ loaderData }: Route.ComponentProps) {
             total={total}
             searchQuery={searchQuery}
             searchField={searchField}
+            jobCategory={jobCategory}
           />
         )}
       </PageWithSidebar>

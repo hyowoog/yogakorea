@@ -142,28 +142,45 @@ export default function AdminLicensesIndex({ loaderData }: Route.ComponentProps)
             />
           </div>
           <div className="space-y-1 md:col-span-2">
-            <label className="text-xs font-medium text-sky-700">검색키워드</label>
+            <label className="text-xs font-medium text-sky-700">
+              검색키워드
+            </label>
             <Input name="searchKey" defaultValue={filters.searchKey ?? ""} />
           </div>
         </div>
         <div className="mt-3 flex flex-wrap gap-2">
-          <Button type="submit" size="sm">검색</Button>
-          <Button asChild type="button" variant="outline" size="sm">
+          <Button
+            type="submit"
+            size="sm"
+            className="bg-blue-500 hover:bg-blue-600"
+          >
+            검색
+          </Button>
+          <Button
+            asChild
+            type="button"
+            variant="outline"
+            size="sm"
+            className="bg-gray-300 hover:bg-gray-400"
+          >
             <Link to="/admin/licenses">전체보기</Link>
           </Button>
-          <Button type="button" size="sm" onClick={() => setCreateDialogOpen(true)}>
+          <Button
+            type="button"
+            size="sm"
+            onClick={() => setCreateDialogOpen(true)}
+            className="bg-yellow-500 hover:bg-yellow-600"
+          >
             자격증 등록
           </Button>
         </div>
       </Form>
-
       <AdminPagination
         pathname="/admin/licenses"
         page={pagination.page}
         totalPages={pagination.totalPages}
         total={pagination.total}
       />
-
       <div className="overflow-x-auto rounded border bg-white shadow-sm">
         <table className="w-full min-w-[800px] text-sm">
           <thead className="bg-sky-600 text-white">
@@ -179,7 +196,11 @@ export default function AdminLicensesIndex({ loaderData }: Route.ComponentProps)
           <tbody>
             {licenses.map((license, index) => (
               <tr key={license.id} className="border-t hover:bg-slate-50">
-                <td className="px-3 py-2">{pagination.offset + index + 1}</td>
+                <td className="px-3 py-2">
+                  {filters.order === "asc"
+                    ? pagination.offset + index + 1
+                    : pagination.total - pagination.offset - index}
+                </td>
                 <td className="px-3 py-2">
                   <Button
                     type="button"
@@ -191,7 +212,9 @@ export default function AdminLicensesIndex({ loaderData }: Route.ComponentProps)
                     {license.lic_id ?? "-"}
                   </Button>
                 </td>
-                <td className="px-3 py-2">{license.member_name ?? license.name}</td>
+                <td className="px-3 py-2">
+                  {license.member_name ?? license.name}
+                </td>
                 <td className="px-3 py-2">{license.grade_txt}</td>
                 <td className="px-3 py-2">{license.grade_edu_loc}</td>
                 <td className="px-3 py-2">{license.created}</td>

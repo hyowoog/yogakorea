@@ -23,6 +23,7 @@ export interface YogaMemGrade {
 
 export interface EducationInput {
   licId?: number | null;
+  dscd?: string;
   gradeType?: string;
   gradeNo?: string;
   gradeTxt?: string;
@@ -40,20 +41,24 @@ export interface EducationFilters {
   eduLoc?: string;
   searchField?: "lic_id" | "name" | "grade_txt";
   searchKey?: string;
+  guest?: boolean;
 }
 
 function buildEducationWhere(filters: EducationFilters) {
   const clauses = ["g.id > 0"];
   const binds: (string | number)[] = [];
 
+  if (filters.guest) {
+    clauses.push("(g.lic_id IS NULL OR g.lic_id = 0)");
+  }
   if (filters.eduLoc) {
     clauses.push("g.grade_edu_loc = ?");
     binds.push(filters.eduLoc);
   }
   if (filters.searchField && filters.searchKey) {
     if (filters.searchField === "name") {
-      clauses.push("ym.name LIKE ?");
-      binds.push(`%${filters.searchKey}%`);
+      clauses.push("(ym.name LIKE ? OR g.name LIKE ?)");
+      binds.push(`%${filters.searchKey}%`, `%${filters.searchKey}%`);
     } else if (filters.searchField === "lic_id") {
       clauses.push("CAST(g.lic_id AS TEXT) LIKE ?");
       binds.push(`%${filters.searchKey}%`);
@@ -73,6 +78,7 @@ export function parseEducationFilters(searchParams: URLSearchParams): EducationF
     searchField:
       searchField === "name" || searchField === "grade_txt" ? searchField : "lic_id",
     searchKey: searchParams.get("searchKey") ?? undefined,
+    guest: searchParams.get("guest") === "1",
   };
 }
 
@@ -133,11 +139,12 @@ export async function createEducation(db: Env["DB"], input: EducationInput) {
       `INSERT INTO yoga_mem_grades (
         id, lic_id, dscd, grade_type, grade_no, grade_txt, grade_edu_loc, name, jumin, hp,
         bas_date, chg_date, hour, gubun
-      ) VALUES (?, ?, '', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
     )
     .bind(
       id,
       input.licId ?? null,
+      input.dscd ?? "",
       input.gradeType ?? null,
       input.gradeNo ?? null,
       input.gradeTxt ?? null,
@@ -153,6 +160,68 @@ export async function createEducation(db: Env["DB"], input: EducationInput) {
     .run();
 
   return id;
+}
+
+export async function createEducations(
+  db: Env["DB"],
+  input: EducationInput,
+  licIds: number[],
+) {
+  const uniqueLicIds = [...new Set(licIds)];
+  const maxRow = await db
+    .prepare(`SELECT COALESCE(MAX(id), 0) AS max_id FROM yoga_mem_grades`)
+    .first<{ max_id: number }>();
+  let nextId = maxRow?.max_id ?? 0;
+
+  const nameByLicId = new Map<number, string | null>();
+  if (uniqueLicIds.length > 0) {
+    const members = await db
+      .prepare(
+        `SELECT lic_id, name FROM yoga_members WHERE lic_id IN (${uniqueLicIds.map(() => "?").join(",")})`,
+      )
+      .bind(...uniqueLicIds)
+      .all<{ lic_id: number; name: string | null }>();
+    for (const member of members.results ?? []) {
+      nameByLicId.set(member.lic_id, member.name);
+    }
+  }
+
+  const statements = uniqueLicIds.map((licId) => {
+    nextId += 1;
+    return db
+      .prepare(
+        `INSERT INTO yoga_mem_grades (
+          id, lic_id, dscd, grade_type, grade_no, grade_txt, grade_edu_loc, name, jumin, hp,
+          bas_date, chg_date, hour, gubun
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      )
+      .bind(
+        nextId,
+        licId,
+        input.dscd ?? "",
+        input.gradeType ?? null,
+        input.gradeNo ?? null,
+        input.gradeTxt ?? null,
+        input.gradeEduLoc ?? null,
+        nameByLicId.get(licId) ?? input.name ?? null,
+        input.jumin ?? null,
+        input.hp ?? null,
+        input.basDate ?? null,
+        input.chgDate ?? null,
+        input.hour ?? "",
+        input.gubun ?? "",
+      );
+  });
+
+  const chunkSize = 50;
+  for (let index = 0; index < statements.length; index += chunkSize) {
+    await db.batch(statements.slice(index, index + chunkSize));
+  }
+
+  return {
+    firstId: uniqueLicIds.length ? (maxRow?.max_id ?? 0) + 1 : null,
+    count: uniqueLicIds.length,
+  };
 }
 
 export async function updateEducation(db: Env["DB"], id: number, input: EducationInput) {
@@ -196,6 +265,7 @@ export function parseEducationFormData(formData: FormData): {
     errors: [],
     input: {
       licId: licId && !Number.isNaN(licId) ? licId : null,
+      dscd: String(formData.get("dscd") ?? "").trim() || undefined,
       gradeType: String(formData.get("gradeType") ?? "").trim() || undefined,
       gradeNo: String(formData.get("gradeNo") ?? "").trim() || undefined,
       gradeTxt: String(formData.get("gradeTxt") ?? "").trim() || undefined,
@@ -206,8 +276,50 @@ export function parseEducationFormData(formData: FormData): {
       basDate: String(formData.get("basDate") ?? "").trim() || undefined,
       chgDate: String(formData.get("chgDate") ?? "").trim() || undefined,
       hour: String(formData.get("hour") ?? "").trim() || undefined,
-      gubun: String(formData.get("gubun") ?? "").trim() || undefined,
+      gubun: (() => {
+        const value = String(formData.get("gubun") ?? "").trim();
+        if (value === "0") return "";
+        return value || undefined;
+      })(),
     },
+  };
+}
+
+export function parseBulkEducationFormData(formData: FormData): {
+  input: EducationInput;
+  licIds: number[];
+  errors: string[];
+} {
+  const parsed = parseEducationFormData(formData);
+  const licIds = [
+    ...new Set(
+      formData
+        .getAll("licId")
+        .map((value) => String(value).trim())
+        .filter(Boolean)
+        .map((value) => parseInt(value, 10))
+        .filter((value) => !Number.isNaN(value) && value > 0),
+    ),
+  ];
+
+  const errors = [...parsed.errors];
+  if (!parsed.input.basDate) errors.push("취득일자를 입력해 주세요.");
+  if (licIds.length === 0) errors.push("자격번호를 하나 이상 입력해 주세요.");
+
+  return { input: parsed.input, licIds, errors };
+}
+
+export function parseGuestEducationFormData(formData: FormData): {
+  input: EducationInput;
+  errors: string[];
+} {
+  const parsed = parseEducationFormData(formData);
+  const errors = [...parsed.errors];
+  if (!parsed.input.name) errors.push("성명을 입력해 주세요.");
+  if (!parsed.input.basDate) errors.push("취득일자를 입력해 주세요.");
+  return {
+    input: { ...parsed.input, licId: null },
+    errors,
   };
 }
 

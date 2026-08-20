@@ -7,7 +7,7 @@ import {
 import type { Post } from "~/lib/board.server";
 import { DataTable } from "@/components/ui/data-table";
 import { Button } from "../ui/button";
-import { getBoardWritePath } from "~/lib/route-paths";
+import { getBoardListPath, getBoardWritePath } from "~/lib/route-paths";
 import {
   Select,
   SelectContent,
@@ -17,6 +17,8 @@ import {
   SelectValue,
 } from "../ui/select";
 import { Input } from "../ui/input";
+import { Tabs, TabsList, TabsTrigger } from "../ui/tabs";
+import { isJobBoard, JOB_CATEGORIES } from "~/lib/job-board";
 
 interface BoardListProps {
   boardId: string;
@@ -27,6 +29,7 @@ interface BoardListProps {
   total: number;
   searchQuery?: string;
   searchField?: string;
+  jobCategory?: string;
 }
 
 export function BoardList({
@@ -38,15 +41,44 @@ export function BoardList({
   total,
   searchQuery,
   searchField,
+  jobCategory,
 }: BoardListProps) {
   const columns = getBoardColumns({ boardId });
   const tableData: BoardTableRow[] = posts.map((post, index) => ({
     ...post,
     rowNumber: total - (page - 1) * 15 - index,
   }));
+  const showJobTabs = isJobBoard(boardId);
+  const activeJobTab = jobCategory ?? "all";
 
   return (
     <div className="yk-board">
+      {showJobTabs ? (
+        <Tabs value={activeJobTab} className="mb-4">
+          <TabsList>
+            <TabsTrigger value="all" asChild>
+              <Link
+                to={getBoardListPath(boardId, { searchQuery, searchField })}
+              >
+                전체
+              </Link>
+            </TabsTrigger>
+            {JOB_CATEGORIES.map((category) => (
+              <TabsTrigger key={category} value={category} asChild>
+                <Link
+                  to={getBoardListPath(boardId, {
+                    searchQuery,
+                    searchField,
+                    jobCategory: category,
+                  })}
+                >
+                  {category}
+                </Link>
+              </TabsTrigger>
+            ))}
+          </TabsList>
+        </Tabs>
+      ) : null}
       <DataTable
         columns={columns}
         data={tableData}
@@ -62,9 +94,11 @@ export function BoardList({
         totalPages={totalPages}
         searchQuery={searchQuery}
         searchField={searchField}
+        jobCategory={jobCategory}
       />
 
       <Form method="get" className="yk-board-search mt-6">
+        {jobCategory ? <input type="hidden" name="cat" value={jobCategory} /> : null}
         <Select name="field" defaultValue={searchField ?? "title"}>
           <SelectTrigger className="w-[180px]">
             <SelectValue placeholder="검색조건" />

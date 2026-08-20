@@ -598,11 +598,26 @@ a {
 .yk-board-search input,
 .yk-board-search select,
 .yk-form input,
-.yk-form textarea {
+.yk-form textarea,
+.yk-form select {
   width: 100%;
   padding: 0.75rem;
   border: 1px solid var(--yk-border);
   border-radius: 8px;
+}
+
+.yk-form-title-row {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.yk-form-title-row select {
+  width: auto;
+  flex: 0 0 6.5rem;
+}
+
+.yk-form-title-row input {
+  flex: 1;
 }
 
 .yk-board-table {
@@ -755,6 +770,17 @@ a {
   display: grid;
   gap: 0.5rem;
   font-weight: 500;
+}
+
+.yk-form .yk-form-check {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.yk-form .yk-form-check input[type="checkbox"] {
+  width: auto;
+  padding: 0;
 }
 
 .yk-form-actions,

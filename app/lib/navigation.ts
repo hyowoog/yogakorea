@@ -43,7 +43,7 @@ export const mainNavigation: NavItem[] = [
       { label: "본부자료실", href: "/data/headroom" },
       { label: "사진자료실", href: "/data/photoroom" },
       { label: "회보자료실", href: "/data/webzine" },
-      { label: "교육동영상", href: "/data/videoroom" },
+      { label: "교육자료실", href: "/data/videoroom" },
     ],
   },
   {

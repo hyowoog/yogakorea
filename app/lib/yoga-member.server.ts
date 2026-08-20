@@ -1,6 +1,7 @@
 import { fromAdminSelectValue } from "~/lib/admin-form";
 import { ADMIN_PAGE_SIZE } from "~/lib/admin-pagination";
 import { buildCsv } from "~/lib/csv.server";
+import { sortBranchAreas } from "~/lib/yoga-branch.server";
 
 export interface YogaMember {
   id: number;
@@ -92,6 +93,23 @@ export interface YogaPaymentInput {
   payEtc?: string;
 }
 
+function normalizePayMonthFilter(raw: string | null | undefined) {
+  if (!raw?.trim()) return undefined;
+  const digits = raw.trim().replace(/월/g, "").replace(/\D/g, "");
+  if (digits.length === 1 || digits.length === 2) {
+    const month = Number(digits);
+    if (month < 1 || month > 12) return undefined;
+    return String(month).padStart(2, "0");
+  }
+  if (digits.length >= 6) {
+    const year = digits.slice(0, 4);
+    const month = Number(digits.slice(4, 6));
+    if (month < 1 || month > 12) return undefined;
+    return `${year}-${String(month).padStart(2, "0")}`;
+  }
+  return undefined;
+}
+
 function buildMemberWhere(filters: YogaMemberFilters) {
   const clauses = ["name IS NOT NULL AND name != ''"];
   const binds: (string | number)[] = [];
@@ -125,8 +143,21 @@ function buildMemberWhere(filters: YogaMemberFilters) {
     binds.push(`${filters.licId}%`);
   }
   if (filters.payMonth) {
-    clauses.push("reg_date LIKE ?");
-    binds.push(`%-${filters.payMonth}-%`);
+    const payDateDigits = "replace(replace(replace(p.pay_date, '.', ''), '-', ''), '/', '')";
+    const [year, month] = filters.payMonth.includes("-")
+      ? filters.payMonth.split("-")
+      : [undefined, filters.payMonth];
+    if (year) {
+      clauses.push(
+        `lic_id IN (SELECT p.lic_id FROM yoga_payments p WHERE substr(${payDateDigits}, 1, 4) = ? AND substr(${payDateDigits}, 5, 2) = ?)`,
+      );
+      binds.push(year, month);
+    } else {
+      clauses.push(
+        `lic_id IN (SELECT p.lic_id FROM yoga_payments p WHERE substr(${payDateDigits}, 5, 2) = ?)`,
+      );
+      binds.push(month);
+    }
   }
   if (filters.memberDscd) {
     clauses.push("member_dscd = ?");
@@ -150,12 +181,14 @@ export function parseMemberFilters(searchParams: URLSearchParams): YogaMemberFil
   return {
     eduLoc: fromAdminSelectValue(searchParams.get("eduLoc")),
     area: fromAdminSelectValue(searchParams.get("area")),
-    yArea: searchParams.get("yArea") ?? undefined,
+    yArea: fromAdminSelectValue(searchParams.get("yArea")),
     yName: searchParams.get("yName") ?? undefined,
     name: searchParams.get("name") ?? undefined,
     hp: searchParams.get("hp") ?? undefined,
     licId: searchParams.get("licId") ?? undefined,
-    payMonth: searchParams.get("payMonth") ?? undefined,
+    payMonth: normalizePayMonthFilter(
+      searchParams.get("payMonth") ?? searchParams.get("month"),
+    ),
     memberDscd: fromAdminSelectValue(searchParams.get("memberDscd")),
     grade: fromAdminSelectValue(searchParams.get("grade")),
     search: searchParams.get("search") ?? undefined,
@@ -238,7 +271,7 @@ export async function listMemberFilterOptions(db: Env["DB"]) {
     memberDscd: memberDscd.results?.map((r) => r.value) ?? [],
     eduLoc: eduLoc.results?.map((r) => r.value) ?? [],
     area: area.results?.map((r) => r.value) ?? [],
-    yArea: yArea.results?.map((r) => r.value) ?? [],
+    yArea: sortBranchAreas(yArea.results?.map((r) => r.value) ?? []),
   };
 }
 

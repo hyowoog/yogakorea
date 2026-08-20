@@ -25,6 +25,28 @@ export function getBoardBasePath(boardId: string) {
   return `/board/${boardId}`;
 }
 
+export function getBoardListPath(
+  boardId: string,
+  options?: {
+    page?: number;
+    searchQuery?: string;
+    searchField?: string;
+    jobCategory?: string;
+  },
+) {
+  const params = new URLSearchParams();
+  if (options?.page && options.page > 1) params.set("page", String(options.page));
+  if (options?.searchQuery) {
+    params.set("q", options.searchQuery);
+    params.set("field", options.searchField ?? "title");
+  }
+  if (options?.jobCategory) params.set("cat", options.jobCategory);
+
+  const query = params.toString();
+  const base = getBoardBasePath(boardId);
+  return query ? `${base}?${query}` : base;
+}
+
 export function getBoardPostPath(boardId: string, postId: number) {
   const base = getBoardBasePath(boardId);
   if (base === "/branch") return "/branch";

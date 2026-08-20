@@ -1074,12 +1074,10 @@ p {
                 <td rowspan="4" align="center">지도자 교육 및<br>
                 유대 강화</td>
                 <td>수련회</td>
-                <td style="text-align: center">1월 세째주<br>
-                (동계)</td>
-                <td style="text-align: center">&nbsp;</td>
-                <td style="text-align: center">7월 둘째주<br>
-                (하계)</td>
-                <td style="text-align: center">&nbsp;</td>
+                <td style="text-align: center"></td>
+                <td style="text-align: center">5월 네째주</td>
+                <td style="text-align: center"></td>
+                <td style="text-align: center">11월 둘째주</td>
                 <td>교육/사무국</td>
                 <td>동계 200명<br>
                 하계 250명</td>
@@ -1107,7 +1105,7 @@ p {
             </tr>
             <tr class="text-sm">
               <td>원장단 워크숍</td>
-              <td colspan="4" style="text-align: center">4월 둘째주 / 11월 둘째주 (1박2일로 년2회 시행)</td>
+              <td colspan="4" style="text-align: center">1월 셋째주 /  9월  둘째주 (1박2일로 년 2회 시행)</td>
               <td>교육/사무국</td>
               <td>요가원장단<br>
               실무이사 및 국장</td>

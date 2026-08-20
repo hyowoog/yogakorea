@@ -70,10 +70,16 @@ export async function listPosts(
   page = 1,
   perPage = 15,
   search?: { field: string; query: string },
+  titlePrefix?: string,
 ) {
   const offset = (page - 1) * perPage;
   let where = `board_id = ? AND ${ROOT_POST_SQL}`;
   const params: (string | number)[] = [boardId];
+
+  if (titlePrefix) {
+    where += " AND title LIKE ?";
+    params.push(`[${titlePrefix}]%`);
+  }
 
   if (search?.query) {
     const field =
@@ -148,6 +154,7 @@ export async function createPost(
     password?: string;
     parentId?: number;
     depth?: number;
+    isNotice?: boolean;
   },
 ) {
   const now = new Date().toISOString().slice(0, 19).replace("T", " ");
@@ -158,8 +165,8 @@ export async function createPost(
 
   const result = await db
     .prepare(
-      `INSERT INTO posts (board_id, parent_id, depth, sort_order, title, content, author_name, author_email, password, created_at)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      `INSERT INTO posts (board_id, parent_id, depth, sort_order, title, content, author_name, author_email, password, is_notice, created_at)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
     )
     .bind(
       data.boardId,
@@ -171,6 +178,7 @@ export async function createPost(
       data.authorName,
       data.authorEmail ?? null,
       data.password ?? null,
+      data.isNotice ? 1 : 0,
       now,
     )
     .run();
@@ -181,14 +189,24 @@ export async function createPost(
 export async function updatePost(
   db: Env["DB"],
   postId: number,
-  data: { title: string; content: string; authorName?: string },
+  data: { title: string; content: string; authorName?: string; isNotice?: boolean },
 ) {
   const now = new Date().toISOString().slice(0, 19).replace("T", " ");
+  if (data.isNotice === undefined) {
+    await db
+      .prepare(
+        `UPDATE posts SET title = ?, content = ?, author_name = COALESCE(?, author_name), updated_at = ? WHERE id = ?`,
+      )
+      .bind(data.title, data.content, data.authorName ?? null, now, postId)
+      .run();
+    return;
+  }
+
   await db
     .prepare(
-      `UPDATE posts SET title = ?, content = ?, author_name = COALESCE(?, author_name), updated_at = ? WHERE id = ?`,
+      `UPDATE posts SET title = ?, content = ?, author_name = COALESCE(?, author_name), is_notice = ?, updated_at = ? WHERE id = ?`,
     )
-    .bind(data.title, data.content, data.authorName ?? null, now, postId)
+    .bind(data.title, data.content, data.authorName ?? null, data.isNotice ? 1 : 0, now, postId)
     .run();
 }
 

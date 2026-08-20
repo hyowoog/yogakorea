@@ -160,11 +160,11 @@ export default function AdminBranchesIndex({ loaderData }: Route.ComponentProps)
           </div>
         </div>
         <div className="mt-3 flex flex-wrap gap-2">
-          <Button type="submit" size="sm">검색</Button>
-          <Button asChild type="button" variant="outline" size="sm">
+          <Button type="submit" size="sm" className="bg-blue-500 hover:bg-blue-600">검색</Button>
+          <Button asChild type="button" variant="outline" size="sm" className="bg-gray-300 hover:bg-gray-400">
             <Link to="/admin/branches">전체보기</Link>
           </Button>
-          <Button type="button" size="sm" onClick={() => setCreateDialogOpen(true)}>
+          <Button type="button" size="sm" onClick={() => setCreateDialogOpen(true)} className="bg-yellow-500 hover:bg-yellow-600">
             요가원 등록
           </Button>
         </div>
@@ -193,7 +193,7 @@ export default function AdminBranchesIndex({ loaderData }: Route.ComponentProps)
           <tbody>
             {branches.map((branch, index) => (
               <tr key={branch.id} className="border-t hover:bg-slate-50">
-                <td className="px-3 py-2">{pagination.offset + index + 1}</td>
+                <td className="px-3 py-2">{pagination.total - pagination.offset - index}</td>
                 <td className="px-3 py-2">{branch.y_area_dscd}</td>
                 <td className="px-3 py-2">{branch.y_type}</td>
                 <td className="px-3 py-2">

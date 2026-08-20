@@ -15,6 +15,7 @@ import {
 } from "~/lib/admin-pagination";
 import { requireAdmin } from "~/lib/auth.server";
 import { mainNavigation } from "~/lib/navigation";
+import { ChevronDownIcon, ChevronUpIcon } from "lucide-react";
 import {
   countYogaMembers,
   createYogaMember,
@@ -108,6 +109,15 @@ export default function AdminMembersIndex({
     }
   }
 
+  function buildLicIdSortHref(order: "asc" | "desc") {
+    const nextParams = new URLSearchParams(searchParams);
+    nextParams.set("order", order);
+    nextParams.delete("page");
+    nextParams.delete("detail");
+    const query = nextParams.toString();
+    return query ? `/admin/members?${query}` : "/admin/members";
+  }
+
   return (
     <AdminLayout
       navigation={mainNavigation}
@@ -116,14 +126,15 @@ export default function AdminMembersIndex({
       description="연합회 회원 목록 및 검색"
       actions={
         <>
-          <Button asChild variant="outline" size="sm">
+          <Button asChild variant="outline" size="sm" className="bg-green-500 hover:bg-green-600">
             <a href={`/admin/members/export${searchQuery}`}>엑셀저장</a>
           </Button>
         </>
       }
     >
       <Form method="get" className="rounded border bg-slate-50 p-4">
-        <div className="grid gap-3 md:grid-cols-4">
+        <input type="hidden" name="order" value={filters.order} />
+        <div className="grid gap-3 md:grid-cols-5">
           <div className="space-y-1">
             <label className="text-xs font-medium text-sky-700">교육기관</label>
             <AdminSelect
@@ -143,6 +154,44 @@ export default function AdminMembersIndex({
             />
           </div>
           <div className="space-y-1">
+            <label className="text-xs font-medium text-sky-700">
+              요가원권역
+            </label>
+            <AdminSelect
+              name="yArea"
+              includeAll
+              defaultValue={filters.yArea}
+              options={options.yArea.map((v) => ({ value: v, label: v }))}
+            />
+          </div>
+          <div className="space-y-1">
+            <label className="text-xs font-medium text-sky-700">요가원명</label>
+            <Input
+              name="yName"
+              defaultValue={filters.yName ?? ""}
+              className="h-8"
+            />
+          </div>
+          <div className="space-y-1">
+            <label className="text-xs font-medium text-sky-700">회원명</label>
+            <Input
+              name="name"
+              defaultValue={filters.name ?? ""}
+              className="h-8"
+            />
+          </div>
+          <div className="space-y-1">
+            <label className="text-xs font-medium text-sky-700">
+              회비납부월
+            </label>
+            <Input
+              name="payMonth"
+              defaultValue={filters.payMonth ?? ""}
+              className="h-8"
+              placeholder="03 또는 2026-03"
+            />
+          </div>
+          <div className="space-y-1">
             <label className="text-xs font-medium text-sky-700">회원구분</label>
             <AdminSelect
               name="memberDscd"
@@ -152,6 +201,18 @@ export default function AdminMembersIndex({
                 ...options.memberDscd.map((v) => ({ value: v, label: v })),
                 { value: "준회원", label: "준회원" },
               ]}
+            />
+          </div>
+          <div className="space-y-1">
+            <label className="text-xs font-medium text-sky-700">휴대전화</label>
+            <Input name="hp" defaultValue={filters.hp ?? ""} className="h-8" />
+          </div>
+          <div className="space-y-1">
+            <label className="text-xs font-medium text-sky-700">자격번호</label>
+            <Input
+              name="licId"
+              defaultValue={filters.licId ?? ""}
+              className="h-8"
             />
           </div>
           <div className="space-y-1">
@@ -168,29 +229,20 @@ export default function AdminMembersIndex({
               ]}
             />
           </div>
-          <div className="space-y-1">
-            <label className="text-xs font-medium text-sky-700">회원명</label>
-            <Input name="name" defaultValue={filters.name ?? ""} className="h-9" />
-          </div>
-          <div className="space-y-1">
-            <label className="text-xs font-medium text-sky-700">휴대전화</label>
-            <Input name="hp" defaultValue={filters.hp ?? ""} className="h-9" />
-          </div>
-          <div className="space-y-1">
-            <label className="text-xs font-medium text-sky-700">자격번호</label>
-            <Input name="licId" defaultValue={filters.licId ?? ""} className="h-9" />
-          </div>
-          <div className="space-y-1">
-            <label className="text-xs font-medium text-sky-700">요가원</label>
-            <Input name="yName" defaultValue={filters.yName ?? ""} className="h-9" />
-          </div>
         </div>
         <div className="mt-3 flex flex-wrap gap-2">
-          <Button type="submit" size="sm">검색</Button>
-          <Button asChild type="button" variant="outline" size="sm">
+          <Button type="submit" size="sm" className="bg-blue-500 hover:bg-blue-600">
+            검색
+          </Button>
+          <Button asChild type="button" variant="outline" size="sm" className="bg-gray-300 hover:bg-gray-400">
             <Link to="/admin/members">전체보기</Link>
           </Button>
-          <Button type="button" size="sm" onClick={() => setCreateDialogOpen(true)}>
+          <Button
+            type="button"
+            size="sm"
+            onClick={() => setCreateDialogOpen(true)}
+            className="bg-yellow-500 hover:bg-yellow-600"
+          >
             회원등록
           </Button>
         </div>
@@ -208,7 +260,37 @@ export default function AdminMembersIndex({
           <thead className="bg-sky-600 text-white">
             <tr>
               <th className="px-3 py-2 text-left">순번</th>
-              <th className="px-3 py-2 text-left">자격번호</th>
+              <th className="px-3 py-2 text-left">
+                <span className="inline-flex items-center gap-1">
+                  자격번호
+                  <span className="inline-flex flex-col leading-none">
+                    <Link
+                      to={buildLicIdSortHref("asc")}
+                      aria-label="자격번호 오름차순"
+                      title="오름차순"
+                      className={
+                        filters.order === "asc"
+                          ? "text-white"
+                          : "text-white/45 hover:text-white"
+                      }
+                    >
+                      <ChevronUpIcon className="size-3.5" />
+                    </Link>
+                    <Link
+                      to={buildLicIdSortHref("desc")}
+                      aria-label="자격번호 내림차순"
+                      title="내림차순"
+                      className={
+                        filters.order === "desc"
+                          ? "text-white"
+                          : "text-white/45 hover:text-white"
+                      }
+                    >
+                      <ChevronDownIcon className="size-3.5" />
+                    </Link>
+                  </span>
+                </span>
+              </th>
               <th className="px-3 py-2 text-left">이름</th>
               <th className="px-3 py-2 text-left">회원구분</th>
               <th className="px-3 py-2 text-left">입회일</th>
@@ -220,7 +302,10 @@ export default function AdminMembersIndex({
           </thead>
           <tbody>
             {members.map((member, index) => {
-              const rowNo = pagination.total - pagination.offset - index;
+              const rowNo =
+                filters.order === "asc"
+                  ? pagination.offset + index + 1
+                  : pagination.total - pagination.offset - index;
               return (
                 <tr key={member.id} className="border-t hover:bg-slate-50">
                   <td className="px-3 py-2">{rowNo.toLocaleString("ko-KR")}</td>
