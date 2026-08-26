@@ -319,7 +319,7 @@ p {
 <div class="tag-box tag-box-e3">
 <div align="center">
 <div class="sub-img">
-<img src="/images/org-2026.jpg" alt="조직도" class="img-responsive" usemap="#Map">
+<img src="/images/org-2026.png" alt="조직도" class="img-responsive" usemap="#Map">
 <map name="Map" id="Map">
 <area shape="rect" coords="361,90,500,120" href="#localtable" alt="지역 조직도" />
 </map>
@@ -329,8 +329,8 @@ p {
 </div>
 </div>
 <div class="tab-e2">
-<ul class="nav nav-tabs">
-<li class="active"><a href="#tab-0" data-toggle="tab" class="text-sm">강원</a></li>
+<ul class="nav nav-tabs break-keep">
+<li class="active"><a href="#tab-0" data-toggle="tab" class="text-sm">경기강원</a></li>
 <li><a href="#tab-1" data-toggle="tab" class="text-sm">경남</a></li>
 <li><a href="#tab-2" data-toggle="tab" class="text-sm">경북</a></li>
 <li><a href="#tab-3" data-toggle="tab" class="text-sm">광주·전남</a></li>
@@ -338,17 +338,30 @@ p {
 <li><a href="#tab-5" data-toggle="tab" class="text-sm">대전·충남</a></li>
 <li><a href="#tab-6" data-toggle="tab" class="text-sm">부산</a></li>
 <li><a href="#tab-7" data-toggle="tab" class="text-sm">서울·인천</a></li>
-<li><a href="#tab-8" data-toggle="tab" class="text-sm">수도권</a></li>
 <li><a href="#tab-9" data-toggle="tab" class="text-sm">울산</a></li>
 <li><a href="#tab-10" data-toggle="tab" class="text-sm">전북</a></li>
 <li><a href="#tab-11" data-toggle="tab" class="text-sm">제주</a></li>
 <li><a href="#tab-12" data-toggle="tab" class="text-sm">충북</a></li>
 </ul>
-<div class="tab-content padding-all-15">
+<div class="tab-content padding-all-0 break-keep table-scroll">
 <div class="tab-pane fade in active" id="tab-0">
 <table class="table table-hover">
-<thead><tr><th style="text-align: center; font-size: 13px;">회장</th></tr></thead>
-<tbody><tr style="text-align: center;"><th style="text-align: center; font-size: 13px;">이장희</th></tr></tbody>
+<thead><tr><th style="text-align: center; font-size: 11px;">회장</th>
+<th style="text-align: center; font-size: 11px;">부회장</th>
+<th style="text-align: center; font-size: 11px;">총무</th>
+<th style="text-align: center; font-size: 11px;">이사</th>
+<th style="text-align: center; font-size: 11px;">이사</th>
+<th style="text-align: center; font-size: 11px;">이사</th>
+<th style="text-align: center; font-size: 11px;">이사</th>
+<th style="text-align: center; font-size: 11px;">이사</th></tr></thead>
+<tbody><tr style="text-align: center;"><th style="text-align: center; font-size: 11px;">현명복</th>
+<th style="text-align: center; font-size: 11px;">임덕</th>
+<th style="text-align: center; font-size: 11px;">송명희</th>
+<th style="text-align: center; font-size: 11px;">김영옥</th>
+<th style="text-align: center; font-size: 11px;">이광진</th>
+<th style="text-align: center; font-size: 11px;">김도하</th>
+<th style="text-align: center; font-size: 11px;">이영순</th>
+<th style="text-align: center; font-size: 11px;">조서현</th></tr></tbody>
 </table>
 </div>
 <div class="tab-pane fade in" id="tab-1">
@@ -646,7 +659,7 @@ p {
     </div>
 
 
-    <table class="table table-hover">
+    <table class="table table-hover break-keep">
         <thead>
             <tr>
                 <th width="22%" style="text-align: center">자격명</th>
@@ -660,7 +673,7 @@ p {
         <tbody class="text-sm">
             <tr style="text-align: center">
                 <td>요가지도자 특/1/2/3급</td>
-                <td>등록(비공인)민간자격</td>
+                <td>등록(비공인)<br/>민간자격</td>
                 <td>2008-0095</td>
                 <td>사단법인<br>한국요가연합회</td>
                 <td>3급 - 5만원<br>특/1/2급 - 3만원</td>
@@ -668,7 +681,7 @@ p {
             </tr> 
 			<tr style="text-align: center">
                 <td>시니어요가지도자<br>1/2급 자격증</td>
-                <td>등록(비공인)민간자격</td>
+                <td>등록(비공인)<br/>민간자격</td>
                 <td>2008-0096</td>
                 <td>사단법인<br>한국요가연합회</td>
                 <td>3만원</td>
@@ -676,7 +689,7 @@ p {
             </tr>
              <tr style="text-align: center">
                 <td>어린이&청소년 요가지도자<br>1/2급 자격증</td>
-                <td>등록(비공인)민간자격</td>
+                <td>등록(비공인)<br/>민간자격</td>
                 <td>2008-0097</td>
                 <td>사단법인<br>한국요가연합회</td>
                 <td>3만원</td>
@@ -684,7 +697,7 @@ p {
             </tr>			
 			 <tr style="text-align: center">
                 <td>임산부&베이비 요가지도자<br>1/2급 자격증</td>
-                <td>등록(비공인)민간자격</td>
+                <td>등록(비공인)<br/>민간자격</td>
                 <td>2010-0131</td>
                 <td>사단법인<br>한국요가연합회</td>
                 <td>3만원</td>
@@ -692,7 +705,7 @@ p {
             </tr>
 			 <tr style="text-align: center">
                 <td>플라잉 요가지도자<br>1/2급 자격증</td>
-                <td>등록(비공인)민간자격</td>
+                <td>등록(비공인)<br/>민간자격</td>
                 <td>2016-005612</td>
                 <td>사단법인<br>한국요가연합회</td>
                 <td>3만원</td>
@@ -700,7 +713,7 @@ p {
             </tr>
 			 <tr style="text-align: center">
                 <td>필라테스 매트 지도자 자격증</td>
-                <td>등록(비공인)민간자격</td>
+                <td>등록(비공인)<br/>민간자격</td>
                 <td>2017-000720</td>
                 <td>사단법인<br>한국요가연합회</td>
                 <td>3만원</td>
@@ -708,7 +721,7 @@ p {
             </tr>
 			 <tr style="text-align: center">
                 <td>필라테스 소도구 지도자</td>
-                <td>등록(비공인)민간자격</td>
+                <td>등록(비공인)<br/>민간자격</td>
                 <td>2017-000721</td>
                 <td>사단법인<br>한국요가연합회</td>
                 <td>3만원</td>
@@ -716,7 +729,7 @@ p {
             </tr>
 			 <tr style="text-align: center">
                 <td>필라테스 대기구 지도자</td>
-                <td>등록(비공인)민간자격</td>
+                <td>등록(비공인)<br/>민간자격</td>
                 <td>2017-000719</td>
                 <td>사단법인<br>한국요가연합회</td>
                 <td>3만원</td>
@@ -724,7 +737,7 @@ p {
             </tr>           
              <tr style="text-align: center">
                 <td>비니요가 지도자<br>1/2급 자격증</td>
-                <td>등록(비공인)민간자격</td>
+                <td>등록(비공인)<br/>민간자격</td>
                 <td>2017-004655</td>
                 <td>사단법인<br>한국요가연합회</td>
                 <td>3만원</td>
@@ -732,7 +745,7 @@ p {
             </tr>           
              <tr style="text-align: center">
                 <td>명상 지도자<br/>1/2급 자격증</td>
-                <td>등록(비공인)민간자격</td>
+                <td>등록(비공인)<br/>민간자격</td>
                 <td>2020-004445</td>
                 <td>사단법인<br>한국요가연합회</td>
                 <td>3만원</td>
@@ -740,7 +753,7 @@ p {
             </tr>          
              <tr style="text-align: center">
                 <td>KYF 싱잉볼힐러<br/>1/2급 자격증</td>
-                <td>등록(비공인)민간자격</td>
+                <td>등록(비공인)<br/>민간자격</td>
                 <td>2025-004619</td>
                 <td>사단법인<br>한국요가연합회</td>
                 <td>3만원</td>
@@ -801,7 +814,7 @@ p {
                 <td>사단법인<br>한국요가연합회</td>
                 <td>김성홍</td>
                 <td>055-724-4144/5</td>
-                <td>경상남도 창원시 의창구 원이대로 261번길 8</td>
+                <td>경상남도 창원시 의창구 도계로41 302호</td>
                 <td>http://www.yogakorea.or.kr</td>
 				<td>yogakorea@yogakorea.or.kr</td>
             </tr> 
@@ -840,7 +853,7 @@ p {
             <li> 지도자간 유대강화</li>
 	    </ol>
 	    <span class="text-highlights text-highlights-green">교육과정</span>
-        <ol class="list-decimal text-sm ml-4 leading-relaxed">
+        <ol class="list-decimal text-sm ml-4 leading-10">
 	        <li><strong>지도자자격증 발급 교육기관 공통 사항</strong>
                 <ul class="list-disc text-sm ml-4">
                     <li> 자격증발급: (사)한국요가연합회 주최하는 시험에 합격한 자로 (사)한국요가연합회 명의로 발급된다.</li>
@@ -888,6 +901,7 @@ p {
 	</div>
 	<table class="table table-hover">
         <thead>
+            <tr><th colspan="8" class="bg-lime-500! text-left rounded-t-lg border-0! text-white text-lg">2026년 분기별 사업계획</th></tr>
 		    <tr><th colspan="8" style="text-align: right">요가지도자 1/2/3급 자격증 (민간자격번호 : 2008-0095)</th></tr>
             <tr>
                 <th width="15%" rowspan="2" style="text-align: center">목적</th>
@@ -907,8 +921,8 @@ p {
             <tr>
                 <td rowspan="3" style="text-align: center">요가지도자양성및 정회원 확보</td>
                 <td>3급</td>   
-				 <td style="text-align: center">4월 3째</td>
-                <td style="text-align: center">4월 4째</td>
+				 <td style="text-align: center">1월 4째</td>
+                <td style="text-align: center">4월 3째</td>
                 <td style="text-align: center">7월 4째</td>
                 <td style="text-align: center">10월 4째</td>
                 <td>심사/사무국</td>
@@ -916,8 +930,8 @@ p {
             </tr>
             <tr>
                 <td>승급(1, 2급)</td> 	
-			    <td style="text-align: center">4월 3째</td>
-                <td style="text-align: center">4월 4째</td>
+			    <td style="text-align: center">1월 4째</td>
+                <td style="text-align: center">4월 3째</td>
                 <td style="text-align: center">7월 4째</td>
                 <td style="text-align: center">10월 4째</td>
                 <td>심사/사무국</td>
@@ -925,8 +939,8 @@ p {
             </tr>
             <tr> 
               <td>타 단체 갱신</td>  
-			   <td style="text-align: center">4월 3째</td>
-                <td style="text-align: center">4월 4째</td>
+			   <td style="text-align: center">1월 4째</td>
+                <td style="text-align: center">4월 3째</td>
                 <td style="text-align: center">7월 4째</td>
                 <td style="text-align: center">10월 4째</td>
               <td>심사/사무국</td>
@@ -1051,7 +1065,7 @@ p {
 <div class="tab-e2 margin-top-30">
 <div class="panel panel-green">
     <div class="panel-heading">
-        <h3 class="panel-title"><i class="fa fa-edit"></i> 2026년 분기별 사업계획</h3>
+        <h3 class="panel-title"><i class="fa fa-edit"></i> 2027년 분기별 사업계획</h3>
     </div>
    <table class="table table-hover">
         <thead>
@@ -1088,7 +1102,7 @@ p {
                 <td style="text-align: center">5월<br>
                 (권역)</td>
                 <td style="text-align: center">9월</td>
-                <td style="text-align: center">11월<br>
+                <td style="text-align: center">12월<br>
                 (권역)</td>
                 <td>교육/사무국</td>
                 <td></td>

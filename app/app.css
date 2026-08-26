@@ -307,7 +307,7 @@ a {
   }
 
   .yk-page-with-sidebar {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: 1.5rem;
   }
 
@@ -397,6 +397,23 @@ a {
 
 .yk-legacy-content .table-hover tbody tr:hover {
   background: #fafafa;
+}
+
+/* 좁은 화면에서 임원 표가 잘리지 않고 가로로 스크롤되게 함 */
+.yk-legacy-content .table-scroll {
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.yk-legacy-content .table-scroll .table {
+  width: max-content;
+  min-width: 100%;
+}
+
+.yk-legacy-content .table-scroll th,
+.yk-legacy-content .table-scroll td {
+  white-space: nowrap;
 }
 
 .yk-legacy-content .panel {
