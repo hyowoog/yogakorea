@@ -1,11 +1,6 @@
 # Cloudflare 배포 설정
 
-GitHub Actions 자동 배포를 위해 다음 Secrets를 설정하세요.
-
-| Secret | 값 |
-|--------|-----|
-| `CLOUDFLARE_API_TOKEN` | Cloudflare API 토큰 (Workers, D1, R2 권한) |
-| `CLOUDFLARE_ACCOUNT_ID` | `25197d91b2bb90ff76f27343cce57d7d` |
+로컬에서 Wrangler로 배포합니다. (`npm run deploy`가 빌드 후 배포)
 
 ## 로컬 개발 순서
 

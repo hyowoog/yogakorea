@@ -277,6 +277,13 @@ for await (const line of rl) {
   }
 }
 
+out.write(`
+-- 권역명 정리 (레거시 건수는 유지, 공개 탭용 명칭만 통일)
+UPDATE yoga_branches SET y_area_dscd = '경기강원권' WHERE y_area_dscd IN ('수도권', '강원권');
+UPDATE yoga_branches SET y_area_dscd = '서울인천권' WHERE y_area_dscd = '서울수도권';
+UPDATE yoga_branches SET y_area_dscd = '충청권' WHERE y_area_dscd IN ('대전충남권', '충북권');
+`);
+
 out.end();
 
 await new Promise((resolve, reject) => {

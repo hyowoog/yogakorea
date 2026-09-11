@@ -132,9 +132,10 @@ export async function listBranches(
   limit = ADMIN_PAGE_SIZE,
 ) {
   const { whereSql, binds } = buildBranchWhere(filters);
+  // 레거시 yogawon.php: order by y_reg_date desc (동일 날짜는 idx/id ASC)
   const result = await db
     .prepare(
-      `SELECT * FROM yoga_branches ${whereSql} ORDER BY y_reg_date DESC LIMIT ? OFFSET ?`,
+      `SELECT * FROM yoga_branches ${whereSql} ORDER BY y_reg_date DESC, id ASC LIMIT ? OFFSET ?`,
     )
     .bind(...binds, limit, offset)
     .all<YogaBranch>();

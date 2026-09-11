@@ -28,22 +28,12 @@ npm run db:import
 
 개발 서버: **https://dev.yogakorea.or.kr**
 
-GitHub `main` 브랜치 push 시 Cloudflare Workers로 자동 배포됩니다.
-
-필요한 GitHub Secrets:
-
-- `CLOUDFLARE_API_TOKEN` — [Cloudflare API 토큰](https://dash.cloudflare.com/profile/api-tokens)에서 **Edit Cloudflare Workers** 템플릿으로 생성
-- `CLOUDFLARE_ACCOUNT_ID` — `25197d91b2bb90ff76f27343cce57d7d`
-
-수동 배포:
-
 ```bash
-npm run build
 npm run db:migrate:remote
 npm run deploy
 ```
 
-레거시 정적 파일(`public_html`)은 git에 포함되지 않습니다. CI 빌드는 R2의 `ci/static-assets.tgz`를 내려받아 사용합니다. 로컬에서 `public_html`을 갱신한 뒤에는 아래로 R2에 다시 올려주세요.
+레거시 정적 파일(`public_html`)은 git에 포함되지 않습니다. 로컬에서 `public_html`을 갱신한 뒤에는 아래로 R2에 다시 올려주세요.
 
 ```bash
 npm run assets:upload

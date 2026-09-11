@@ -187,12 +187,20 @@ export default function AdminBranchesIndex({ loaderData }: Route.ComponentProps)
               <th className="px-3 py-2 text-left">요가원명</th>
               <th className="px-3 py-2 text-left">원장</th>
               <th className="px-3 py-2 text-left">연락처</th>
+              <th className="px-3 py-2 text-left">등록일</th>
               <th className="px-3 py-2 text-left">사용</th>
             </tr>
           </thead>
           <tbody>
             {branches.map((branch, index) => (
-              <tr key={branch.id} className="border-t hover:bg-slate-50">
+              <tr
+                key={branch.id}
+                className={
+                  branch.y_yn === "Y"
+                    ? "border-t hover:bg-slate-50"
+                    : "border-t bg-slate-200/80 hover:bg-slate-300/80"
+                }
+              >
                 <td className="px-3 py-2">{pagination.total - pagination.offset - index}</td>
                 <td className="px-3 py-2">{branch.y_area_dscd}</td>
                 <td className="px-3 py-2">{branch.y_type}</td>
@@ -209,6 +217,7 @@ export default function AdminBranchesIndex({ loaderData }: Route.ComponentProps)
                 </td>
                 <td className="px-3 py-2">{branch.y_ceo}</td>
                 <td className="px-3 py-2">{branch.y_hp ?? branch.y_phone}</td>
+                <td className="px-3 py-2">{branch.y_reg_date || "-"}</td>
                 <td className="px-3 py-2">{branch.y_yn === "Y" ? "O" : "X"}</td>
               </tr>
             ))}
