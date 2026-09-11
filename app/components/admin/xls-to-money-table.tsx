@@ -1,5 +1,3 @@
-"use client";
-
 import { useEffect, useState } from "react";
 import { useFetcher } from "react-router";
 import { Button } from "~/components/ui/button";

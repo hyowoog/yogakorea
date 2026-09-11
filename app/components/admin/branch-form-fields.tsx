@@ -3,7 +3,7 @@ import { AdminSelect } from "~/components/admin/admin-select";
 import { Input } from "~/components/ui/input";
 import { Textarea } from "~/components/ui/textarea";
 import { cn } from "~/lib/utils";
-import type { YogaBranch } from "~/lib/yoga-branch.server";
+import { normalizeBranchNewlines, type YogaBranch } from "~/lib/yoga-branch";
 
 interface BranchFormFieldsProps {
   branch?: YogaBranch | null;
@@ -171,8 +171,9 @@ export function BranchFormFields({
         <Textarea
           id={fieldId("yEtc")}
           name="yEtc"
-          defaultValue={branch?.y_etc ?? ""}
+          defaultValue={normalizeBranchNewlines(branch?.y_etc)}
           disabled={disabled}
+          className="min-h-28 whitespace-pre-wrap"
         />
       </BranchFormField>
     </>

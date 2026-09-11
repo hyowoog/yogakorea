@@ -1,27 +1,9 @@
+import { normalizeBranchNewlines, type YogaBranch } from "~/lib/yoga-branch";
 import { fromAdminSelectValue } from "~/lib/admin-form";
 import { ADMIN_PAGE_SIZE } from "~/lib/admin-pagination";
 import { buildCsv } from "~/lib/csv.server";
 
-export interface YogaBranch {
-  id: number;
-  y_part: string | null;
-  y_type: string | null;
-  y_name: string | null;
-  y_ceo: string | null;
-  y_zipcode: string | null;
-  y_addr: string | null;
-  y_hp: string | null;
-  y_phone: string | null;
-  y_reg_date: string | null;
-  y_email: string | null;
-  y_homepage: string | null;
-  y_yn: string | null;
-  y_area_dscd: string | null;
-  y_retire_date: string | null;
-  y_pay: string | null;
-  y_etc: string | null;
-  y_etc2: string | null;
-}
+export type { YogaBranch } from "~/lib/yoga-branch";
 
 export interface BranchInput {
   yPart?: string;
@@ -143,7 +125,16 @@ export async function listBranches(
 }
 
 export async function getBranch(db: Env["DB"], id: number) {
-  return db.prepare(`SELECT * FROM yoga_branches WHERE id = ?`).bind(id).first<YogaBranch>();
+  const branch = await db
+    .prepare(`SELECT * FROM yoga_branches WHERE id = ?`)
+    .bind(id)
+    .first<YogaBranch>();
+  if (!branch) return null;
+  return {
+    ...branch,
+    y_etc: normalizeBranchNewlines(branch.y_etc),
+    y_etc2: normalizeBranchNewlines(branch.y_etc2),
+  };
 }
 
 export async function listBranchFilterOptions(db: Env["DB"]) {

@@ -1,5 +1,3 @@
-"use client";
-
 import { useEffect } from "react";
 import { useNavigate } from "react-router";
 import { CMS_XLS_ROWS_STORAGE_KEY, type CmsWithdrawalRow } from "~/lib/cms-xls";
