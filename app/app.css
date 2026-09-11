@@ -561,6 +561,12 @@ a {
   color: var(--yk-muted);
 }
 
+.yk-legacy-content .contact-box-l li i.fa {
+  width: 1.25em;
+  margin-right: 0.35em;
+  text-align: center;
+}
+
 .yk-legacy-content ol,
 .yk-legacy-content ul {
   padding-left: 1.25rem;

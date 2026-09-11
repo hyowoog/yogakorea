@@ -16,6 +16,11 @@ export const links: Route.LinksFunction = () => [
 		rel: "stylesheet",
 		href: "https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap",
 	},
+	// 레거시 페이지 HTML의 fa-* 아이콘용 (Font Awesome 4)
+	{
+		rel: "stylesheet",
+		href: "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css",
+	},
 ];
 
 export async function loader({ request, context }: Route.LoaderArgs) {
