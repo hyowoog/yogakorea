@@ -12,7 +12,7 @@ export function SiteFooter() {
           </div>
           <div className="space-y-2">
             <div>Copyright © 사단법인 한국요가연합회. All Rights Reserved.</div>
-            <div className="flex gap-2 text-sm">
+            <div className="flex gap-2 text-sm text-yellow-400">
               <a href="/about/greetings">About Us</a> |
               <a href="/about/contactus">Contact Us</a> |
               <a href="/pages/privacy">개인정보처리방침</a> |

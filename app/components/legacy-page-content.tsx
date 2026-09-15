@@ -1,56 +1,60 @@
-import { useEffect, useRef } from "react";
+import { useMemo, useState } from "react";
+import { splitLegacyTabHtml, type LegacySegment } from "~/lib/legacy-tabs";
 
 interface LegacyPageContentProps {
   html: string;
 }
 
-export function LegacyPageContent({ html }: LegacyPageContentProps) {
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const container = containerRef.current;
-    if (!container) return;
-
-    function activateTab(tabLink: HTMLAnchorElement) {
-      const targetId = tabLink.getAttribute("href")?.replace(/^#/, "");
-      if (!targetId) return;
-
-      const tabList = tabLink.closest(".nav-tabs");
-      const tabContent = tabList?.nextElementSibling;
-      if (!tabList || !tabContent) return;
-
-      tabList.querySelectorAll("li").forEach((item) => item.classList.remove("active"));
-      tabLink.closest("li")?.classList.add("active");
-
-      tabContent.querySelectorAll(".tab-pane").forEach((pane) => {
-        pane.classList.remove("active", "in");
-      });
-      tabContent.querySelector(`#${CSS.escape(targetId)}`)?.classList.add("active", "in");
-    }
-
-    function onTabClick(event: Event) {
-      const target = event.currentTarget;
-      if (!(target instanceof HTMLAnchorElement)) return;
-      if (target.getAttribute("data-toggle") !== "tab") return;
-      event.preventDefault();
-      activateTab(target);
-    }
-
-    const tabLinks = container.querySelectorAll<HTMLAnchorElement>(
-      'a[data-toggle="tab"]',
-    );
-    tabLinks.forEach((link) => link.addEventListener("click", onTabClick));
-
-    return () => {
-      tabLinks.forEach((link) => link.removeEventListener("click", onTabClick));
-    };
-  }, [html]);
+function LegacyHtmlTabs({
+  tabs,
+  defaultId,
+  listClassName,
+  contentClassName,
+}: Extract<LegacySegment, { type: "tabs" }>) {
+  const [activeId, setActiveId] = useState(defaultId);
+  const active = tabs.find((tab) => tab.id === activeId) ?? tabs[0];
 
   return (
-    <div
-      ref={containerRef}
-      className="yk-legacy-content"
-      dangerouslySetInnerHTML={{ __html: html }}
-    />
+    <>
+      <ul className={listClassName} role="tablist">
+        {tabs.map((tab) => {
+          const selected = tab.id === active.id;
+          return (
+            <li key={tab.id} className={selected ? "active" : undefined}>
+              <button
+                type="button"
+                role="tab"
+                className={tab.buttonClassName}
+                aria-selected={selected}
+                onClick={() => setActiveId(tab.id)}
+              >
+                {tab.label}
+              </button>
+            </li>
+          );
+        })}
+      </ul>
+      <div className={contentClassName}>
+        <div className="tab-pane fade in active" role="tabpanel">
+          <div dangerouslySetInnerHTML={{ __html: active.html }} />
+        </div>
+      </div>
+    </>
+  );
+}
+
+export function LegacyPageContent({ html }: LegacyPageContentProps) {
+  const segments = useMemo(() => splitLegacyTabHtml(html), [html]);
+
+  return (
+    <div className="yk-legacy-content">
+      {segments.map((segment, index) =>
+        segment.type === "html" ? (
+          <div key={index} dangerouslySetInnerHTML={{ __html: segment.html }} />
+        ) : (
+          <LegacyHtmlTabs key={index} {...segment} />
+        ),
+      )}
+    </div>
   );
 }

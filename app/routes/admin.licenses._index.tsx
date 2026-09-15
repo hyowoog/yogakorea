@@ -113,7 +113,7 @@ export default function AdminLicensesIndex({ loaderData }: Route.ComponentProps)
       pageTitle="자격증현황"
       title="자격증현황관리"
       actions={
-        <Button asChild variant="outline" size="sm">
+        <Button asChild variant="outline" size="sm" className="bg-green-500 hover:bg-green-600">
           <a href={`/admin/licenses/export${searchQuery}`}>엑셀저장</a>
         </Button>
       }

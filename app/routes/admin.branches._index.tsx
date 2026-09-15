@@ -80,6 +80,13 @@ export default function AdminBranchesIndex({ loaderData }: Route.ComponentProps)
     Boolean(detailFromUrl && !Number.isNaN(detailFromUrl)),
   );
   const [createDialogOpen, setCreateDialogOpen] = useState(false);
+  const hasSearchFilters = Boolean(
+    filters.areaDscd ||
+      filters.yType ||
+      filters.yName?.trim() ||
+      filters.yCeo?.trim() ||
+      filters.yYn,
+  );
 
   useEffect(() => {
     if (detailFromUrl && !Number.isNaN(detailFromUrl)) {
@@ -113,13 +120,18 @@ export default function AdminBranchesIndex({ loaderData }: Route.ComponentProps)
       pageTitle="요가원관리"
       title="요가원관리"
       actions={
-        <Button asChild variant="outline" size="sm">
+        <Button
+          asChild
+          variant="outline"
+          size="sm"
+          className="bg-green-500 hover:bg-green-600"
+        >
           <a href={`/admin/branches/export${searchQuery}`}>엑셀저장</a>
         </Button>
       }
     >
       <Form method="get" className="rounded border bg-slate-50 p-4">
-        <div className="grid gap-3 md:grid-cols-5">
+        <div className="grid gap-2 items-end md:grid-cols-7">
           <div className="space-y-1">
             <label className="text-xs font-medium text-sky-700">권역구분</label>
             <AdminSelect
@@ -130,7 +142,9 @@ export default function AdminBranchesIndex({ loaderData }: Route.ComponentProps)
             />
           </div>
           <div className="space-y-1">
-            <label className="text-xs font-medium text-sky-700">요가원구분</label>
+            <label className="text-xs font-medium text-sky-700">
+              요가원구분
+            </label>
             <AdminSelect
               name="yType"
               includeAll
@@ -140,11 +154,19 @@ export default function AdminBranchesIndex({ loaderData }: Route.ComponentProps)
           </div>
           <div className="space-y-1">
             <label className="text-xs font-medium text-sky-700">요가원명</label>
-            <Input name="yName" defaultValue={filters.yName ?? ""} placeholder="요가원명" />
+            <Input
+              name="yName"
+              defaultValue={filters.yName ?? ""}
+              placeholder="요가원명"
+            />
           </div>
           <div className="space-y-1">
             <label className="text-xs font-medium text-sky-700">원장명</label>
-            <Input name="yCeo" defaultValue={filters.yCeo ?? ""} placeholder="원장명" />
+            <Input
+              name="yCeo"
+              defaultValue={filters.yCeo ?? ""}
+              placeholder="원장명"
+            />
           </div>
           <div className="space-y-1">
             <label className="text-xs font-medium text-sky-700">사용여부</label>
@@ -158,15 +180,34 @@ export default function AdminBranchesIndex({ loaderData }: Route.ComponentProps)
               ]}
             />
           </div>
-        </div>
-        <div className="mt-3 flex flex-wrap gap-2">
-          <Button type="submit" size="sm" className="bg-blue-500 hover:bg-blue-600">검색</Button>
-          <Button asChild type="button" variant="outline" size="sm" className="bg-gray-300 hover:bg-gray-400">
-            <Link to="/admin/branches">전체보기</Link>
-          </Button>
-          <Button type="button" size="sm" onClick={() => setCreateDialogOpen(true)} className="bg-yellow-500 hover:bg-yellow-600">
-            요가원 등록
-          </Button>
+          <div className="col-span-2 pb-1 flex flex-wrap gap-2">
+            <Button
+              type="submit"
+              
+              className="bg-blue-500 hover:bg-blue-600"
+            >
+              검색
+            </Button>
+            {hasSearchFilters ? (
+              <Button
+                asChild
+                type="button"
+                variant="outline"
+              
+                className="bg-gray-300 hover:bg-gray-400"
+              >
+                <Link to="/admin/branches">전체보기</Link>
+              </Button>
+            ) : null}
+            <Button
+              type="button"
+              
+              onClick={() => setCreateDialogOpen(true)}
+              className="bg-yellow-500 hover:bg-yellow-600"
+            >
+              요가원 등록
+            </Button>
+          </div>
         </div>
       </Form>
 
@@ -201,7 +242,9 @@ export default function AdminBranchesIndex({ loaderData }: Route.ComponentProps)
                     : "border-t bg-slate-200/80 hover:bg-slate-300/80"
                 }
               >
-                <td className="px-3 py-2">{pagination.total - pagination.offset - index}</td>
+                <td className="px-3 py-2">
+                  {pagination.total - pagination.offset - index}
+                </td>
                 <td className="px-3 py-2">{branch.y_area_dscd}</td>
                 <td className="px-3 py-2">{branch.y_type}</td>
                 <td className="px-3 py-2">
