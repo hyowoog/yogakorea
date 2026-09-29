@@ -339,13 +339,14 @@ export async function listEducationsForExport(db: Env["DB"], filters: EducationF
 }
 
 export function buildEducationsCsv(educations: YogaMemGrade[]) {
-  const headers = ["기준일자", "자격번호", "이름", "구분", "교육내용", "교육기관"];
+  const headers = ["기준일자", "자격번호", "이름", "구분", "교육내용", "시간", "교육기관"];
   const rows = educations.map((e) => [
     e.bas_date ?? "",
     String(e.lic_id ?? ""),
     e.member_name ?? e.name ?? "",
     formatEducationGubun(e.gubun),
     e.grade_txt ?? "",
+    e.hour ?? "",
     e.grade_edu_loc ?? "",
   ]);
   return { csv: buildCsv(headers, rows), filename: "교육이수.csv" };
