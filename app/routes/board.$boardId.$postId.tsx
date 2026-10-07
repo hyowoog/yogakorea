@@ -149,6 +149,7 @@ export default function BoardPost({ loaderData }: Route.ComponentProps) {
           post={post}
           comments={comments}
           attachments={attachments}
+          allowReply={board.allow_reply === 1}
         />
       </PageWithSidebar>
     </SiteLayout>

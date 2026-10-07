@@ -14,6 +14,7 @@ import {
 } from "../ui/select";
 import { Input } from "../ui/input";
 import { getBoardPostPath, getBoardWritePath } from "~/lib/route-paths";
+import { BoardReplyIcon } from "./board-reply-icon";
 
 interface BoardCardListProps {
   boardId: string;
@@ -56,8 +57,9 @@ export function BoardCardList({
                       공지
                     </Badge>
                   ) : null}
-                  <h3 className="line-clamp-2 text-base font-semibold leading-snug group-hover:text-sky-700">
-                    {post.title}
+                  <h3 className="flex items-start gap-1 line-clamp-2 text-base font-semibold leading-snug group-hover:text-sky-700">
+                    <BoardReplyIcon depth={post.depth} parentId={post.parent_id} />
+                    <span>{post.title}</span>
                   </h3>
                 </div>
                 {excerpt ? (

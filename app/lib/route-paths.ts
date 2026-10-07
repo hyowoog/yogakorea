@@ -59,6 +59,12 @@ export function getBoardWritePath(boardId: string) {
   return `${base}/write`;
 }
 
+export function getBoardReplyPath(boardId: string, postId: number) {
+  const base = getBoardBasePath(boardId);
+  if (base === "/branch") return "/branch";
+  return `${base}/reply/${postId}`;
+}
+
 export function getBoardEditPath(boardId: string, postId: number) {
   const base = getBoardBasePath(boardId);
   if (base === "/branch") return "/branch";

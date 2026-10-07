@@ -12,6 +12,7 @@ export default [
   ...prefix("data", [
     route(":boardId", "routes/data.$boardId._index.tsx"),
     route(":boardId/write", "routes/data.$boardId.write.tsx"),
+    route(":boardId/reply/:postId", "routes/data.$boardId.reply.$postId.tsx"),
     route(":boardId/:postId", "routes/data.$boardId.$postId.tsx"),
     route(":boardId/:postId/edit", "routes/data.$boardId.$postId.edit.tsx"),
     route(":boardId/:postId/delete", "routes/data.$boardId.$postId.delete.tsx"),
@@ -19,6 +20,7 @@ export default [
   ...prefix("comm", [
     route(":boardId", "routes/comm.$boardId._index.tsx"),
     route(":boardId/write", "routes/comm.$boardId.write.tsx"),
+    route(":boardId/reply/:postId", "routes/comm.$boardId.reply.$postId.tsx"),
     route(":boardId/:postId", "routes/comm.$boardId.$postId.tsx"),
     route(":boardId/:postId/edit", "routes/comm.$boardId.$postId.edit.tsx"),
     route(":boardId/:postId/delete", "routes/comm.$boardId.$postId.delete.tsx"),
@@ -27,6 +29,7 @@ export default [
   ...prefix("board", [
     route(":boardId", "routes/board.$boardId._index.tsx"),
     route(":boardId/write", "routes/board.$boardId.write.tsx"),
+    route(":boardId/reply/:postId", "routes/board.$boardId.reply.$postId.tsx"),
     route(":boardId/:postId", "routes/board.$boardId.$postId.tsx"),
     route(":boardId/:postId/edit", "routes/board.$boardId.$postId.edit.tsx"),
     route(":boardId/:postId/delete", "routes/board.$boardId.$postId.delete.tsx"),

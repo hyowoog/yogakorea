@@ -100,13 +100,45 @@ export async function listPosts(
     .bind(...params, perPage, offset)
     .all<Post>();
 
+  const replies = await db
+    .prepare(`SELECT * FROM posts WHERE board_id = ? AND depth > 0`)
+    .bind(boardId)
+    .all<Post>();
+
   return {
-    posts: posts.results,
+    posts: attachRepliesToRoots(posts.results, replies.results),
     total: countRow?.total ?? 0,
     page,
     perPage,
     totalPages: Math.max(1, Math.ceil((countRow?.total ?? 0) / perPage)),
   };
+}
+
+function attachRepliesToRoots(roots: Post[], replies: Post[]) {
+  const byParent = new Map<number, Post[]>();
+  for (const reply of replies) {
+    if (reply.parent_id == null) continue;
+    const children = byParent.get(reply.parent_id) ?? [];
+    children.push(reply);
+    byParent.set(reply.parent_id, children);
+  }
+
+  for (const children of byParent.values()) {
+    children.sort((a, b) =>
+      a.created_at === b.created_at ? a.id - b.id : a.created_at.localeCompare(b.created_at),
+    );
+  }
+
+  const result: Post[] = [];
+  const walk = (post: Post) => {
+    result.push(post);
+    for (const child of byParent.get(post.id) ?? []) {
+      walk(child);
+    }
+  };
+
+  for (const root of roots) walk(root);
+  return result;
 }
 
 export async function getPost(db: Env["DB"], postId: number) {
@@ -210,10 +242,31 @@ export async function updatePost(
     .run();
 }
 
+async function listDescendantReplyIds(db: Env["DB"], postId: number) {
+  const ids: number[] = [];
+  let frontier = [postId];
+
+  while (frontier.length > 0) {
+    const placeholders = frontier.map(() => "?").join(",");
+    const children = await db
+      .prepare(
+        `SELECT id FROM posts WHERE parent_id IN (${placeholders}) AND depth > 0`,
+      )
+      .bind(...frontier)
+      .all<{ id: number }>();
+    frontier = children.results.map((row) => row.id);
+    ids.push(...frontier);
+  }
+
+  return ids;
+}
+
 export async function deletePost(db: Env["DB"], postId: number) {
-  await db.prepare("DELETE FROM comments WHERE post_id = ?").bind(postId).run();
-  await db.prepare("DELETE FROM attachments WHERE post_id = ?").bind(postId).run();
-  await db.prepare("DELETE FROM posts WHERE id = ?").bind(postId).run();
+  const ids = [postId, ...(await listDescendantReplyIds(db, postId))];
+  const placeholders = ids.map(() => "?").join(",");
+  await db.prepare(`DELETE FROM comments WHERE post_id IN (${placeholders})`).bind(...ids).run();
+  await db.prepare(`DELETE FROM attachments WHERE post_id IN (${placeholders})`).bind(...ids).run();
+  await db.prepare(`DELETE FROM posts WHERE id IN (${placeholders})`).bind(...ids).run();
 }
 
 export async function createComment(

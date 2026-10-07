@@ -18,6 +18,7 @@ import {
   getBoardDeletePath,
   getBoardEditPath,
   getBoardPostPath,
+  getBoardReplyPath,
 } from "~/lib/route-paths";
 
 interface BoardViewProps {
@@ -26,6 +27,7 @@ interface BoardViewProps {
   post: Post;
   comments: Comment[];
   attachments: Attachment[];
+  allowReply?: boolean;
 }
 
 type CommentActionData = {
@@ -220,6 +222,7 @@ export function BoardView({
   post,
   comments,
   attachments,
+  allowReply = true,
 }: BoardViewProps) {
   const { imageAttachments, fileAttachments } = partitionAttachments(attachments);
   const relatedLinks = [post.link1, post.link2].filter(
@@ -327,6 +330,11 @@ export function BoardView({
         <Link to={getBoardBasePath(boardId)}>
           <Button>목록</Button>
         </Link>
+        {allowReply ? (
+          <Link to={getBoardReplyPath(boardId, post.id)}>
+            <Button variant="outline">답글</Button>
+          </Link>
+        ) : null}
         <Link to={getBoardEditPath(boardId, post.id)}>
           <Button variant="outline">수정</Button>
         </Link>

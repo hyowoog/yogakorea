@@ -8,6 +8,7 @@ interface BoardWriteFormProps {
   boardId: string;
   boardTitle: string;
   isAdmin?: boolean;
+  heading?: string;
   defaultValues?: {
     title?: string;
     content?: string;
@@ -23,6 +24,7 @@ export function BoardWriteForm({
   boardId,
   boardTitle,
   isAdmin = false,
+  heading = "글쓰기",
   defaultValues,
   submitLabel = "등록",
   action,
@@ -35,7 +37,7 @@ export function BoardWriteForm({
         <p className="yk-breadcrumb">
           <Link to={getBoardBasePath(boardId)}>{boardTitle}</Link>
         </p>
-        <h1>글쓰기</h1>
+        <h1>{heading}</h1>
       </div>
       <Separator className="my-4" />
       <Form method="post" encType="multipart/form-data" action={action} className="yk-form">

@@ -19,6 +19,7 @@ import {
 import { Input } from "../ui/input";
 import { Tabs, TabsList, TabsTrigger } from "../ui/tabs";
 import { isJobBoard, JOB_CATEGORIES } from "~/lib/job-board";
+import { isBoardReply } from "~/lib/board-access";
 
 interface BoardListProps {
   boardId: string;
@@ -44,10 +45,13 @@ export function BoardList({
   jobCategory,
 }: BoardListProps) {
   const columns = getBoardColumns({ boardId });
-  const tableData: BoardTableRow[] = posts.map((post, index) => ({
-    ...post,
-    rowNumber: total - (page - 1) * 15 - index,
-  }));
+  let rootIndex = 0;
+  const tableData: BoardTableRow[] = posts.map((post) => {
+    const rowNumber = isBoardReply(post)
+      ? 0
+      : total - (page - 1) * 15 - rootIndex++;
+    return { ...post, rowNumber };
+  });
   const showJobTabs = isJobBoard(boardId);
   const activeJobTab = jobCategory ?? "all";
 

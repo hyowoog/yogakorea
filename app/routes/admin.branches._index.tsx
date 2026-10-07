@@ -227,7 +227,8 @@ export default function AdminBranchesIndex({ loaderData }: Route.ComponentProps)
               <th className="px-3 py-2 text-left">구분</th>
               <th className="px-3 py-2 text-left">요가원명</th>
               <th className="px-3 py-2 text-left">원장</th>
-              <th className="px-3 py-2 text-left">연락처</th>
+              <th className="px-3 py-2 text-left">일반전화</th>
+              <th className="px-3 py-2 text-left">휴대전화</th>
               <th className="px-3 py-2 text-left">등록일</th>
               <th className="px-3 py-2 text-left">사용</th>
             </tr>
@@ -259,7 +260,8 @@ export default function AdminBranchesIndex({ loaderData }: Route.ComponentProps)
                   </Button>
                 </td>
                 <td className="px-3 py-2">{branch.y_ceo}</td>
-                <td className="px-3 py-2">{branch.y_hp ?? branch.y_phone}</td>
+                <td className="px-3 py-2">{branch.y_phone || "-"}</td>
+                <td className="px-3 py-2">{branch.y_hp || "-"}</td>
                 <td className="px-3 py-2">{branch.y_reg_date || "-"}</td>
                 <td className="px-3 py-2">{branch.y_yn === "Y" ? "O" : "X"}</td>
               </tr>

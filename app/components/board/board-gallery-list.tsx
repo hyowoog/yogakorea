@@ -14,6 +14,7 @@ import {
 } from "../ui/select";
 import { Input } from "../ui/input";
 import { ImageIcon } from "lucide-react";
+import { BoardReplyIcon } from "./board-reply-icon";
 
 interface BoardGalleryListProps {
   boardId: string;
@@ -73,8 +74,9 @@ export function BoardGalleryList({
                   ) : null}
                 </div>
                 <div className="space-y-1 p-3">
-                  <h3 className="line-clamp-2 text-sm font-medium leading-snug group-hover:text-sky-700">
-                    {post.title}
+                  <h3 className="flex items-start gap-1 line-clamp-2 text-sm font-medium leading-snug group-hover:text-sky-700">
+                    <BoardReplyIcon depth={post.depth} parentId={post.parent_id} />
+                    <span>{post.title}</span>
                   </h3>
                   <p className="text-xs text-muted-foreground">
                     {post.author_name ?? "익명"} · {post.created_at.slice(0, 10)}

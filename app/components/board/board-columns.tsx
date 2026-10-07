@@ -3,6 +3,8 @@ import { Link } from "react-router";
 import type { Post } from "~/lib/board.server";
 import { Badge } from "@/components/ui/badge";
 import { getBoardPostPath } from "~/lib/route-paths";
+import { isBoardReply } from "~/lib/board-access";
+import { BoardReplyIcon } from "./board-reply-icon";
 
 export interface BoardTableRow extends Post {
   rowNumber: number;
@@ -21,7 +23,11 @@ export function getBoardColumns({
       header: "번호",
       cell: ({ row }) => (
         <span className="tabular-nums text-muted-foreground">
-          {row.original.is_notice ? "공지" : row.original.rowNumber}
+          {row.original.is_notice
+            ? "공지"
+            : isBoardReply(row.original)
+              ? ""
+              : row.original.rowNumber}
         </span>
       ),
       meta: { className: "w-16 text-center" },
@@ -39,9 +45,7 @@ export function getBoardColumns({
               공지
             </Badge>
           ) : null}
-          {row.original.depth > 0 && (
-            <span className="text-muted-foreground">↳</span>
-          )}
+          <BoardReplyIcon depth={row.original.depth} parentId={row.original.parent_id} />
           <span className="whitespace-normal">{row.original.title}</span>
         </Link>
       ),
