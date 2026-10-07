@@ -164,7 +164,7 @@ export function MemberDetailDialog({
                             <Input
                               name="payDate"
                               defaultValue={payment.pay_date ?? ""}
-                              className="h-8"
+                              className="h-8 min-w-32"
                               disabled={isSubmitting}
                             />
                             <Input
@@ -176,7 +176,7 @@ export function MemberDetailDialog({
                             <Input
                               name="payAmount"
                               defaultValue={String(payment.pay_amount ?? "")}
-                              className="h-8"
+                              className="h-8 text-right"
                               disabled={isSubmitting}
                             />
                             <Input
