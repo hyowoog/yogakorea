@@ -1,8 +1,34 @@
-import type { ReactNode } from "react";
+import { useEffect, useRef, type ReactNode } from "react";
+import { AdminSelect } from "~/components/admin/admin-select";
 import { Input } from "~/components/ui/input";
 import { Textarea } from "~/components/ui/textarea";
+import {
+  formatDaumAddress,
+  loadDaumPostcode,
+  openDaumPostcode,
+} from "~/lib/daum-postcode";
 import { cn } from "~/lib/utils";
 import type { YogaMember } from "~/lib/yoga-member.server";
+
+const MEMBER_DSCD_OPTIONS = ["일반회원", "정회원", "준회원", "탈퇴회원"].map((value) => ({
+  value,
+  label: value,
+}));
+
+const EDU_AUTH_OPTIONS = [
+  { value: "1", label: "일반회원" },
+  { value: "2", label: "기관장" },
+];
+
+const AREA_AUTH_OPTIONS = [
+  { value: "1", label: "일반회원" },
+  { value: "2", label: "권역장" },
+];
+
+/** 레거시 값 0·빈 값·NULL은 일반회원(1)으로 취급 */
+function normalizeAuth(value: string | null | undefined) {
+  return value === "2" ? "2" : "1";
+}
 
 interface MemberFormFieldsProps {
   member?: YogaMember | null;
@@ -42,8 +68,41 @@ export function MemberFormFields({
   disabled = false,
   idPrefix = "member",
 }: MemberFormFieldsProps) {
+  const zipcodeRef = useRef<HTMLInputElement>(null);
+  const addrRef = useRef<HTMLInputElement>(null);
+  const postcodeOpenRef = useRef(false);
+
   function fieldId(name: string) {
     return `${idPrefix}-${name}`;
+  }
+
+  // 포커스 시 팝업이 바로 열리도록 스크립트를 미리 불러옴
+  useEffect(() => {
+    loadDaumPostcode().catch(() => {});
+  }, []);
+
+  function openPostcode() {
+    if (disabled || postcodeOpenRef.current) return;
+    postcodeOpenRef.current = true;
+
+    openDaumPostcode({
+      oncomplete: (data) => {
+        if (zipcodeRef.current) zipcodeRef.current.value = data.zonecode;
+        const addr = addrRef.current;
+        if (addr) {
+          addr.value = `${formatDaumAddress(data)} `;
+          addr.focus();
+          addr.setSelectionRange(addr.value.length, addr.value.length);
+        }
+      },
+      onclose: (state) => {
+        postcodeOpenRef.current = false;
+        // 선택 없이 닫으면 창 복귀 시 다시 포커스되어 팝업이 반복해 열리지 않게 함
+        if (state === "FORCE_CLOSE") zipcodeRef.current?.blur();
+      },
+    }).catch(() => {
+      postcodeOpenRef.current = false;
+    });
   }
 
   return (
@@ -74,11 +133,10 @@ export function MemberFormFields({
         />
       </MemberFormField>
       <MemberFormField label="회원구분" htmlFor={fieldId("memberDscd")}>
-        <Input
-          id={fieldId("memberDscd")}
+        <AdminSelect
           name="memberDscd"
-          defaultValue={member?.member_dscd ?? ""}
-          disabled={disabled}
+          defaultValue={member?.member_dscd || undefined}
+          options={MEMBER_DSCD_OPTIONS}
         />
       </MemberFormField>
       <MemberFormField label="생년월일" htmlFor={fieldId("birth")}>
@@ -197,10 +255,14 @@ export function MemberFormFields({
       </MemberFormField>
       <MemberFormField label="우편번호" htmlFor={fieldId("zipcode")}>
         <Input
+          ref={zipcodeRef}
           id={fieldId("zipcode")}
           name="zipcode"
           defaultValue={member?.zipcode ?? ""}
+          placeholder="클릭하여 주소 검색"
           disabled={disabled}
+          onFocus={openPostcode}
+          onClick={openPostcode}
         />
       </MemberFormField>
       <MemberFormField
@@ -209,6 +271,7 @@ export function MemberFormFields({
         className="md:col-span-2"
       >
         <Input
+          ref={addrRef}
           id={fieldId("addr")}
           name="addr"
           defaultValue={member?.addr ?? ""}
@@ -216,19 +279,17 @@ export function MemberFormFields({
         />
       </MemberFormField>
       <MemberFormField label="기관권한" htmlFor={fieldId("eduAuth")}>
-        <Input
-          id={fieldId("eduAuth")}
+        <AdminSelect
           name="eduAuth"
-          defaultValue={member?.edu_auth ?? ""}
-          disabled={disabled}
+          defaultValue={normalizeAuth(member?.edu_auth)}
+          options={EDU_AUTH_OPTIONS}
         />
       </MemberFormField>
       <MemberFormField label="권역권한" htmlFor={fieldId("areaAuth")}>
-        <Input
-          id={fieldId("areaAuth")}
+        <AdminSelect
           name="areaAuth"
-          defaultValue={member?.area_auth ?? ""}
-          disabled={disabled}
+          defaultValue={normalizeAuth(member?.area_auth)}
+          options={AREA_AUTH_OPTIONS}
         />
       </MemberFormField>
       <MemberFormField
