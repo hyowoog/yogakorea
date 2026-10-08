@@ -26,7 +26,7 @@ npm run db:import
 
 ## 배포
 
-개발 서버: **https://dev.yogakorea.or.kr**
+운영 사이트: **https://yogakorea.or.kr** (www 포함, 개발용 `dev.yogakorea.or.kr`도 같은 Worker)
 
 ```bash
 npm run db:migrate:remote
@@ -44,7 +44,7 @@ npm run assets:upload
 - Worker: `yogakorea`
 - D1: `yogakorea`
 - R2: `yogakorea-uploads`
-- 도메인: `dev.yogakorea.or.kr` (Workers Custom Domain)
+- 도메인: `yogakorea.or.kr`, `www.yogakorea.or.kr`, `dev.yogakorea.or.kr` (Workers Custom Domain)
 
 ## 원본 소스
 
