@@ -6,7 +6,7 @@ import Placeholder from "@tiptap/extension-placeholder";
 import { useCallback, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ButtonGroup } from "@/components/ui/button-group";
-import { CodeXmlIcon, BoldIcon, ItalicIcon, HeadingIcon, ListIcon, ListOrderedIcon, ImageIcon } from "lucide-react";
+import { CodeXmlIcon, BoldIcon, ItalicIcon, HeadingIcon, ListIcon, ListOrderedIcon, ImageIcon, LinkIcon } from "lucide-react";
 
 interface RichTextEditorProps {
   name: string;
@@ -67,6 +67,35 @@ export function RichTextEditor({
     };
     input.click();
   }, [editor]);
+
+  function insertLink() {
+    if (!editor) return;
+
+    const previousUrl = (editor.getAttributes("link").href as string | undefined) ?? "";
+    const input = window.prompt("링크 주소(URL)를 입력하세요. 비우면 링크가 해제됩니다.", previousUrl || "https://");
+    if (input === null) return;
+
+    const url = input.trim();
+    if (!url || url === "https://") {
+      editor.chain().focus().extendMarkRange("link").unsetLink().run();
+      return;
+    }
+
+    // 스킴이 없으면 https:// 를 붙임 (mailto:, tel: 등은 그대로)
+    const href = /^[a-z][a-z0-9+.-]*:/i.test(url) ? url : `https://${url}`;
+
+    if (editor.state.selection.empty && !editor.isActive("link")) {
+      // 선택한 글자가 없으면 URL 자체를 링크 글자로 삽입
+      editor
+        .chain()
+        .focus()
+        .insertContent({ type: "text", text: url, marks: [{ type: "link", attrs: { href } }] })
+        .run();
+      return;
+    }
+
+    editor.chain().focus().extendMarkRange("link").setLink({ href }).run();
+  }
 
   function toggleSourceMode() {
     if (!editor) return;
@@ -141,6 +170,14 @@ export function RichTextEditor({
           onClick={() => editor.chain().focus().toggleOrderedList().run()}
         >
           <ListOrderedIcon />번호
+        </Button>
+        <Button
+          type="button"
+          variant="outline"
+          disabled={isSourceMode}
+          onClick={insertLink}
+        >
+          <LinkIcon />링크
         </Button>
         <Button type="button" variant="outline" disabled={isSourceMode} onClick={uploadImage}>
           <ImageIcon />이미지

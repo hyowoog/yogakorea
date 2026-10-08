@@ -795,7 +795,8 @@ a {
   gap: 1rem;
 }
 
-.yk-form label {
+.yk-form label,
+.yk-form .yk-form-field {
   display: grid;
   gap: 0.5rem;
   font-weight: 500;

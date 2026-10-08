@@ -91,14 +91,15 @@ export function BoardWriteForm({
           />
         </label>
 
-        <label>
+        {/* label로 감싸면 본문 클릭이 툴바 첫 버튼(소스/편집) 클릭으로 전달됨 */}
+        <div className="yk-form-field" role="group" aria-label="내용">
           내용
           <RichTextEditor
             name="content"
             defaultValue={defaultValues?.content}
             placeholder="내용을 입력하세요"
           />
-        </label>
+        </div>
 
         <label>
           첨부파일
