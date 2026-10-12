@@ -1,6 +1,6 @@
 import type { Route } from "./+types/admin.members.api.$licId";
 import { data } from "react-router";
-import { requireAdmin } from "~/lib/auth.server";
+import { createLoginAccount, hasLoginAccount, requireAdmin } from "~/lib/auth.server";
 import {
   createYogaPayment,
   deleteYogaPayment,
@@ -10,18 +10,25 @@ import {
   updateYogaMember,
   updateYogaPayment,
 } from "~/lib/yoga-member.server";
+import { listEducationsByLicId } from "~/lib/yoga-education.server";
+import { listLicensesByLicId } from "~/lib/yoga-license.server";
 
 async function loadMemberDetail(db: D1Database, licId: number) {
-  const [member, payments] = await Promise.all([
+  const [member, payments, educations, licenses] = await Promise.all([
     getYogaMemberByLicId(db, licId),
     listYogaPayments(db, licId),
+    listEducationsByLicId(db, licId),
+    listLicensesByLicId(db, licId),
   ]);
 
   if (!member) {
     throw data("회원을 찾을 수 없습니다.", { status: 404 });
   }
 
-  return { member, payments };
+  const loginId = member.login_id?.trim() ?? "";
+  const loginAccountExists = loginId ? await hasLoginAccount(db, loginId) : false;
+
+  return { member, payments, educations, licenses, loginAccountExists };
 }
 
 export async function loader({ params, request, context }: Route.LoaderArgs) {
@@ -47,6 +54,31 @@ export async function action({ params, request, context }: Route.ActionArgs) {
       return data({ error: parsed.errors.join(" ") }, { status: 400 });
     }
     await updateYogaMember(db, licId, parsed.input);
+    return loadMemberDetail(db, licId);
+  }
+
+  if (intent === "login_create") {
+    const member = await getYogaMemberByLicId(db, licId);
+    if (!member) return data({ error: "회원을 찾을 수 없습니다." }, { status: 404 });
+
+    const loginId = member.login_id?.trim() ?? "";
+    const password = member.login_pwd ?? "";
+    if (!loginId || !password.trim()) {
+      return data(
+        { error: "회원아이디와 비밀번호를 입력·저장한 뒤 로그인을 추가해 주세요." },
+        { status: 400 },
+      );
+    }
+    if (await hasLoginAccount(db, loginId)) {
+      return data({ error: "이미 같은 아이디의 로그인 계정이 있습니다." }, { status: 400 });
+    }
+
+    await createLoginAccount(db, {
+      loginId,
+      password,
+      name: member.name?.trim() || loginId,
+      email: member.email?.trim() || null,
+    });
     return loadMemberDetail(db, licId);
   }
 

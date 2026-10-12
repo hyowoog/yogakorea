@@ -1,5 +1,6 @@
 import { redirect } from "react-router";
 import { ADMIN_LEVEL } from "~/lib/event-constants";
+import { mysqlPasswordHash } from "~/lib/password.server";
 
 export interface Member {
   id: number;
@@ -83,6 +84,34 @@ export async function getMemberByLoginId(db: Env["DB"], loginId: string) {
     )
     .bind(loginId)
     .first<AuthMember>();
+}
+
+export async function hasLoginAccount(db: Env["DB"], loginId: string) {
+  const row = await db
+    .prepare(`SELECT 1 AS found FROM members WHERE login_id = ?`)
+    .bind(loginId)
+    .first<{ found: number }>();
+  return Boolean(row);
+}
+
+/** 레거시 "(구)회원로그인추가": 회원관리의 아이디·비밀번호로 사이트 로그인 계정 생성 */
+export async function createLoginAccount(
+  db: Env["DB"],
+  input: { loginId: string; password: string; name: string; email: string | null },
+) {
+  await db
+    .prepare(
+      `INSERT INTO members (login_id, password_hash, name, email, level, email_certified, created_at)
+       VALUES (?, ?, ?, ?, 2, 1, ?)`,
+    )
+    .bind(
+      input.loginId,
+      await mysqlPasswordHash(input.password),
+      input.name,
+      input.email,
+      formatTimestamp(),
+    )
+    .run();
 }
 
 export async function getAuthUser(request: Request, db: Env["DB"]) {

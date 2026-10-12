@@ -128,6 +128,63 @@ export async function getEducation(db: Env["DB"], id: number) {
     .first<YogaMemGrade>();
 }
 
+/** 구분값이 없으면 레거시처럼 교육내용 문구로 구분을 추정 (뒤 조건이 우선) */
+function resolveEducationGubun(gubun: string | null, gradeTxt: string | null) {
+  if (gubun && gubun !== "0") return gubun;
+  const txt = gradeTxt ?? "";
+  let resolved = gubun;
+  if (txt.includes("수련회")) resolved = "1";
+  if (txt.includes("워크숍")) resolved = "4";
+  if (txt.includes("심화교육")) resolved = "2";
+  if (txt.includes("특강")) resolved = "3";
+  return resolved;
+}
+
+/**
+ * 교육내용 속 이수시간 표기 패턴
+ * - "24h", "_16H", "(4h)" 등 숫자+h
+ * - 괄호 안 숫자+시간: "(14시간)", "(요가명상-14시간)", "(4시간 30분)"
+ * - 맨 끝 숫자+시간: "_ 7시간", "-15시간"
+ */
+const EDUCATION_HOUR_PATTERNS = [
+  /(?<![\d.])(\d+(?:\.\d+)?)\s*h(?![a-z])/gi,
+  /(?<=\([^()]*)(?<![\d.])(\d+(?:\.\d+)?)\s*시간(?:\s*(\d+)\s*분)?\s*\)/g,
+  /(?<![\d.])(\d+(?:\.\d+)?)\s*시간(?:\s*(\d+)\s*분)?\s*$/g,
+];
+
+/** 시간값이 없으면 교육내용의 시간 표기에서 추출 (여러 개면 맨 뒤 표기 우선) */
+function resolveEducationHour(hour: string | null, gradeTxt: string | null) {
+  if (hour?.trim()) return hour;
+  const txt = gradeTxt ?? "";
+  let last: RegExpMatchArray | undefined;
+  for (const pattern of EDUCATION_HOUR_PATTERNS) {
+    for (const match of txt.matchAll(pattern)) {
+      if (!last || (match.index ?? 0) > (last.index ?? 0)) last = match;
+    }
+  }
+  if (!last) return hour;
+  const minutes = last[2] ? parseInt(last[2], 10) : 0;
+  return String(Math.round((parseFloat(last[1]) + minutes / 60) * 100) / 100);
+}
+
+/** 회원 상세용 교육이수내역 (기준일자 최신순) */
+export async function listEducationsByLicId(db: Env["DB"], licId: number) {
+  const result = await db
+    .prepare(
+      `SELECT id, bas_date, gubun, grade_txt, hour, grade_edu_loc
+       FROM yoga_mem_grades WHERE lic_id = ? ORDER BY bas_date DESC, id DESC`,
+    )
+    .bind(licId)
+    .all<
+      Pick<YogaMemGrade, "id" | "bas_date" | "gubun" | "grade_txt" | "hour" | "grade_edu_loc">
+    >();
+  return (result.results ?? []).map((row) => ({
+    ...row,
+    gubun: resolveEducationGubun(row.gubun, row.grade_txt),
+    hour: resolveEducationHour(row.hour, row.grade_txt),
+  }));
+}
+
 export async function createEducation(db: Env["DB"], input: EducationInput) {
   const maxRow = await db
     .prepare(`SELECT COALESCE(MAX(id), 0) AS max_id FROM yoga_mem_grades`)

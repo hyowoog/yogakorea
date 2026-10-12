@@ -127,6 +127,18 @@ export async function getLicense(db: Env["DB"], id: number) {
     .first<MemberLicense>();
 }
 
+/** 회원 상세용 자격현황 (취득일자 최신순) */
+export async function listLicensesByLicId(db: Env["DB"], licId: number) {
+  const result = await db
+    .prepare(
+      `SELECT id, created, grade_txt, grade_edu_loc
+       FROM member_educations WHERE lic_id = ? AND dscd = 1 ORDER BY created DESC, id DESC`,
+    )
+    .bind(licId)
+    .all<Pick<MemberLicense, "id" | "created" | "grade_txt" | "grade_edu_loc">>();
+  return result.results ?? [];
+}
+
 export async function listLicenseEduLocOptions(db: Env["DB"]) {
   const result = await db
     .prepare(

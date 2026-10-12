@@ -56,10 +56,6 @@ export async function action({ request, context }: Route.ActionArgs) {
     return data({ error: "접근이 제한된 회원입니다." }, { status: 403 });
   }
 
-  if (!member.email_certified) {
-    return data({ error: "이메일 인증이 완료되지 않은 회원입니다." }, { status: 403 });
-  }
-
   const sessionId = await createSession(db, member.id);
   await recordMemberLogin(db, member.id, getClientIp(request));
 
