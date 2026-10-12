@@ -76,6 +76,10 @@ export default [
       index("routes/admin.tshirts._index.tsx"),
       route("export", "routes/admin.tshirts.export.tsx"),
     ]),
+    ...prefix("payments", [
+      index("routes/admin.payments._index.tsx"),
+      route("export", "routes/admin.payments.export.tsx"),
+    ]),
     ...prefix("xls-to-money", [
       index("routes/admin.xls-to-money._index.tsx"),
       route("upload", "routes/admin.xls-to-money.upload.tsx"),
