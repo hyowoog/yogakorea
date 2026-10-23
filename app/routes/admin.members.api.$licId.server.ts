@@ -13,6 +13,13 @@ import {
 import { listEducationsByLicId } from "~/lib/yoga-education.server";
 import { listLicensesByLicId } from "~/lib/yoga-license.server";
 
+/** 날짜 입력값(YYYY-MM-DD)을 기존 데이터 형식(YYYY.MM.DD)으로 저장 */
+function normalizePayDate(value: FormDataEntryValue | null) {
+  const raw = String(value ?? "").trim();
+  const match = raw.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  return match ? `${match[1]}.${match[2]}.${match[3]}` : raw;
+}
+
 async function loadMemberDetail(db: D1Database, licId: number) {
   const [member, payments, educations, licenses] = await Promise.all([
     getYogaMemberByLicId(db, licId),
@@ -83,7 +90,7 @@ export async function action({ params, request, context }: Route.ActionArgs) {
   }
 
   if (intent === "pay_create") {
-    const payDate = String(formData.get("payDate") ?? "").trim();
+    const payDate = normalizePayDate(formData.get("payDate"));
     const payYy = String(formData.get("payYy") ?? "").trim();
     const payAmount = parseInt(String(formData.get("payAmount") ?? "").replace(/,/g, ""), 10);
     const payEtc = String(formData.get("payEtc") ?? "").trim();
@@ -96,7 +103,7 @@ export async function action({ params, request, context }: Route.ActionArgs) {
 
   if (intent === "pay_update") {
     const paymentId = parseInt(String(formData.get("paymentId") ?? ""), 10);
-    const payDate = String(formData.get("payDate") ?? "").trim();
+    const payDate = normalizePayDate(formData.get("payDate"));
     const payYy = String(formData.get("payYy") ?? "").trim();
     const payAmount = parseInt(String(formData.get("payAmount") ?? "").replace(/,/g, ""), 10);
     const payEtc = String(formData.get("payEtc") ?? "").trim();
