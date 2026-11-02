@@ -17,11 +17,11 @@ import { requireAdmin } from "~/lib/auth.server";
 import { mainNavigation } from "~/lib/navigation";
 import {
   countLicenses,
-  createLicense,
+  createLicenses,
   listLicenseEduLocOptions,
   listLicenses,
+  parseLicenseBulkFormData,
   parseLicenseFilters,
-  parseLicenseFormData,
 } from "~/lib/yoga-license.server";
 
 export function meta() {
@@ -56,12 +56,12 @@ export async function action({ request, context }: Route.ActionArgs) {
   const intent = String(formData.get("intent") ?? "");
 
   if (intent === "create") {
-    const parsed = parseLicenseFormData(formData);
+    const parsed = parseLicenseBulkFormData(formData);
     if (parsed.errors.length) {
       return data({ error: parsed.errors.join(" ") }, { status: 400 });
     }
-    const id = await createLicense(db, parsed.input);
-    return data({ detailId: id });
+    const result = await createLicenses(db, parsed.common, parsed.rows);
+    return data({ detailId: result.firstId, createdCount: result.count });
   }
 
   return data({ error: "잘못된 요청입니다." }, { status: 400 });
@@ -190,7 +190,7 @@ export default function AdminLicensesIndex({ loaderData }: Route.ComponentProps)
               <th className="px-3 py-2 text-left">이름</th>
               <th className="px-3 py-2 text-left">종목 및 급수</th>
               <th className="px-3 py-2 text-left">교육기관</th>
-              <th className="px-3 py-2 text-left">등록일</th>
+              <th className="px-3 py-2 text-left">취득일</th>
             </tr>
           </thead>
           <tbody>
@@ -213,7 +213,7 @@ export default function AdminLicensesIndex({ loaderData }: Route.ComponentProps)
                   </Button>
                 </td>
                 <td className="px-3 py-2">
-                  {license.member_name ?? license.name}
+                  {license.member_name || license.name || "-"}
                 </td>
                 <td className="px-3 py-2">{license.grade_txt}</td>
                 <td className="px-3 py-2">{license.grade_edu_loc}</td>

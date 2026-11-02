@@ -150,38 +150,108 @@ export async function listLicenseEduLocOptions(db: Env["DB"]) {
   return result.results?.map((r) => r.value) ?? [];
 }
 
-export async function createLicense(db: Env["DB"], input: LicenseInput) {
+export interface LicenseBulkRow {
+  licId: number;
+  name?: string;
+  gradeNo?: string;
+  gradeEduLoc?: string;
+}
+
+/** 레거시 자격증정보 등록처럼 공통 정보(자격구분·취득일자·종목 및 급수)로 여러 명을 한 번에 등록 */
+export async function createLicenses(
+  db: Env["DB"],
+  common: Pick<LicenseInput, "gradeType" | "gradeTxt" | "created">,
+  rows: LicenseBulkRow[],
+) {
   const maxRow = await db
     .prepare(`SELECT COALESCE(MAX(id), 0) AS max_id FROM member_educations`)
     .first<{ max_id: number }>();
-  const id = (maxRow?.max_id ?? 0) + 1;
+  const firstId = (maxRow?.max_id ?? 0) + 1;
   const today = new Date().toISOString().slice(0, 10);
 
-  await db
-    .prepare(
-      `INSERT INTO member_educations (
-        id, lic_id, dscd, grade_type, grade_no, grade_txt, grade_edu_loc, name, jumin, hp,
-        created, modified, hour, gubun
-      ) VALUES (?, ?, 1, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-    )
-    .bind(
-      id,
-      input.licId ?? null,
-      input.gradeType ?? null,
-      input.gradeNo ?? null,
-      input.gradeTxt ?? null,
-      input.gradeEduLoc ?? null,
-      input.name ?? null,
-      input.jumin ?? null,
-      input.hp ?? null,
-      input.created ?? today,
-      input.modified ?? today,
-      input.hour ?? "",
-      input.gubun ?? "",
-    )
-    .run();
+  const licIds = [...new Set(rows.map((row) => row.licId))];
+  const nameByLicId = new Map<number, string | null>();
+  if (licIds.length > 0) {
+    const members = await db
+      .prepare(
+        `SELECT lic_id, name FROM yoga_members WHERE lic_id IN (${licIds.map(() => "?").join(",")})`,
+      )
+      .bind(...licIds)
+      .all<{ lic_id: number; name: string | null }>();
+    for (const member of members.results ?? []) {
+      nameByLicId.set(member.lic_id, member.name);
+    }
+  }
 
-  return id;
+  const statements = rows.map((row, index) =>
+    db
+      .prepare(
+        `INSERT INTO member_educations (
+          id, lic_id, dscd, grade_type, grade_no, grade_txt, grade_edu_loc, name,
+          created, modified, hour, gubun
+        ) VALUES (?, ?, 1, ?, ?, ?, ?, ?, ?, ?, '', '')`,
+      )
+      .bind(
+        firstId + index,
+        row.licId,
+        common.gradeType ?? null,
+        row.gradeNo ?? null,
+        common.gradeTxt ?? null,
+        row.gradeEduLoc ?? null,
+        // 입력한 이름 우선, 없으면 회원관리의 이름
+        row.name || nameByLicId.get(row.licId) || null,
+        common.created ?? today,
+        today,
+      ),
+  );
+
+  const chunkSize = 50;
+  for (let index = 0; index < statements.length; index += chunkSize) {
+    await db.batch(statements.slice(index, index + chunkSize));
+  }
+
+  return { firstId: rows.length ? firstId : null, count: rows.length };
+}
+
+/** 일괄 등록 폼 파싱: licId[]·name[]·gradeNo[]·gradeEduLoc[]는 같은 순서의 행으로 묶음 */
+export function parseLicenseBulkFormData(formData: FormData) {
+  const errors: string[] = [];
+  const gradeType = String(formData.get("gradeType") ?? "").trim() || undefined;
+  const gradeTxt = String(formData.get("gradeTxt") ?? "").trim() || undefined;
+  const created = String(formData.get("created") ?? "").trim() || undefined;
+  const licIdValues = formData.getAll("licId").map((v) => String(v).trim());
+  const nameValues = formData.getAll("name").map((v) => String(v).trim());
+  const gradeNoValues = formData.getAll("gradeNo").map((v) => String(v).trim());
+  const gradeEduLocValues = formData.getAll("gradeEduLoc").map((v) => String(v).trim());
+
+  if (!created) errors.push("취득일자를 입력해 주세요.");
+  if (!gradeTxt) errors.push("종목 및 급수를 입력해 주세요.");
+
+  const rows: LicenseBulkRow[] = [];
+  const invalidLicIds: string[] = [];
+  licIdValues.forEach((value, index) => {
+    if (!value) return;
+    const licId = /^\d+$/.test(value) ? parseInt(value, 10) : NaN;
+    if (!licId) {
+      invalidLicIds.push(value);
+      return;
+    }
+    rows.push({
+      licId,
+      name: nameValues[index] || undefined,
+      gradeNo: gradeNoValues[index] || undefined,
+      gradeEduLoc: gradeEduLocValues[index] || undefined,
+    });
+  });
+
+  if (invalidLicIds.length) {
+    errors.push(`자격번호는 숫자로 입력해 주세요: ${invalidLicIds.join(", ")}`);
+  }
+  if (!rows.length && !invalidLicIds.length) {
+    errors.push("자격번호를 한 개 이상 입력해 주세요.");
+  }
+
+  return { errors, common: { gradeType, gradeTxt, created }, rows };
 }
 
 export async function updateLicense(db: Env["DB"], id: number, input: LicenseInput) {
@@ -253,10 +323,10 @@ export async function listLicensesForExport(db: Env["DB"], filters: LicenseFilte
 }
 
 export function buildLicensesCsv(licenses: MemberLicense[]) {
-  const headers = ["자격번호", "이름", "종목 및 급수", "교육기관", "등록일"];
+  const headers = ["자격번호", "이름", "종목 및 급수", "교육기관", "취득일"];
   const rows = licenses.map((l) => [
     String(l.lic_id ?? ""),
-    l.member_name ?? l.name ?? "",
+    l.member_name || l.name || "",
     l.grade_txt ?? "",
     l.grade_edu_loc ?? "",
     l.created ?? "",

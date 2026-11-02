@@ -18,6 +18,14 @@ export const EDUCATION_GUBUN_GUEST_OPTIONS = EDUCATION_GUBUN_FORM_OPTIONS.filter
   (option) => option.value === "1" || option.value === "2" || option.value === "3",
 );
 
+export const LICENSE_GRADE_TYPE_OPTIONS = [
+  { value: "일반", label: "일반" },
+  { value: "특수", label: "특수" },
+] as const;
+
+/** 자격증 일괄 등록 시 입력 행 개수 (레거시와 동일) */
+export const LICENSE_BULK_SLOTS = 20;
+
 /** 회원교육 대량 등록 시 자격번호 입력칸 개수 (10×10) */
 export const EDUCATION_BULK_LICENSE_SLOTS = 100;
 

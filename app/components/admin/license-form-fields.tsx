@@ -86,7 +86,7 @@ export function LicenseFormFields({
           disabled={disabled}
         />
       </LicenseFormField>
-      <LicenseFormField label="등록일" htmlFor={fieldId("created")}>
+      <LicenseFormField label="취득일" htmlFor={fieldId("created")}>
         <Input
           id={fieldId("created")}
           name="created"
