@@ -1,5 +1,8 @@
 import { Form, Link } from "react-router";
+import { AttachmentFileIcon } from "~/components/board/attachment-file-icon";
 import { RichTextEditor } from "~/components/rich-text-editor";
+import type { Attachment } from "~/lib/board.server";
+import { getPublicUploadUrl } from "~/lib/files";
 import { isJobBoard, JOB_CATEGORIES } from "~/lib/job-board";
 import { getBoardBasePath } from "~/lib/route-paths";
 import { Separator } from "../ui/separator";
@@ -8,6 +11,8 @@ interface BoardWriteFormProps {
   boardId: string;
   boardTitle: string;
   isAdmin?: boolean;
+  /** 수정 화면에서 보여 줄 기존 첨부파일 (교체·삭제 가능) */
+  existingAttachments?: Attachment[];
   heading?: string;
   defaultValues?: {
     title?: string;
@@ -24,6 +29,7 @@ export function BoardWriteForm({
   boardId,
   boardTitle,
   isAdmin = false,
+  existingAttachments = [],
   heading = "글쓰기",
   defaultValues,
   submitLabel = "등록",
@@ -101,8 +107,51 @@ export function BoardWriteForm({
           />
         </div>
 
+        {existingAttachments.length > 0 ? (
+          <div className="yk-form-field" role="group" aria-label="기존 첨부파일">
+            기존 첨부파일
+            <ul className="grid gap-2 rounded-xl border p-3 font-normal">
+              {existingAttachments.map((file) => (
+                <li
+                  key={file.id}
+                  className="grid gap-2 border-b pb-2 last:border-b-0 last:pb-0 md:grid-cols-[1fr_auto_auto] md:items-center"
+                >
+                  <a
+                    href={getPublicUploadUrl(file.r2_key)}
+                    download={file.file_name}
+                    className="inline-flex min-w-0 items-center gap-2 text-sm hover:underline"
+                  >
+                    <AttachmentFileIcon
+                      fileName={file.file_name}
+                      className="size-4 shrink-0 text-muted-foreground"
+                    />
+                    <span className="truncate">
+                      {file.file_name}
+                      {file.file_size ? ` (${Math.round(file.file_size / 1024)}KB)` : ""}
+                    </span>
+                  </a>
+                  <input
+                    type="file"
+                    name={`replaceAttachment_${file.id}`}
+                    aria-label={`${file.file_name} 교체할 파일`}
+                    title="교체할 파일 선택"
+                    className="yk-attachment-replace text-sm"
+                  />
+                  <label className="yk-form-check text-sm">
+                    <input type="checkbox" name="deleteAttachmentIds" value={file.id} />
+                    삭제
+                  </label>
+                </li>
+              ))}
+            </ul>
+            <p className="text-xs font-normal text-muted-foreground">
+              파일을 선택하면 해당 첨부가 새 파일로 교체되고, 삭제에 체크하면 저장 시 삭제됩니다.
+            </p>
+          </div>
+        ) : null}
+
         <label>
-          첨부파일
+          {existingAttachments.length > 0 ? "첨부파일 추가" : "첨부파일"}
           <input type="file" name="attachments" multiple />
         </label>
 

@@ -328,6 +328,47 @@ export async function createAttachment(
   return Number(result.meta.last_row_id);
 }
 
+/** 기존 첨부파일을 새 파일로 교체 (id 유지, 다운로드 수 초기화) */
+export async function replaceAttachment(
+  db: Env["DB"],
+  attachmentId: number,
+  data: { fileName: string; fileSize: number; r2Key: string; mimeType: string },
+) {
+  const now = new Date().toISOString().slice(0, 19).replace("T", " ");
+  await db
+    .prepare(
+      `UPDATE attachments
+       SET file_name = ?, file_size = ?, r2_key = ?, mime_type = ?, download_count = 0, created_at = ?
+       WHERE id = ?`,
+    )
+    .bind(data.fileName, data.fileSize, data.r2Key, data.mimeType, now, attachmentId)
+    .run();
+}
+
+export async function deleteAttachments(db: Env["DB"], attachmentIds: number[]) {
+  if (!attachmentIds.length) return;
+  const placeholders = attachmentIds.map(() => "?").join(",");
+  await db
+    .prepare(`DELETE FROM attachments WHERE id IN (${placeholders})`)
+    .bind(...attachmentIds)
+    .run();
+}
+
+/** 다른 첨부에서 같은 R2 키를 쓰지 않을 때만 R2 객체 삭제 */
+export async function deleteUnusedR2Objects(
+  db: Env["DB"],
+  bucket: Env["UPLOADS"],
+  keys: string[],
+) {
+  for (const key of new Set(keys)) {
+    const inUse = await db
+      .prepare(`SELECT 1 AS found FROM attachments WHERE r2_key = ? LIMIT 1`)
+      .bind(key)
+      .first<{ found: number }>();
+    if (!inUse) await bucket.delete(key);
+  }
+}
+
 export async function listLatestPosts(db: Env["DB"], boardId: string, limit = 10) {
   const result = await db
     .prepare(

@@ -813,6 +813,12 @@ a {
   padding: 0;
 }
 
+.yk-form .yk-attachment-replace {
+  width: auto;
+  max-width: 100%;
+  padding: 0.25rem;
+}
+
 .yk-form-actions,
 .yk-board-actions {
   display: flex;
